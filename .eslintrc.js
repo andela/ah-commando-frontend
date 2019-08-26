@@ -5,14 +5,6 @@ module.exports = {
     "es6": true,
     "jest": true
   },
-  "parserOptions": {
-    "sourceType": "module",
-    "allowImportExportEverywhere": true,
-    "ecmaVersion": 6,
-    "ecmaFeatures": {
-      "jsx": true
-  }
-  },
   "extends": "airbnb",
   "globals": {
     "Atomics": "readonly",
@@ -20,12 +12,13 @@ module.exports = {
   },
   "parser": "babel-eslint",
   "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
     "ecmaFeatures": {
       "jsx": true,
       "arrowFunctions":true
     },
-    "ecmaVersion": 2018,
-    "sourceType": "module"
   },
   "plugins": [
     "react",
