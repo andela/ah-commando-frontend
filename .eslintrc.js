@@ -7,7 +7,11 @@ module.exports = {
   },
   "parserOptions": {
     "sourceType": "module",
-    "allowImportExportEverywhere": true
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true
+  }
   },
   "extends": "airbnb",
   "globals": {
@@ -25,7 +29,8 @@ module.exports = {
   },
   "plugins": [
     "react",
-    "import"
+    "import",
+    "jsx-a11y"
   ],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
