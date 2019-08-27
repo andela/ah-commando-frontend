@@ -5,7 +5,7 @@ import TestComponent from '@Components/TestComponent';
 export const Home = () => (
   <div>
     <h1>Home</h1>
-    <Link to="/login">Click to Login</Link>
+    <Link to="/login" data-test="login-link">Click to Login</Link>
     <TestComponent />
   </div>
 );
