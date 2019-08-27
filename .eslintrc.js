@@ -27,6 +27,7 @@ module.exports = {
   ],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    'react/jsx-props-no-spreading': "off",
     "import/no-extraneous-dependencies": [2, {
       "devDependencies": ["**/*.test.js", "**/*.spec.js", "src/setupTests.js", "build-utils/*"]
     }],
