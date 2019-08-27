@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import HomePage from './index';
-import findByTestAttribute from '../../../utils';
+import findByTestAttribute from '@Utils/index';
+import LoginPage from '.';
 
-const setUp = (props) => shallow(<HomePage {...props} />);
+const setUp = (props) => shallow(<LoginPage {...props} />);
 
 describe('Article card component test', () => {
   let wrapper;
@@ -12,7 +12,7 @@ describe('Article card component test', () => {
   });
   describe('Card tests', () => {
     it('Should render without failing', () => {
-      const component = findByTestAttribute(wrapper, 'homepageComponent');
+      const component = findByTestAttribute(wrapper, 'loginPageComponent');
       expect(component.length).toBe(1);
     });
   });

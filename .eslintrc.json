@@ -18,7 +18,7 @@
     "ecmaFeatures": {
       "jsx": true,
       "arrowFunctions":true
-    },
+    }
   },
   "plugins": [
     "react",
@@ -42,7 +42,7 @@
     "curly": ["error", "multi-line"],
     "import/no-unresolved": [2, { "commonjs": true }],
     "import/no-named-as-default": 0,
-    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
+    "no-shadow": ["error", { "allow": ["req", "res", "err"] }]
   },
   "settings": {
     "import/resolver": {
@@ -50,5 +50,5 @@
         "config": "build-utils/webpack.common.js"
       }
     }
-  },
+  }
 }
