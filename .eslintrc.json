@@ -1,4 +1,4 @@
-module.exports = {
+{
   "root": true,
   "env": {
     "browser": true,
@@ -18,7 +18,7 @@ module.exports = {
     "ecmaFeatures": {
       "jsx": true,
       "arrowFunctions":true
-    },
+    }
   },
   "plugins": [
     "react",
@@ -27,6 +27,7 @@ module.exports = {
   ],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/jsx-props-no-spreading": "off",
     "import/no-extraneous-dependencies": [2, {
       "devDependencies": ["**/*.test.js", "**/*.spec.js", "src/setupTests.js", "build-utils/*"]
     }],
@@ -42,6 +43,7 @@ module.exports = {
     "import/no-unresolved": [2, { "commonjs": true }],
     "import/no-named-as-default": 0,
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
+    "import/extensions": 0
   },
   "settings": {
     "import/resolver": {
@@ -49,5 +51,5 @@ module.exports = {
         "config": "build-utils/webpack.common.js"
       }
     }
-  },
-};
+  }
+}

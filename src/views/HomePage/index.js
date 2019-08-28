@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import TestComponent from '@Components/TestComponent';
+import ArticleCard from '@Components/ArticleCard';
 
 export const Home = () => (
   <div>
-    <h1>Home</h1>
+    <h1 data-test="homepageComponent">Home</h1>
     <Link to="/login">Click to Login</Link>
-    <TestComponent />
+    <ArticleCard />
   </div>
 );
 
