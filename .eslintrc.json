@@ -30,7 +30,7 @@
 		"react/jsx-props-no-spreading": 0,
 		"import/no-useless-path-segments": 0,
 		"arrow-parens": 0,
-		"import/extensions": 0,
+		"import/extensions": "off",
 		"react/forbid-prop-types": 0,
 		"react/no-array-index-key": 0,
 		"react/no-did-update-set-state": 0,
@@ -46,7 +46,7 @@
 		"no-console": 2,
 		"class-methods-use-this": 0,
 		"curly": ["error", "multi-line"],
-		"import/no-unresolved": 0,
+		"import/no-unresolved": "off",
 		"import/no-named-as-default": 0,
 		"no-shadow": ["error", {
 			"allow": ["req", "res", "err"]
