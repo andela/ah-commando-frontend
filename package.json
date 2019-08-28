@@ -35,7 +35,9 @@
     "path": "^0.12.7",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-router-dom": "^5.0.1"
+    "react-redux": "^7.1.1",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4"
   },
   "husky": {
     "hooks": {
@@ -48,23 +50,6 @@
       "./node_modules/.bin/eslint --fix",
       "git add"
     ]
-  },
-  "jest": {
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ],
-    "setupFiles": [
-      "./src/setupTests.js"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|less|scss|sss|styl)$": "<rootDir>/node_modules/jest-css-modules",
-      "^@App/(.*)$": "<rootDir>/src/$1",
-      "^@Components/(.*)$": "<rootDir>/src/components/$1",
-      "^@Utils/(.*)$": "<rootDir>/utils/$1"
-    },
-    "collectCoverage": true,
-    "coverageReporters": ["json", "lcov", "text"]
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",

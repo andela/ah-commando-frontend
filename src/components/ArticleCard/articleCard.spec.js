@@ -1,9 +1,9 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import findByTestAttribute from '@Utils/index';
+import findByTestAttribute from '@Utils/';
 import ArticleCard from '.';
 
-const setUp = (props) => shallow(<ArticleCard {...props} />);
+const setUp = props => shallow(<ArticleCard {...props} />);
 
 describe('Article card component test', () => {
   let wrapper;
