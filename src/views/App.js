@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Login from '@Views/Login';
-import Home from '@Views/Home';
+import Login from '@Views/LoginPage';
+import Home from '@Views/HomePage';
 import './app.scss';
 
-export const App = () => (
+const App = () => (
   <BrowserRouter>
-    <div>
+    <div data-test="appComponent">
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
     </div>

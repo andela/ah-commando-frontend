@@ -14,10 +14,16 @@
       "@Views/*": [
         "./src/views/*"
       ],
+      "@Utils/*": [
+        "./utils/*"
+      ],
       "@lib/*": [
         "./src/lib/*"
       ],
     }
   },
-  "exclude": ["node_modules", "build"]
+  "exclude": [
+    "node_modules",
+    "build"
+  ]
 }

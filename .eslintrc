@@ -1,4 +1,4 @@
-module.exports = {
+{
   "root": true,
   "env": {
     "browser": true,
@@ -17,7 +17,7 @@ module.exports = {
     "allowImportExportEverywhere": true,
     "ecmaFeatures": {
       "jsx": true,
-      "arrowFunctions":true
+      "arrowFunctions": true
     },
   },
   "plugins": [
@@ -27,6 +27,9 @@ module.exports = {
   ],
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "arrow-parens": 0,
+    "react/jsx-props-no-spreading": 0,
+    "import/no-useless-path-segments": 0,
     "import/no-extraneous-dependencies": [2, {
       "devDependencies": ["**/*.test.js", "**/*.spec.js", "src/setupTests.js", "build-utils/*"]
     }],
@@ -37,9 +40,9 @@ module.exports = {
     "no-param-reassign": 0,
     "comma-dangle": 2,
     "no-console": 2,
-    "class-methods-use-this":0,
+    "class-methods-use-this": 0,
     "curly": ["error", "multi-line"],
-    "import/no-unresolved": [2, { "commonjs": true }],
+    "import/no-unresolved": 0,
     "import/no-named-as-default": 0,
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
   },
@@ -50,4 +53,4 @@ module.exports = {
       }
     }
   },
-};
+}
