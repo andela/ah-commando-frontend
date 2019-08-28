@@ -43,7 +43,7 @@
     "import/no-unresolved": [2, { "commonjs": true }],
     "import/no-named-as-default": 0,
     "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
-    "import/extensions": 0,
+    "import/extensions": 0
   },
   "settings": {
     "import/resolver": {
