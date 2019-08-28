@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import findByTestAttribute from '@Utils/';
-import HomePage from '.';
+import HomePage from './';
 
 const setUp = props => shallow(<HomePage {...props} />);
 

@@ -28,6 +28,7 @@
 		}],
 		"react/prefer-stateless-function": 0,
 		"react/jsx-props-no-spreading": 0,
+		"import/no-useless-path-segments": 0,
 		"arrow-parens": 0,
 		"import/extensions": 0,
 		"react/forbid-prop-types": 0,
@@ -45,21 +46,25 @@
 		"no-console": 2,
 		"class-methods-use-this": 0,
 		"curly": ["error", "multi-line"],
-		"import/no-unresolved": 0,
+		"import/no-unresolved": [2, {
+			"caseSensitive": false
+		}],
 		"import/no-named-as-default": 0,
 		"no-shadow": ["error", {
 			"allow": ["req", "res", "err"]
 		}]
 	},
 	"settings": {
-		"alias": {
-			"map": [
-				["@Components", "./src/components/"],
-				["@Views", "./src/views/"],
-				["@Utils", "./utils/"],
-				["@lib", "./src/lib/"]
-			],
-			"extensions": [".js"]
+		"import/resolver": {
+			"alias": {
+				"map": [
+					["@Components", "./src/components/"],
+					["@Views", "./src/views/"],
+					["@Utils", "./utils/"],
+					["@lib", "./src/lib/"]
+				],
+				"extensions": [".js"]
+			}
 		}
 	}
 }

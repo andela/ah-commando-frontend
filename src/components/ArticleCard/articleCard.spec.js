@@ -1,7 +1,7 @@
 import { shallow } from 'enzyme';
 import React from 'react';
 import findByTestAttribute from '@Utils/';
-import ArticleCard from '.';
+import ArticleCard from './';
 
 const setUp = props => shallow(<ArticleCard {...props} />);
 
