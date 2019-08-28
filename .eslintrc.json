@@ -51,19 +51,5 @@
 		"no-shadow": ["error", {
 			"allow": ["req", "res", "err"]
 		}]
-	},
-	"settings": {
-		"import/resolver": {
-			"alias": {
-				"map": [
-					["@Components", "./src/components/"],
-					["@Views", "./src/views/"],
-					["@Utils", "./utils/"],
-					["@lib", "./src/lib/"],
-					["React", "react"]
-				],
-				"extensions": [".js"]
-			}
-		}
 	}
 }

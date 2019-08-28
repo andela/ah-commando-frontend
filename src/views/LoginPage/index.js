@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ArticleCard from '@Components/ArticleCard/';
+import ArticleCard from '../../components/ArticleCard';
 
 const Login = () => (
   <div data-test="loginPageComponent">

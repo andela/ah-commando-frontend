@@ -16,14 +16,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.js'],
-    alias: {
-      '@App': path.resolve(__dirname, '../', 'src/'),
-      '@Components': path.resolve(__dirname, '../', 'src/components/'),
-      '@Views': path.resolve(__dirname, '../', 'src/views/'),
-      '@Utils': path.resolve(__dirname, '../', 'utils/'),
-      '@lib': path.resolve(__dirname, '../', 'src/lib/'),
-    },
+    extensions: ['.js', '.jsx']
   },
   plugins: [
     new CleanWebpackPlugin(),
