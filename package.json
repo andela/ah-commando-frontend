@@ -4,7 +4,7 @@
   "description": "A social platform for the creative heart",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --coverage",
     "start": "export DEBUG=prod && node server/app.js",
     "dev": "webpack-dev-server --open --config build-utils/webpack.config.js --env.env=dev",
     "build": "webpack --config build-utils/webpack.config.js --env.env=prod"
@@ -28,13 +28,28 @@
   "homepage": "https://github.com/andela/ah-commando-frontend#readme",
   "dependencies": {
     "chalk": "^2.4.2",
+    "check-prop-types": "^1.1.2",
     "debug": "^4.1.1",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "path": "^0.12.7",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-router-dom": "^5.0.1"
+    "react-redux": "^7.1.1",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "CI=true npm test"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "./node_modules/.bin/eslint --fix",
+      "git add"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
@@ -45,6 +60,8 @@
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "css-loader": "^3.2.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.2.2",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-import-resolver-webpack": "^0.11.1",
@@ -54,6 +71,11 @@
     "eslint-plugin-react": "^7.14.3",
     "file-loader": "^4.2.0",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^3.0.4",
+    "jest": "^24.9.0",
+    "jest-css-modules": "^2.1.0",
+    "jest-enzyme": "^7.1.0",
+    "lint-staged": "^9.2.5",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.3.1",
     "style-loader": "^1.0.0",
