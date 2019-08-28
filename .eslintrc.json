@@ -60,6 +60,15 @@
 			},
 			"node": {
         "paths": ["src"]
+			},
+			"alias": {
+        "map": [
+          ["@Components", "src/components/"],
+          ["@Views", "src/views/"],
+          ["@Utils", "utils/"],
+					["@lib", "src/lib/"]
+        ],
+        "extensions": [".js"]
       }
 		}
 	}
