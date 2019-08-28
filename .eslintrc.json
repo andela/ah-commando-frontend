@@ -52,22 +52,14 @@
 		}]
 	},
 	"settings": {
-		"import/resolver": {
-			"webpack": {
-				"config": "build-utils/webpack.common.js"
-			},
-			"node": {
-        "paths": ["src"]
-			},
-			"alias": {
-        "map": [
-          ["@Components", "src/components/"],
-          ["@Views", "src/views/"],
-          ["@Utils", "utils/"],
-					["@lib", "src/lib/"]
-        ],
-        "extensions": [".js"]
-      }
+		"alias": {
+			"map": [
+				["@Components", "./src/components/"],
+				["@Views", "./src/views/"],
+				["@Utils", "./utils/"],
+				["@lib", "./src/lib/"]
+			],
+			"extensions": [".js"]
 		}
 	}
 }
