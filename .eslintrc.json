@@ -61,7 +61,8 @@
 					["@Components", "./src/components/"],
 					["@Views", "./src/views/"],
 					["@Utils", "./utils/"],
-					["@lib", "./src/lib/"]
+					["@lib", "./src/lib/"],
+					["React", "react"]
 				],
 				"extensions": [".js"]
 			}
