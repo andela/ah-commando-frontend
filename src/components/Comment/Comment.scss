@@ -1,0 +1,39 @@
+@import '../../app';
+
+.comment-div {
+  background: $secondary-color;
+  font-family: $default-font;
+  display: flex;
+  padding: 20px;
+  width: 50%;
+  margin: 0 auto;
+
+  .comment-image-div {
+    display: inline;
+    margin: 13px 0 0 0;
+    padding:0;
+
+    .comment-owner-img {
+      border-radius: 50%;
+    }
+  }
+    .comment-content {
+      padding-left: 10px;
+      display: inline;
+
+      .comment-owner {
+        color: #000;
+        font-weight: bold;
+      }
+
+      .comment-date {
+        color: #FBC02A;
+        font-weight: bold;
+      }
+
+      .comment-message {
+        color: #000;
+        font-size: 10px;
+      }
+    }
+}
