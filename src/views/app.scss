@@ -1,5 +1,28 @@
+@import 'https://fonts.googleapis.com/css?family=Montserrat:medium,Extra-Light|Roboto:light,medium&display=swap';
+
 $body-color: #ffa500;
 
 h1 {
   color: $body-color;
+}
+
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  font-family: 'Montserrat', sans-serif;
+
+  a {
+    color: #000;
+    text-decoration: none;
+
+    &:hover {
+      color: $body-color;
+      transition: all ease-in-out 200ms;
+    }
+  }
 }
