@@ -5,6 +5,11 @@ $secondary-color: rgb(243, 243, 243);
 $black: #000;
 $default-font: 'Montserrat', sans-serif;
 
+* {
+  padding: 0;
+  margin: 0;
+}
+
 h1 {
   color: $body-color;
 }
