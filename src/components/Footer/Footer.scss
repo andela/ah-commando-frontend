@@ -1,0 +1,31 @@
+$desktop: 375px;
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content
+  }
+}
+
+.footer-container {
+  width: 98%;
+  margin: 0 auto;
+  .footer-labels {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    @include desktop{
+      width: 30%;
+    }
+    .about {
+      width: 33.33%;
+      text-align: center;
+    }
+    .terms {
+      width: 33.33%;
+      text-align: center;
+    }
+    .help {
+      width: 33.33%;
+      text-align: center;
+    }
+  }
+}
