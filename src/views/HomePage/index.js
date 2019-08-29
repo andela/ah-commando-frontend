@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import ArticleCard from '@Components/ArticleCard';
 
 const Home = () => (
-  <div>
+  <div data-test="first-test">
     <h1 data-test="homepageComponent">Home</h1>
-    <Link to="/login">Click to Login</Link>
+    <Link data-test="login-link" to="/login">Click to Login</Link>
     <ArticleCard />
   </div>
 );
