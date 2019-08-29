@@ -34,11 +34,14 @@
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "path": "^0.12.7",
+    "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "redux-devtools-extension": "^2.13.8"
   },
   "husky": {
     "hooks": {

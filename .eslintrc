@@ -23,9 +23,9 @@
   "plugins": [
     "react",
     "import",
-    "jsx-a11y"
   ],
   "rules": {
+    "jsx-a11y/label-has-associated-control": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "arrow-parens": 0,
     "react/jsx-props-no-spreading": 0,

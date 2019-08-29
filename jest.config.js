@@ -8,6 +8,7 @@ module.exports = {
     '^@Views/(.*)$': '<rootDir>/src/views/$1',
     '^@Components/(.*)$': '<rootDir>/src/components/$1',
     '^@Utils/(.*)$': '<rootDir>/utils/$1',
+    '^@Lib/(.*)$': '<rootDir>/src/lib/$1',
   },
   collectCoverage: true,
   coverageReporters: [
