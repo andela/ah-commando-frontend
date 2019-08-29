@@ -1,0 +1,34 @@
+
+.header-top {
+  width: 100%;
+  background-color: #FFF;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  & > div {
+    flex-direction: column;
+  }
+
+  .action {
+    display: flex;
+    flex-direction: row;
+  }
+}
+
+.navigation {
+  padding: 10px;
+
+  ul {
+    list-style-type: none;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+
+    li {
+      padding: 10px;
+    }
+  }
+}
+

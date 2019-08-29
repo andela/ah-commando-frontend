@@ -21,7 +21,7 @@
     text-align: center;
     padding: 8px;
     min-width: 76px;
-    background-color: #FFC700
+    background-color: #FFC700;
   }
 
   input {
@@ -29,5 +29,15 @@
     border: 1px solid #C4C4C4;
     border-left: 0;
     margin: 0;
+  }
+}
+
+.search-container {
+  display: flex;
+
+  input {
+    width: 500px;
+    font-size: 1em;
+    padding: 5px 20px;
   }
 }

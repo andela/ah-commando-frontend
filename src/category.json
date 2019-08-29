@@ -1,0 +1,12 @@
+{
+  "categories": [
+    {  "name": "Technology" },
+    {  "name": "Health" },
+    {  "name": "Culture" },
+    {  "name": "Science" },
+    {  "name": "Fashion" },
+    {  "name": "Education" },
+    {  "name": "Lifestyle" },
+    {  "name": "Nature" }
+  ]
+}
