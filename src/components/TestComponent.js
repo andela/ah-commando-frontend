@@ -1,14 +1,14 @@
 import React from 'react';
-import Comment from '@Components/Comment';
+// import Comment from './Comment';
 
 export const TestComponent = () => (
   <div>
-    <Comment
+    {/* <Comment
       name="Dominic Olije"
       date="July 24"
       comment="I love this post, it is insightful"
       image="https://via.placeholder.com/50"
-    />
+    /> */}
     <h1>Greetings from the commandos</h1>
   </div>
 );
