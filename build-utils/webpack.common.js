@@ -23,7 +23,9 @@ module.exports = {
       '@Components': path.resolve(__dirname, '../', 'src/components/'),
       '@Views': path.resolve(__dirname, '../', 'src/views/'),
       '@Utils': path.resolve(__dirname, '../', 'utils/'),
-      '@Lib': path.resolve(__dirname, '../', 'src/lib/')
+      '@Lib': path.resolve(__dirname, '../', 'src/lib/'),
+      '@Actions': path.resolve(__dirname, '../', 'src/actions/'),
+      '@Reducers': path.resolve(__dirname, '../', 'src/reducers/'),
     },
   },
   plugins: [

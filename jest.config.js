@@ -9,6 +9,8 @@ module.exports = {
     '^@Components/(.*)$': '<rootDir>/src/components/$1',
     '^@Utils/(.*)$': '<rootDir>/utils/$1',
     '^@Lib/(.*)$': '<rootDir>/src/lib/$1',
+    '^@Actions/(.*)$': '<rootDir>/src/actions/$1',
+    '^@Reducers/(.*)$': '<rootDir>/src/reducers/$1',
   },
   collectCoverage: true,
   coverageReporters: [

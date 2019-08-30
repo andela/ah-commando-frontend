@@ -20,6 +20,12 @@
       "@Lib/*": [
         "./src/lib/*"
       ],
+      "@Actions/*": [
+        "./src/actions/*"
+      ],
+      "@Reducers/*": [
+        "./src/reducers/*"
+      ],
     }
   },
   "exclude": [

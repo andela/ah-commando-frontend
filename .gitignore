@@ -44,5 +44,5 @@ ah-react.code-workspace
 .vscode
 .coveralls.yml
 .nyc_output
-tests_output
+tests_output/
 *.log

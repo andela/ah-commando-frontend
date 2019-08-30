@@ -1,8 +1,8 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ArticleCard from '@Components/ArticleCard';
 import Header from '@Components/Header';
+import SignIn from '@Components/Forms/SignIn';
 
 const data = {
   title: 'Will AI take over programming',
@@ -22,6 +22,7 @@ const Home = () => (
     <Link to="/login">Click to Login</Link>
     <ArticleCard type="horizontal" data={data} />
     <ArticleCard type="vertical" data={data} />
+    <SignIn />
   </div>
 );
 

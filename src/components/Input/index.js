@@ -6,12 +6,25 @@ import Button from '@Components/Button';
 import './Input.scss';
 
 const Input = (props) => {
-  const { handleChange, field } = props;
+  const {
+    handleChange,
+    type,
+    name,
+    value,
+    placeholder,
+    label,
+  } = props;
   /* istanbul ignore next */
   return (
     <div className="input-container">
-      <label>{field.label}</label>
-      <input onChange={() => { handleChange(); }} type={`${field.type || 'text'}`} />
+      <label>{label}</label>
+      <input
+        onChange={handleChange}
+        type={`${type || 'text'}`}
+        placeholder={placeholder}
+        name={name}
+        value={value}
+      />
     </div>
   );
 };
@@ -26,19 +39,19 @@ const Search = () => (
 );
 
 Input.propTypes = {
-  handleChange: PropTypes.func,
-  field: PropTypes.shape({
-    label: PropTypes.string,
-    type: PropTypes.string,
-  }),
+  name: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  type: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  label: PropTypes.string.isRequired,
 };
 
 Input.defaultProps = {
-  handleChange: () => {},
-  field: {
-    label: '',
-    type: '',
-  },
+  placeholder: '',
 };
 
 export { Search };
