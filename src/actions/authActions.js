@@ -6,7 +6,7 @@ import {
   LOADING,
   NOT_LOADING,
 } from '@Actions/types';
-import { axiosInstance, setToken } from '@Utils';
+import { axiosInstance, setToken } from '@Utils/';
 
 export const setCurrentUser = decoded => ({
   type: SET_CURRENT_USER,

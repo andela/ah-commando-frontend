@@ -6,12 +6,16 @@ import Input from './';
 
 let wrapper;
 const shallowRender = () => {
-  const handleChange = () => 'I am a function';
-  const field = {
-    label: 'username',
+  const props = {
+    handleChange: jest.fn(),
     type: 'text',
+    name: 'email',
+    value: 'john@doe.com',
+    placeholder: 'random text',
+    label: 'random label',
   };
-  const component = shallow(<Input handleChange={handleChange} field={field} />);
+
+  const component = shallow(<Input {...props} />);
   return component;
 };
 
@@ -26,11 +30,12 @@ describe('Input component test', () => {
 
   it('should not throw a warning with the correct prop type', () => {
     const expectedProps = {
-      onChange: () => 'i am a function',
-      field: {
-        label: 'text string',
-        type: 'text string',
-      },
+      handleChange: jest.fn(),
+      type: 'text',
+      name: 'email',
+      value: 'john@doe.com',
+      placeholder: 'random text',
+      label: 'random label',
     };
 
     const error = checkPropTypes(Input.propTypes, expectedProps, 'props', Input.name);
