@@ -28,6 +28,9 @@ export const logIn = (userData, history) => async (dispatch) => {
       toast.dismiss();
       toast.success('Login Successful');
     }
+    dispatch({
+      type: NOT_LOADING,
+    });
     return dispatch({
       type: MODAL_CLOSE,
     });

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { PropTypes } from 'prop-types';
@@ -13,18 +14,37 @@ const Input = (props) => {
     value,
     placeholder,
     label,
+    error,
+    togglable,
+    visible,
+    handleToggle,
   } = props;
   /* istanbul ignore next */
+
   return (
-    <div className="input-container">
-      <label>{label}</label>
-      <input
-        onChange={handleChange}
-        type={`${type || 'text'}`}
-        placeholder={placeholder}
-        name={name}
-        value={value}
-      />
+    <div className="input">
+      <div className={`input-container${error && ' error'}`}>
+        <label>{label}</label>
+        <input
+          className={togglable ? 'toggle' : ''}
+          onChange={handleChange}
+          type={visible ? 'text' : type}
+          placeholder={placeholder}
+          name={name}
+          value={value}
+        />
+        <div className="visibility-toggle" style={{ display: `${!togglable && 'none'}` }}>
+          {togglable
+            && (
+              <button type="button" onClick={handleToggle}>
+                <i className={`fas fa-eye${visible ? '' : '-slash'} fa-lg`} />
+              </button>
+            )}
+        </div>
+      </div>
+      <div className="error-div">
+        {error && <div>{error}</div>}
+      </div>
     </div>
   );
 };
@@ -48,10 +68,18 @@ Input.propTypes = {
   type: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   label: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  togglable: PropTypes.bool,
+  visible: PropTypes.bool,
+  handleToggle: PropTypes.func,
 };
 
 Input.defaultProps = {
   placeholder: '',
+  error: '',
+  togglable: false,
+  visible: false,
+  handleToggle: null,
 };
 
 export { Search };

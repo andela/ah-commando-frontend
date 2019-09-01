@@ -1,8 +1,13 @@
-import { MODAL_OPEN, MODAL_CLOSE } from '@Actions/types';
+import {
+  MODAL_OPEN,
+  MODAL_CLOSE,
+  LOADING,
+  NOT_LOADING,
+} from '@Actions/types';
 
 const uiState = {
-  modalOpen: true,
-  modal: 'signin',
+  modalOpen: false,
+  modal: '',
   loading: false,
 };
 
@@ -18,6 +23,16 @@ const uiReducer = (state = uiState, action) => {
       return {
         ...state,
         modalOpen: false,
+      };
+    case LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NOT_LOADING:
+      return {
+        ...state,
+        loading: false,
       };
     default:
       return state;

@@ -11,5 +11,11 @@
     border: none;
     outline: 0;
     margin: 0 10px;
+
+    &:disabled {
+      background-color: rgba(255, 200, 0, 0.431);
+      color: white;
+      cursor: not-allowed;
+    }
   }
 }

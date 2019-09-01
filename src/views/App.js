@@ -4,6 +4,7 @@ import { ToastContainer } from 'react-toastify';
 import Login from '@Views/LoginPage';
 import Home from '@Views/HomePage';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import './app.scss';
 
 const App = () => (

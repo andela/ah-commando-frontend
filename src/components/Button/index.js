@@ -9,11 +9,12 @@ const Button = (props) => {
     handleClick,
     children,
     type,
+    disabled,
   } = props;
   /* istanbul ignore next */
   return (
     <div className="btn-container">
-      <button type={type} onClick={handleClick}>{children || label}</button>
+      <button disabled={disabled} type={type} onClick={handleClick}>{children || label}</button>
     </div>
   );
 };
@@ -23,12 +24,14 @@ Button.propTypes = {
   handleClick: PropTypes.func.isRequired,
   children: PropTypes.node,
   type: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
   label: '',
   children: null,
   type: '',
+  disabled: false,
 };
 
 export default Button;
