@@ -52,7 +52,7 @@ const Input = (props) => {
 const Search = () => (
   <div className="search-container">
     <input type="text" placeholder="Search..." />
-    <Button>
+    <Button handleClick={() => {}}>
       <Icon name="search" />
     </Button>
   </div>

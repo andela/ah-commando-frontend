@@ -3,12 +3,13 @@ import React from 'react';
 import findByTestAttribute from '@Utils/';
 import { Home } from './';
 
-const setUp = props => shallow(<Home {...props} />);
-
 describe('Article card component test', () => {
-  let wrapper;
+  let wrapper, props;
   beforeEach(() => {
-    wrapper = setUp();
+    props = {
+      signIn: jest.fn(),
+    };
+    wrapper = shallow(<Home {...props} />);
   });
   describe('Card tests', () => {
     it('Should render without failing', () => {

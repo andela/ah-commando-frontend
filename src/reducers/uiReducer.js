@@ -5,7 +5,7 @@ import {
   NOT_LOADING,
 } from '@Actions/types';
 
-const uiState = {
+export const uiState = {
   modalOpen: false,
   modal: '',
   loading: false,
