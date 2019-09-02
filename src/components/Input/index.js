@@ -19,7 +19,6 @@ const Input = (props) => {
     visible,
     handleToggle,
   } = props;
-  /* istanbul ignore next */
 
   return (
     <div className="input">

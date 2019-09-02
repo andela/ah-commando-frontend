@@ -10,11 +10,18 @@ const Button = (props) => {
     children,
     type,
     disabled,
+    style,
   } = props;
-  /* istanbul ignore next */
   return (
     <div className="btn-container">
-      <button disabled={disabled} type={type} onClick={handleClick}>{children || label}</button>
+      <button
+        style={style}
+        disabled={disabled}
+        type={type}
+        onClick={handleClick}
+      >
+        {children || label}
+      </button>
     </div>
   );
 };
@@ -23,6 +30,13 @@ Button.propTypes = {
   label: PropTypes.string,
   handleClick: PropTypes.func.isRequired,
   children: PropTypes.node,
+  style: PropTypes.shape({
+    height: PropTypes.string,
+    width: PropTypes.string,
+    color: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    borderRadius: PropTypes.string,
+  }),
   type: PropTypes.string,
   disabled: PropTypes.bool,
 };
@@ -30,6 +44,7 @@ Button.propTypes = {
 Button.defaultProps = {
   label: '',
   children: null,
+  style: null,
   type: '',
   disabled: false,
 };

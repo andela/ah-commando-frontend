@@ -123,7 +123,7 @@ export class SignIn extends Component {
             Sign in to experience author’s haven great community of creative minds.
             Follow your favourite authors and interact with the articles you love
           </p>
-          <form>
+          <form style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Input
               name="email"
               value={email}
@@ -146,10 +146,17 @@ export class SignIn extends Component {
               error={errors.password}
             />
             <Button
-              label={loading ? null : 'SIGN IN'}
+              label={loading ? null : 'Sign in'}
               handleClick={this.handleSubmit}
               disabled={loading ? true : !isFormValid}
               type="submit"
+              style={{
+                height: '45px',
+                width: '300px',
+                color: '#ffc700',
+                backgroundColor: '#000',
+                borderRadius: '0',
+              }}
             >
               {loading && loader}
             </Button>
