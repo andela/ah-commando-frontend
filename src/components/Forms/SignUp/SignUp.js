@@ -7,7 +7,7 @@ import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
 import { closeModal } from '@Actions/uiActions';
-import { create } from '@Actions/signupActions';
+import { createUser } from '@Actions/authActions';
 // import { validate, emailSchema, passwordSchema } from '@Utils/';
 import './SignUp.scss';
 
@@ -156,6 +156,7 @@ class SignUp extends Component {
               value={firstName}
               type="text"
               handleChange={this.handleChange}
+              placeholder="John"
               label="firstname"
               // error={errors.firstName}
             />
@@ -164,6 +165,7 @@ class SignUp extends Component {
               value={lastName}
               type="text"
               handleChange={this.handleChange}
+              placeholder="Doe"
               label="lastname"
               // error={errors.lastName}
             />
@@ -259,6 +261,6 @@ SignUp.propTypes = {
 export default connectComponent(
   withRouter(SignUp), {
     close: closeModal,
-    signUp: create,
+    signUp: createUser,
   },
 );
