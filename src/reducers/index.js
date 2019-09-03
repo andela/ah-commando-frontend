@@ -4,6 +4,7 @@ import uiReducer from './uiReducer';
 import profileReducer from './profileReducer';
 import imageReducer from './imageReducer';
 import homePageArticles from './HomePage';
+import searchReducer from './searchReducer';
 
 const reducers = combineReducers({
   ui: uiReducer,
@@ -11,6 +12,7 @@ const reducers = combineReducers({
   profile: profileReducer,
   image: imageReducer,
   homePageArticles,
+  filters: searchReducer,
 });
 
 export default reducers;

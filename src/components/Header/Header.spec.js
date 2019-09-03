@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Header } from '@Components/Header/Header';
+import { Header } from './Header';
 
 let wrapper;
 

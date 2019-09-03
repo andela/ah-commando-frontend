@@ -1,0 +1,19 @@
+.articles {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.articles_horizontal {
+  display: flex;
+  flex-direction: row;
+}
+
+.articles_vertical {
+  display: flex;
+  flex-direction: row;
+}
+
+.padding {
+  margin: 20px;
+}
