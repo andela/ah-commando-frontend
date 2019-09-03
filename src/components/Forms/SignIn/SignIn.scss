@@ -41,6 +41,9 @@
         &:last-child {
           border-right: none;
         }
+        &:hover{
+          cursor: pointer;
+        }
 
         i {
           margin-right: 5px;

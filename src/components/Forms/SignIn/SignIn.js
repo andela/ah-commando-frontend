@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -7,7 +9,7 @@ import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
 import { closeModal, openModal } from '@Actions/uiActions';
-import { logIn } from '@Actions/authActions';
+import { logIn, loginViaSocial } from '@Actions/authActions';
 import { validate, emailSchema, passwordSchema } from '@Utils/';
 import './SignIn.scss';
 
@@ -98,6 +100,21 @@ export class SignIn extends Component {
     close();
   }
 
+  handleSocialSingin = (e) => {
+    const { signinViaSocial, history } = this.props;
+    const iconName = e.target.getAttribute('name');
+    switch (iconName) {
+      case 'gg':
+        signinViaSocial(iconName, history);
+        break;
+      case 'fb':
+        console.log('facebook');
+        break;
+      default:
+        return false;
+    }
+  }
+
   render() {
     const {
       email,
@@ -165,11 +182,11 @@ export class SignIn extends Component {
           <div className="alternative-login">
             <p>Or create an account Using:</p>
             <div className="social-login">
-              <span>
+              <span name="gg" onClick={this.handleSocialSingin}>
                 <i className="fab fa-google fa-lg" style={{ color: 'red' }} />
                 Google
               </span>
-              <span>
+              <span name="fb" onClick={this.handleSocialSingin}>
                 <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} />
                 Facebook
               </span>
@@ -219,6 +236,7 @@ SignIn.propTypes = {
   close: PropTypes.func.isRequired,
   signIn: PropTypes.func.isRequired,
   requestPassword: PropTypes.func.isRequired,
+  signinViaSocial: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
@@ -226,5 +244,6 @@ export default connectComponent(
     close: closeModal,
     signIn: logIn,
     requestPassword: () => openModal('passwordModal'),
+    signinViaSocial: loginViaSocial,
   },
 );
