@@ -6,6 +6,7 @@ import Header from '@Components/Header';
 import Footer from '@Components/Footer';
 import SignUp from '@Components/Forms/SignUp';
 import SignIn from '@Components/Forms/SignIn';
+import PasswordRequest from '@Components/PasswordReset';
 import HomeCardArticle from './HomeCardArticle';
 import Banner from './Banner';
 import MainCardSection from './MainCardSection';
@@ -53,6 +54,7 @@ export class Home extends Component {
         <SignIn />
         <SignUp />
         <Header />
+        <PasswordRequest />
         <HomeCardArticle />
         <div className="articleSection">
           <section className="featured">
