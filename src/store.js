@@ -4,6 +4,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 
+// import { getArticles } from './actions/filterActions';
+
 const initialState = {};
 const middleware = [thunk];
 const store = createStore(
@@ -12,4 +14,5 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(...middleware)),
 );
 
+// store.dispatch(getArticles());
 export default store;

@@ -8,10 +8,13 @@ let wrapper;
 const data = {
   image: 'image',
   title: 'title',
-  authorName: 'authorname',
-  likes: 12,
-  dislikes: 3,
-  comments: 28,
+  author: {
+    firstname: 'Onu',
+    lastname: 'Monday',
+  },
+  likesCount: 12,
+  dislikesCount: 3,
+  comment: [{}, {}],
   readTime: 3,
 };
 const shallowRender = () => {

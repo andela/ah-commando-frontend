@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
 import { PropTypes } from 'prop-types';
@@ -14,21 +15,21 @@ const ArticleCard = (props) => {
       <div className="article-details">
         <div className="title-container">
           <label className="title">{data.title}</label>
-          <label className="author-name">{data.authorName}</label>
+          <label className="author-name">{`${data.author && data.author.lastname} ${data.author && data.author.firstname}`}</label>
           <label className="description">{data.description}</label>
         </div>
         <div className="icons">
           <div className="like">
             <Icon name="likes" className="like" />
-            <label className="icon-label">{data.likes}</label>
+            <label className="icon-label">{data.likesCount}</label>
           </div>
           <div className="dislike">
             <Icon name="dislikes" />
-            <label className="icon-label">{data.dislikes}</label>
+            <label className="icon-label">{data.dislikesCount}</label>
           </div>
           <div className="comment">
             <Icon name="comments" />
-            <label className="icon-label">{data.comments}</label>
+            <label className="icon-label">{data.comment && data.comment.length}</label>
           </div>
           <label className="hor-readTime">{`${data.readTime} min read`}</label>
         </div>
@@ -47,7 +48,7 @@ ArticleCard.propTypes = {
     description: PropTypes.string,
     likes: PropTypes.number,
     dislikes: PropTypes.number,
-    comments: PropTypes.number,
+    comment: PropTypes.arrayOf(PropTypes.object),
     readTime: PropTypes.number,
   }),
 };
@@ -61,7 +62,7 @@ ArticleCard.defaultProps = {
     description: '',
     likes: 2,
     dislikes: 1,
-    comments: 1,
+    comments: [],
     readTime: 1,
   },
 };

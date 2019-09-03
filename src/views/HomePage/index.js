@@ -12,11 +12,14 @@ import { openModal } from '@Actions/uiActions';
 const data = {
   title: 'Will AI take over programming',
   description: 'As the technology explodes, a growing movement of local legislation is setting ..',
-  authorName: 'IgweChinonso',
+  author: {
+    firstname: 'Igwe',
+    lastname: 'Chinonso',
+  },
   image: 'https://res.cloudinary.com/dwawmgnac/image/upload/v1564566304/samples/landscapes/beach-boat.jpg',
-  likes: 20,
-  dislikes: 20,
-  comments: 25,
+  likesCount: 20,
+  dislikesCount: 20,
+  comment: [{ a: 'b' }, { c: 'd' }],
   readTime: 5,
 };
 

@@ -26,7 +26,7 @@ $desktop: 375px;
 .vertical {
   width: 115.72px;
   height: 193px;
-  margin: 10px;
+  margin: 20px 20px 10px 0px;
   @include desktop {
     width: 193px;
     height: 250px;
@@ -131,7 +131,6 @@ $desktop: 375px;
 .horizontal {
   width: 355.5px;
   height: 102.86px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: 27.94% 72.06%;
   grid-template-areas: 'image body';
@@ -162,10 +161,8 @@ $desktop: 375px;
   .article-details {
     grid-area: body;
     padding: 2px;
-    margin-left: 2rem;
     @include desktop{
-      // padding: 0 174px 0 41.5px;
-      // margin: 0 auto;
+      padding: 0 174px 0 20px;
     }
     .title-container {
       .title {
