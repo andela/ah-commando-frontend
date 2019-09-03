@@ -43,3 +43,35 @@ export const logIn = (userData, history) => async (dispatch) => {
     });
   }
 };
+
+export const createUser = (userData, history) => async (dispatch) => {
+  dispatch({
+    type: LOADING,
+  });
+  try {
+    const response = await axiosInstance.post('users', { user: { ...userData } });
+    if (response.status === 200) {
+      const { user } = response.data;
+      console.log('user object', user);
+      localStorage.setItem('haven', user.token);
+      setToken(user.token);
+      dispatch(setCurrentUser(jwtDecode(user.token)));
+      history.push('/signup');
+      toast.dismiss();
+      toast.success('Registration Successful!');
+    }
+    dispatch({
+      type: NOT_LOADING,
+    });
+    return dispatch({
+      type: MODAL_CLOSE,
+    });
+  } catch (err) {
+    const { error } = err.response.data;
+    toast.dismiss();
+    toast.error(error, { autoClose: 10000 });
+    return dispatch({
+      type: NOT_LOADING,
+    });
+  }
+};
