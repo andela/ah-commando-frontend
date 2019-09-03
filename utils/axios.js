@@ -10,5 +10,6 @@ export const setAuthToken = (token) => {
   }
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
+setAuthToken(localStorage.getItem('haven'));
 
 export default instance;
