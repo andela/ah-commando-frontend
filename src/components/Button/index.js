@@ -17,6 +17,7 @@ const Button = (props) => {
       <button
         style={style}
         disabled={disabled}
+        disable={disabled}
         type={type}
         onClick={handleClick}
       >

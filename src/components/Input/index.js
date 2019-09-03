@@ -51,7 +51,7 @@ const Input = (props) => {
 const Search = () => (
   <div className="search-container">
     <input type="text" placeholder="Search..." />
-    <Button handleClick={() => {}}>
+    <Button handleClick={() => { }}>
       <Icon name="search" />
     </Button>
   </div>

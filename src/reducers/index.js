@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import initialReducer from './initialReducer';
-import uiReducer from './uiReducer';
 import { authReducer } from './authReducer';
+import uiReducer from './uiReducer';
 
 const reducers = combineReducers({
   initialReducer,

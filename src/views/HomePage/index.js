@@ -5,6 +5,7 @@ import connectComponent from '@Lib/connect-component';
 import ArticleCard from '@Components/ArticleCard';
 import Header from '@Components/Header';
 import SignIn from '@Components/Forms/SignIn';
+import SignUp from '@Components/Forms/SignUp';
 import { openModal } from '@Actions/uiActions';
 import Button from '@Components/Button';
 
@@ -20,7 +21,7 @@ const data = {
 };
 
 export const Home = (props) => {
-  const { signIn } = props;
+  const { signIn, signUp } = props;
 
   return (
     <div>
@@ -35,13 +36,24 @@ export const Home = (props) => {
         disabled={false}
         type="button"
       />
+      <Button
+        label="SIGN UP"
+        handleClick={signUp}
+        disabled={false}
+        type="button"
+      />
       <SignIn />
+      <SignUp />
     </div>
   );
 };
 
 Home.propTypes = {
   signIn: PropTypes.func.isRequired,
+  signUp: PropTypes.func.isRequired,
 };
 
-export default connectComponent(Home, { signIn: () => openModal('signin') });
+export default connectComponent(Home, {
+  signIn: () => openModal('signin'),
+  signUp: () => openModal('signup'),
+});
