@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UI Action tests closeModal should return MODAL_CLOSE type 1`] = `
+Object {
+  "type": "MODAL_CLOSE",
+}
+`;
+
+exports[`UI Action tests openModal should return MODAL_OPEN type with the right modal as payload 1`] = `
+Object {
+  "payload": "signin",
+  "type": "MODAL_OPEN",
+}
+`;

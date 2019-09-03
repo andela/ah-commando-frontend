@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth action tests Async action creators test should error as expected 1`] = `
+Array [
+  Object {
+    "type": "LOADING",
+  },
+  Object {
+    "type": "NOT_LOADING",
+  },
+]
+`;
+
+exports[`Auth action tests Async action creators test signs in a user successfully 1`] = `
+Array [
+  Object {
+    "type": "LOADING",
+  },
+  Object {
+    "payload": Object {
+      "email": "kcmykairl@gmail.com",
+      "exp": 1566854702,
+      "firstName": "Kelechi",
+      "iat": 1566768302,
+      "id": 5,
+      "isAdmin": null,
+      "lastName": "Ngwobia",
+      "type": "client",
+    },
+    "type": "SET_CURRENT_USER",
+  },
+  Object {
+    "type": "NOT_LOADING",
+  },
+  Object {
+    "type": "MODAL_CLOSE",
+  },
+]
+`;
+
+exports[`Auth action tests Auth Action tests return values signin should return expected values 1`] = `[Function]`;

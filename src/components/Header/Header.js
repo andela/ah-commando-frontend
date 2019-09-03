@@ -17,16 +17,16 @@ export const Header = () => (
         {AuthStore.getToken()
           ? (
             <div className="action">
-              <Button>
+              <Button handleClick={() => {}}>
                 <Icon name="notification" />
               </Button>
-              <Button>Upgrade</Button>
+              <Button handleClick={() => {}}>Upgrade</Button>
             </div>
           )
           : (
             <div className="action">
-              <Button>signin</Button>
-              <Button>signup</Button>
+              <Button handleClick={() => {}}>signin</Button>
+              <Button handleClick={() => {}}>signup</Button>
             </div>
           )}
       </div>

@@ -4,25 +4,49 @@ import { PropTypes } from 'prop-types';
 import './Button.scss';
 
 const Button = (props) => {
-  const { label, handleClick, children } = props;
-  /* istanbul ignore next */
+  const {
+    label,
+    handleClick,
+    children,
+    type,
+    disabled,
+    style,
+  } = props;
   return (
     <div className="btn-container">
-      <button onClick={() => handleClick()}>{children || label}</button>
+      <button
+        style={style}
+        disabled={disabled}
+        type={type}
+        onClick={handleClick}
+      >
+        {children || label}
+      </button>
     </div>
   );
 };
 
 Button.propTypes = {
   label: PropTypes.string,
-  handleClick: PropTypes.func,
+  handleClick: PropTypes.func.isRequired,
   children: PropTypes.node,
+  style: PropTypes.shape({
+    height: PropTypes.string,
+    width: PropTypes.string,
+    color: PropTypes.string,
+    backgroundColor: PropTypes.string,
+    borderRadius: PropTypes.string,
+  }),
+  type: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 Button.defaultProps = {
   label: '',
-  handleClick: () => {},
-  children: 'button',
+  children: null,
+  style: null,
+  type: '',
+  disabled: false,
 };
 
 export default Button;

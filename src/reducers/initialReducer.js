@@ -1,4 +1,4 @@
-import { IS_REDUCING, HAS_REDUCED } from '../actions/types/initialTypes';
+import { IS_REDUCING, HAS_REDUCED } from '@Actions/types/initialTypes';
 
 const initialState = {
   isReducing: false,

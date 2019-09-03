@@ -1,8 +1,50 @@
+@import url('https://fonts.googleapis.com/css?family=Inconsolata&display=swap');
+
 @mixin mobile {
   @media (max-width: #{$mobile}) {
     @content
   }
 }
+
+.input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 350px;
+  text-align: center;
+}
+
+.error {
+  box-shadow: 0 0 5px rgb(238, 81, 81);
+  border: 1px solid rgb(238, 81, 81);
+}
+
+.error-div {
+  margin-top: 5px;
+  font-family: 'Inconsolata', monospace;
+  color: red;
+  max-width: 316px;
+}
+
+.visibility-toggle {
+  display: flex;
+  border: .1px solid #C4C4C4;
+  border-left: none;
+  button {
+    padding: 5px;
+    border: none;
+    background: none;
+    transition: all .2s;
+    cursor: pointer;
+
+    &:active {
+      background-color: none;
+      outline: none;
+      transform: scale(.9);
+    }
+  }
+}
+
 .input-container {
   width: 300px;
   height: 45px;
@@ -17,11 +59,15 @@
     font-size: 11px;
     line-height: 13px;
     display: flex;
+    justify-content: center;
     align-items: center;
-    text-align: center;
     padding: 8px;
     min-width: 76px;
     background-color: #FFC700;
+  }
+
+  .toggle {
+    border-right: none;
   }
 
   input {
@@ -29,6 +75,12 @@
     border: 1px solid #C4C4C4;
     border-left: 0;
     margin: 0;
+    padding: 8px;
+    font-size: 14px;
+
+    &::placeholder {
+      color: rgba(128, 128, 128, 0.287);
+    }
   }
 }
 
