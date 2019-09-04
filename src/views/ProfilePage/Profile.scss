@@ -87,6 +87,8 @@
 .profile-article{
   margin: 0;
   padding-top: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr
 }
 .single-article {
   padding: 20px;
@@ -97,12 +99,43 @@
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
-  font-weight: bold;
+  font-size: 50px;
 }
 .close:hover,
 .close:focus {
-  color: #000;
+  color: #FFC700;
   text-decoration: none;
   cursor: pointer;
+}
+.profile-img{
+  position: relative;
+  left: 25%;
+  transform: translateY(-280px);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: transparent;
+  padding-top: 65px;
+  padding-left: 55px;
+  color: white;
+}
+.form-image{
+  position: relative;
+  left: 45%;
+  opacity: .5;
+  transform: translateY(-220px);
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  color: white;
+}
+.update-form{
+  margin-top: 30px;
+  margin-left: 20%;
+}
+.profile-heading{
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
 }

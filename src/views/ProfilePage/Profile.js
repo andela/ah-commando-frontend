@@ -3,24 +3,33 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Loader from 'react-loader-spinner';
 import Header from '@Components/Header/index';
 import Button from '@Components/Button/index';
 import Footer from '@Components/Footer/index';
 import Dialog from '@Components/Dialog/index';
 import Input from '@Components/Input/index';
-// import EditProfile from '@Components/Forms/EditProfile/EditProfile';
+import TextArea from '@App/components/TextArea/TextArea';
 import ArticleCard from '@Components/ArticleCard/index';
 import connectComponent from '@Lib/connect-component';
+import {
+  validate,
+  emailSchema,
+  usernameSchema,
+  bioSchema,
+} from '@Utils/';
 import { getProfile, editProfile } from '../../actions/profileAction';
 import { getArticles } from '../../actions/articleAction';
 import { postImage } from '../../actions/imageAction';
 import './Profile.scss';
 
 
-class Profile extends Component {
+export class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      errors: {},
+      isFormValid: true,
       dialogOpen: false,
       profile: {
         username: '',
@@ -34,8 +43,6 @@ class Profile extends Component {
       },
       article: [],
     };
-
-    this.fileInput = React.createRef();
   }
 
   async componentDidMount() {
@@ -52,34 +59,67 @@ class Profile extends Component {
     }));
   }
 
-  handleClick = () => {
+  handleToggleEditProfileModal = () => {
+    const { dialogOpen } = this.state;
     this.setState({
-      dialogOpen: true,
-    });
-  }
-
-  handleClose = () => {
-    this.setState({
-      dialogOpen: false,
+      dialogOpen: !dialogOpen,
     });
   }
 
   renderProfileCards = (data) => (
     <div className="single-article" key={data.id}>
-      <ArticleCard type="horizontal" data={data} />
+      <ArticleCard type="vertical" data={data} />
     </div>
   );
 
   handleChange = event => {
     const { name, value } = event.target;
+    const errors = {};
+    const [errorValue] = validate({
+      [name]: value,
+    // eslint-disable-next-line no-nested-ternary
+    }, name === 'username' ? usernameSchema : name === 'bio' ? bioSchema : emailSchema);
+    errors[name] = errorValue || '';
+    this.setFormValidity(errors);
     this.setState(prevState => ({
       ...prevState,
       profile: {
         ...prevState.profile,
         [name]: value,
       },
+      errors,
     }));
   };
+
+  validateForm = () => {
+    const errors = {};
+    const {
+      profile: {
+        email,
+        username,
+        bio,
+      },
+    } = this.state;
+    const [emailError] = validate({ email }, emailSchema);
+    const [usernameError] = validate({ username }, usernameSchema);
+    const [bioError] = validate({ bio }, bioSchema);
+    errors.email = emailError || '';
+    errors.username = usernameError || '';
+    errors.bio = bioError || '';
+    return this.setFormValidity(errors);
+  }
+
+  setFormValidity = (errors) => {
+    let valid = true;
+    Object.values(errors).forEach((value) => {
+      if (value.length > 0) {
+        valid = false;
+      }
+    });
+    this.setState({ isFormValid: valid });
+    return valid;
+  }
+
 
   handleImageChange = async (event) => {
     const file = event.target.files[0];
@@ -103,11 +143,10 @@ class Profile extends Component {
       profile: {
         username,
         email,
-        bio: bios,
+        bio,
         image,
       },
     } = this.state;
-    const bio = bios || 'none'; // validation requires that a bio of type string must be provided, which is not ideal
     const response = await updateProfile({
       user: {
         username, email, bio, image,
@@ -115,8 +154,6 @@ class Profile extends Component {
     });
 
     // set the returned data to state
-
-
     const { payload } = response;
     payload.email = email;
     const {
@@ -136,11 +173,12 @@ class Profile extends Component {
         bio: Bio,
       },
     }));
-    localStorage.setItem('username', username);
   }
 
   render() {
     const {
+      errors,
+      isFormValid,
       dialogOpen, profile:
       {
         firstname,
@@ -154,20 +192,23 @@ class Profile extends Component {
       },
       article,
     } = this.state;
+    const { image: { loading } } = this.props;
+    const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
     return (
-      <div>
+      <div data-test="profileComponent">
         <Header />
         { dialogOpen ? (
           <Dialog>
-            <span className="close" onClick={this.handleClose}>&times;</span>
-            <form onSubmit={this.handleSubmit} encType="multipart/form-data">
+            <span className="close" onClick={this.handleToggleEditProfileModal}>&times;</span>
+            <p className="profile-heading">Edit your profile</p>
+            <form onSubmit={this.handleSubmit} encType="multipart/form-data" className="update-form">
               <Input
                 name="email"
                 value={email}
                 type="email"
                 handleChange={this.handleChange}
-                label="email"
-                // error={errors.email}
+                label="Email"
+                error={errors.email}
               />
 
               <Input
@@ -175,21 +216,41 @@ class Profile extends Component {
                 value={username}
                 type="text"
                 handleChange={this.handleChange}
-                label="username"
+                label="Username"
+                error={errors.username}
               />
 
-              <Input
+              <TextArea
                 name="bio"
                 value={bio || ''}
                 type="text"
+                label="Bio"
+                error={errors.email}
                 handleChange={this.handleChange}
-                label="bio"
+                style={{
+                  height: '80px',
+                  width: '300px',
+                }}
               />
-              {/* <input type="text" id="email" placeholder="enter email" value={email} onChange={this.handleChange} /> */}
-              {/* <input type="text" id="username" placeholder="enter username" value={username} onChange={this.handleChange} /> */}
-              {/* <input type="text" id="bio" placeholder="enter bio" value={bio || ''} onChange={this.handleChange} /> */}
-              <input type="file" id="image" name="file" placeholder="image" onChange={this.handleImageChange} />
-              <button type="submit">edit</button>
+              <Button
+                label={loading ? null : 'Save'}
+                handleClick={this.handleSubmit}
+                disabled={loading ? true : !isFormValid}
+                type="submit"
+                datatest="submit-button"
+                style={{
+                  height: '45px',
+                  width: '500px',
+                  marginLeft: '25px',
+                  color: '#ffc700',
+                  backgroundColor: '#000',
+                  borderRadius: '0',
+                }}
+              >
+                {loading && loader}
+              </Button>
+              <img src={image} alt="" className="form-image" />
+              <input type="file" id="image" name="file" className="profile-img" onChange={this.handleImageChange} />
             </form>
           </Dialog>
         ) : (null)}
@@ -211,7 +272,7 @@ class Profile extends Component {
               <div className="profile-details">
                 <div className="name-button">
                   <h3>{`${firstname} ${lastname}`}</h3>
-                  <span><Button handleClick={this.handleClick}>Edit Profile</Button></span>
+                  <span><Button handleClick={this.handleToggleEditProfileModal} datatest="edit-button">Edit Profile</Button></span>
                   <span><p>{`@${username}`}</p></span>
                 </div>
                 <p>
@@ -245,8 +306,8 @@ class Profile extends Component {
             </ul>
           </div>
           <div />
-          <div className="profile-article">
-            {article && article.map(a => this.renderProfileCards(a))}
+          <div className="profile-article" data-test="articleCard">
+            {article && article.map(data => this.renderProfileCards(data))}
           </div>
         </div>
         <div className="profile-footer">
@@ -262,6 +323,10 @@ Profile.propTypes = {
   fetchProfile: PropTypes.func.isRequired,
   uploadImage: PropTypes.func.isRequired,
   updateProfile: PropTypes.func.isRequired,
+  // eslint-disable-next-line react/require-default-props
+  image: PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+  }),
 };
 
 export default connectComponent(

@@ -1,4 +1,5 @@
 import jwtDecode from 'jwt-decode';
+import { toast } from 'react-toastify';
 import * as types from './types/index';
 import { axiosInstance } from '@Utils/';
 
@@ -17,16 +18,16 @@ export const getProfileFailure = (error) => ({
 });
 
 export const editProfileStart = () => ({
-  type: types.EDIT_ARTICLE_START,
+  type: types.EDIT_PROFILE_START,
 });
 
 export const editProfileSuccess = (payload) => ({
-  type: types.EDIT_ARTICLE_SUCCESS,
+  type: types.EDIT_PROFILE_SUCCESS,
   payload,
 });
 
 export const editProfileFailure = (error) => ({
-  type: types.EDIT_ARTICLE_FAILURE,
+  type: types.EDIT_PROFILE_FAILURE,
   error,
 });
 
@@ -47,6 +48,8 @@ export const editProfile = (payload) => async (dispatch) => {
   try {
     const response = await axiosInstance.put('/user', payload);
     localStorage.setItem('haven', response.data.profile.token);
+    toast.dismiss();
+    toast.success('Profile Edited successfully');
     return dispatch(editProfileSuccess(response.data.profile));
   } catch (error) {
     return dispatch(editProfileFailure(error.response.data));

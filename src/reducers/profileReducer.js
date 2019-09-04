@@ -21,16 +21,16 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         error: action.error,
       };
-    case types.EDIT_ARTICLE_START:
+    case types.EDIT_PROFILE_START:
       return {
         ...state,
       };
-    case types.EDIT_ARTICLE_SUCCESS:
+    case types.EDIT_PROFILE_SUCCESS:
       return {
         ...state,
         user: action.payload,
       };
-    case types.EDIT_ARTICLE_FAILURE:
+    case types.EDIT_PROFILE_FAILURE:
       return {
         ...state,
         error: action.error,

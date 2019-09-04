@@ -1,5 +1,5 @@
 
-.modal {
+.modal-profile {
   position: fixed;
   z-index: 1;
   padding-top: 200px;
@@ -12,10 +12,11 @@
   background-color: rgba(0,0,0,0.4);
 }
 
-.modal-content {
+.modal-content-profile {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 50%;
+  width: 70%;
+  height: 70%;
 }

@@ -2,10 +2,11 @@ import * as types from '../actions/types/index';
 import imageReducer from './imageReducer';
 
 describe('Article Reducer', () => {
-  it('Should return default state', () => {
+  it('Should return default state of an image', () => {
     const newState = imageReducer(undefined, {});
     expect(newState).toEqual({
       image: '',
+      loading: false,
     });
   });
 
@@ -13,13 +14,13 @@ describe('Article Reducer', () => {
     const newState = imageReducer(null, {
       type: types.POST_IMAGE_START,
     });
-    expect(newState).toEqual({});
+    expect(newState).toEqual({ loading: true });
   });
 
   it('Edit profile: Should fail', () => {
     const newState = imageReducer(null, {
       type: types.POST_IMAGE_FAILURE,
     });
-    expect(newState).toEqual({});
+    expect(newState).toEqual({ loading: false });
   });
 });

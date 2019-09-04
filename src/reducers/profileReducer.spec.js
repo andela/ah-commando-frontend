@@ -14,28 +14,7 @@ describe('Profile Reducer', () => {
     expect(newState).toEqual({});
   });
 
-  // it('Should return new state if receiving type', () => {
-  //   const user = {
-  //     id: 9,
-  //     username: 'chanonsohgutyyy',
-  //     firstname: 'calix',
-  //     lastname: 'chi',
-  //     email: 'debchissdddf@gmail.com',
-  //     bio: 'ddddd',
-  //     image: 'http://res.cloudinary.com/dutbqk0ux/image/upload/v1567457350/y3hzcmwnhh93b2ykuszq.png',
-  //     followers: [],
-  //     followings: [],
-  //     followerCount: 0,
-  //     followingCount: 0,
-  //     following: false,
-  //   };
-  //   const newState = profileReducer(undefined, {
-  //     type: types.GET_ARTICLE_SUCCESS,
-  //   });
-  //   expect(newState).toEqual({});
-  // });
-
-  it('Get profile: Should return new state if receiving type', () => {
+  it('Get profile: Should return error state for an error', () => {
     const err = {
       error: 'invalid',
     };
@@ -51,7 +30,7 @@ describe('Profile Reducer', () => {
 
   it('Edit profile: Should return new state if receiving type', () => {
     const newState = profileReducer(undefined, {
-      type: types.EDIT_ARTICLE_START,
+      type: types.EDIT_PROFILE_START,
     });
     expect(newState).toEqual({
       user: null,
@@ -61,7 +40,7 @@ describe('Profile Reducer', () => {
 
   it('Edit profile: Should fail', () => {
     const newState = profileReducer(null, {
-      type: types.EDIT_ARTICLE_FAILURE,
+      type: types.EDIT_PROFILE_FAILURE,
     });
     expect(newState).toEqual({});
   });
