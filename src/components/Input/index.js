@@ -18,6 +18,7 @@ const Input = (props) => {
     togglable,
     visible,
     handleToggle,
+    id,
   } = props;
 
   return (
@@ -31,6 +32,7 @@ const Input = (props) => {
           placeholder={placeholder}
           name={name}
           value={value}
+          id={id}
         />
         <div className="visibility-toggle" style={{ display: `${!togglable && 'none'}` }}>
           {togglable
@@ -58,6 +60,7 @@ const Search = () => (
 );
 
 Input.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([
     PropTypes.string,
@@ -74,6 +77,7 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
+  id: '',
   placeholder: '',
   error: '',
   togglable: false,

@@ -12,7 +12,7 @@ import connectComponent from '@App/lib/connect-component';
 export const Header = (props) => {
   const { signIn, signUp } = props;
   return (
-    <header>
+    <header data-test="header">
       <div>
         <div className="header-top">
           <div className="logo">Authors haven</div>
@@ -35,7 +35,7 @@ export const Header = (props) => {
                   type="button"
                 />
                 <Button
-                  data-test="signup-button"
+                  datatest="signup-button"
                   label="sign up"
                   handleClick={signUp}
                   disabled={false}

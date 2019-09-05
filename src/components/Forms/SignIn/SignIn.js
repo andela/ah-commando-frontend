@@ -116,7 +116,7 @@ export class SignIn extends Component {
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
 
     return (
-      <Modal close={this.resetModal} open={modalOpen && modal === 'signin'}>
+      <Modal data-test="signup-form" close={this.resetModal} open={modalOpen && modal === 'signin'}>
         <div className="form">
           <h3 className="form-header">Sign in</h3>
           <p className="form-text">

@@ -33,7 +33,7 @@ describe('Auth action tests', () => {
     });
   });
 
-  describe('Async action creators test', () => {
+  describe('Sign in actions', () => {
     let store;
     const response = {
       user: {
@@ -64,7 +64,9 @@ describe('Auth action tests', () => {
     it('should error as expected', () => {
       const errorResponse = {
         err: {
-          response: {},
+          response: {
+            data: {},
+          },
         },
       };
       nock(url)
@@ -75,6 +77,24 @@ describe('Auth action tests', () => {
         .then(() => {
           expect(store.getActions()).toMatchSnapshot();
         });
+    });
+  });
+
+  describe('Sign up actions', () => {
+    let store;
+    const response = {
+      user: {
+        id: 1,
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJrY215a2FpcmxAZ21haWwuY29tIiwiZmlyc3ROYW1lIjoiS2VsZWNoaSIsImxhc3ROYW1lIjoiTmd3b2JpYSIsInR5cGUiOiJjbGllbnQiLCJpc0FkbWluIjpudWxsLCJpYXQiOjE1NjY3NjgzMDIsImV4cCI6MTU2Njg1NDcwMn0.tbi_p7QnWb524thZ6uao7ILrxt0Vya_JCec1skuoGjE',
+      },
+    };
+
+    beforeEach(() => {
+      store = mockStore({});
+    });
+
+    afterEach(() => {
+      nock.cleanAll();
     });
 
     it('registers a user successfully', () => {
@@ -90,7 +110,9 @@ describe('Auth action tests', () => {
     it('should error as expected', () => {
       const errorResponse = {
         err: {
-          response: {},
+          response: {
+            data: {},
+          },
         },
       };
       nock(url)

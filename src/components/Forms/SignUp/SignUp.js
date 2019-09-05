@@ -189,7 +189,10 @@ export class SignUp extends Component {
           <p className="form-text">
             Create an account, follow the adventure everywhere anywhere
           </p>
-          <form style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <form
+            datatest="signup-form"
+            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+          >
             <Input
               name="firstname"
               value={firstname}
@@ -218,6 +221,7 @@ export class SignUp extends Component {
               error={errors.lastname}
             />
             <Input
+              id="email"
               name="email"
               value={email}
               type="email"
@@ -227,6 +231,7 @@ export class SignUp extends Component {
               error={errors.email}
             />
             <Input
+              id="password"
               name="password"
               value={password}
               type="password"
@@ -239,6 +244,7 @@ export class SignUp extends Component {
               error={errors.password}
             />
             <Input
+              id="passwordConfirm"
               name="passwordConfirm"
               value={passwordConfirm}
               type="password"
@@ -251,6 +257,7 @@ export class SignUp extends Component {
               error={errors.passwordConfirm}
             />
             <Button
+              datatest="signup-submit"
               label={loading ? null : 'create account'}
               handleClick={this.handleSubmit}
               disabled={loading ? true : !isFormValid}

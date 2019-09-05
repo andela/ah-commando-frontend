@@ -49,7 +49,7 @@ export const createUser = (userData, history) => async (dispatch) => {
     type: LOADING,
   });
   try {
-    const response = await axiosInstance.post('users/', { user: { ...userData } });
+    const response = await axiosInstance.post('users', { user: { ...userData } });
     if (response.status === 201) {
       const { user } = response.data;
       localStorage.setItem('haven', user.token);
