@@ -8,6 +8,7 @@ import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
 import { closeModal } from '@Actions/uiActions';
 import { createUser } from '@Actions/authActions';
+import './SignUp.scss';
 import {
   validate,
   emailSchema,
@@ -16,7 +17,6 @@ import {
   lastnameSchema,
   usernameSchema,
 } from '@Utils/';
-import './SignUp.scss';
 
 export class SignUp extends Component {
   constructor(props) {
