@@ -1,12 +1,16 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 import React from 'react';
 import { shallow } from 'enzyme';
-import Header from './';
+import { Header } from '@Components/Header/Header';
 
 let wrapper;
 
 const shallowRender = () => {
-  const component = shallow(<Header />);
+  const props = {
+    signIn: jest.fn(),
+    signUp: jest.fn(),
+  };
+  const component = shallow(<Header {...props} />);
   return component;
 };
 
