@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -7,7 +9,7 @@ import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
 import { closeModal } from '@Actions/uiActions';
-import { createUser } from '@Actions/authActions';
+import { createUser, loginViaSocial } from '@Actions/authActions';
 import './SignUp.scss';
 import {
   validate,
@@ -160,6 +162,12 @@ export class SignUp extends Component {
     close();
   }
 
+  handleSocialSignin = (e) => {
+    const { signinViaSocial } = this.props;
+    const brand = e.target.getAttribute('name');
+    return signinViaSocial(brand);
+  }
+
   render() {
     const {
       firstname,
@@ -276,11 +284,11 @@ export class SignUp extends Component {
           <div className="alternative-login">
             <p>Or create an account using:</p>
             <div className="social-login">
-              <span>
+              <span name="google" id="google" onClick={this.handleSocialSignin}>
                 <i className="fab fa-google fa-lg" style={{ color: 'red' }} />
                 Google
               </span>
-              <span>
+              <span name="facebook" id="facebook" onClick={this.handleSocialSignin}>
                 <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} />
                 Facebook
               </span>
@@ -312,11 +320,13 @@ SignUp.propTypes = {
   }).isRequired,
   close: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired,
+  signinViaSocial: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
   withRouter(SignUp), {
     close: closeModal,
     signUp: createUser,
+    signinViaSocial: loginViaSocial,
   },
 );
