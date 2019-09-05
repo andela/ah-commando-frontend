@@ -1,5 +1,5 @@
 module.exports = {
-  '@tag': ['authors'],
+  '@tag': ['Signup'],
   'Signup form test': (browser) => {
     browser
       .url('http://localhost:9090')
