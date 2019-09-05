@@ -178,6 +178,7 @@ describe('Profile component test', () => {
       instance.validateForm();
       setTimeout(() => {
         expect(instance.state.errors.email).toBe('');
+        expect(instance.state.errors.username).toBe('');
       }, 2000);
     });
 
@@ -198,6 +199,7 @@ describe('Profile component test', () => {
       instance.handleSubmit();
       setTimeout(() => {
         expect(instance.state.profile.username).toBe('u');
+        expect(instance.state.profile.email).toBe('e');
       }, 2000);
     });
   });

@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
@@ -18,8 +18,8 @@ import {
   usernameSchema,
   bioSchema,
 } from '@Utils/';
-import { getProfile, editProfile } from '../../actions/profileAction';
-import { getArticles } from '../../actions/articleAction';
+import { getProfile, editProfile, getArticles } from '../../actions/profileAction';
+// import { getArticles } from '../../actions/articleAction';
 import { postImage } from '../../actions/imageAction';
 import './Profile.scss';
 
@@ -323,7 +323,6 @@ Profile.propTypes = {
   fetchProfile: PropTypes.func.isRequired,
   uploadImage: PropTypes.func.isRequired,
   updateProfile: PropTypes.func.isRequired,
-  // eslint-disable-next-line react/require-default-props
   image: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
   }),

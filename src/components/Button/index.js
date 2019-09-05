@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 /* eslint-disable react/button-has-type */
 import React from 'react';
 import { PropTypes } from 'prop-types';
@@ -21,7 +22,6 @@ const Button = (props) => {
         disabled={disabled}
         type={type}
         onClick={handleClick}
-        datatest={datatest}
       >
         {children || label}
       </button>
@@ -32,8 +32,6 @@ const Button = (props) => {
 Button.propTypes = {
   datatest: PropTypes.string,
   label: PropTypes.string,
-  // eslint-disable-next-line react/require-default-props
-  datatest: PropTypes.string,
   handleClick: PropTypes.func.isRequired,
   children: PropTypes.node,
   style: PropTypes.shape({
@@ -48,7 +46,6 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  datatest: PropTypes.string,
   label: '',
   children: null,
   style: null,

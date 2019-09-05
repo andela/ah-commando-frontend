@@ -31,6 +31,19 @@ export const editProfileFailure = (error) => ({
   error,
 });
 
+export const getArticlesStart = () => ({
+  type: types.GET_ARTICLE_START,
+});
+
+export const getArticlesSuccess = (payload) => ({
+  type: types.GET_ARTICLE_SUCCESS,
+  payload,
+});
+
+export const getArticlesFailure = (error) => ({
+  type: types.GET_ARTICLE_FAILURE,
+  error,
+});
 
 export const getProfile = () => async (dispatch) => {
   dispatch(getProfileStart());
@@ -53,5 +66,16 @@ export const editProfile = (payload) => async (dispatch) => {
     return dispatch(editProfileSuccess(response.data.profile));
   } catch (error) {
     return dispatch(editProfileFailure(error.response.data));
+  }
+};
+
+export const getArticles = () => async (dispatch) => {
+  dispatch(getArticlesStart());
+  try {
+    const token = jwtDecode(localStorage.getItem('haven'));
+    const response = await axiosInstance.get(`/articles/?authorId=${token.id}`);
+    return dispatch(getArticlesSuccess(response.data.articles));
+  } catch (error) {
+    return dispatch(getArticlesFailure(error.response.data));
   }
 };

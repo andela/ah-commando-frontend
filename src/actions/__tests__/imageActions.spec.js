@@ -1,7 +1,7 @@
 import * as actions from '../imageAction';
 import { POST_IMAGE_FAILURE, POST_IMAGE_START } from '../types';
 
-jest.mock('../imageApi');
+jest.mock('../imageFunc');
 
 describe('Async action creators', () => {
   it('Should create SIGN_IN_USER_SUCCEEDED when signIn user has been done', async () => {

@@ -2,6 +2,7 @@ import * as types from '../actions/types/index';
 
 const initialState = {
   user: null,
+  article: null,
   error: null,
 };
 
@@ -31,6 +32,20 @@ const profileReducer = (state = initialState, action) => {
         user: action.payload,
       };
     case types.EDIT_PROFILE_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+      };
+    case types.GET_ARTICLE_START:
+      return {
+        ...state,
+      };
+    case types.GET_ARTICLE_SUCCESS:
+      return {
+        ...state,
+        article: action.payload,
+      };
+    case types.GET_ARTICLE_FAILURE:
       return {
         ...state,
         error: action.error,

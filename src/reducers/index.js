@@ -3,7 +3,7 @@ import initialReducer from './initialReducer';
 import { authReducer } from './authReducer';
 import uiReducer from './uiReducer';
 import profileReducer from './profileReducer';
-import articleReducer from './articleReducer';
+// import articleReducer from './articleReducer';
 import imageReducer from './imageReducer';
 
 const reducers = combineReducers({
@@ -11,7 +11,6 @@ const reducers = combineReducers({
   ui: uiReducer,
   auth: authReducer,
   profile: profileReducer,
-  article: articleReducer,
   image: imageReducer,
 });
 

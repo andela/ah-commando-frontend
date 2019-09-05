@@ -1,4 +1,4 @@
-const imageApi = (image) => new Promise((resolve, reject) => {
+const imageFunc = (image) => new Promise((resolve, reject) => {
   process.nextTick(() => (image
     ? resolve({
       image: {
@@ -11,4 +11,4 @@ const imageApi = (image) => new Promise((resolve, reject) => {
     })));
 });
 
-export default imageApi;
+export default imageFunc;
