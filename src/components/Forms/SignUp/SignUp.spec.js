@@ -2,6 +2,13 @@ import React from 'react';
 import chai from 'chai';
 import { shallow } from 'enzyme';
 import { SignUp } from '@Components/Forms/SignUp/SignUp';
+import {
+  emailSchema,
+  passwordSchema,
+  firstnameSchema,
+  lastnameSchema,
+  usernameSchema,
+} from '@Utils/';
 
 chai.should();
 
@@ -110,5 +117,52 @@ describe('<SignUp /> Component', () => {
   it('toggleVisibility() should make passwordConfirm visible', () => {
     instance.toggleVisibility('showConfirm');
     wrapper.state().showConfirm.should.equal(true);
+  });
+
+  it('Should get the right password schema', () => {
+    const schema = instance.getSchema('password');
+    schema.should.equal(passwordSchema);
+  });
+
+  it('Should get the right firstname schema', () => {
+    const schema = instance.getSchema('firstname');
+    schema.should.equal(firstnameSchema);
+  });
+
+  it('Should get the right firstname schema', () => {
+    const schema = instance.getSchema('lastname');
+    schema.should.equal(lastnameSchema);
+  });
+
+  it('Should get the right firstname schema', () => {
+    const schema = instance.getSchema('username');
+    schema.should.equal(usernameSchema);
+  });
+
+  it('Should get the right email schema', () => {
+    const schema = instance.getSchema('email');
+    schema.should.equal(emailSchema);
+  });
+
+  it('Should return null for the default value', () => {
+    const schema = instance.getSchema();
+    expect(schema).toBe(null);
+  });
+
+  it('Should not submit the form if the info isnt correct', () => {
+    const event = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'passwordConfirm',
+        value: 'djfkdjkjdfkjkdf',
+      },
+    };
+    // instance.setFormValidity = jest.fn();
+    // instance.confirmPassword = jest.fn();
+
+    // instance.validateForm = jest.fn().mockReturnValueOnce(false);
+    instance.confirmPassword = jest.fn();
+    instance.handleSubmit(event);
+    expect(instance.confirmPassword).toHaveBeenCalled();
   });
 });
