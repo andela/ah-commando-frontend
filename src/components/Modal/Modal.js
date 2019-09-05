@@ -5,7 +5,11 @@ import './Modal.scss';
 const Modal = (props) => {
   const { open, close, children } = props;
   return (
-    <div className="modal-overlay" style={{ display: open ? 'flex' : 'none' }}>
+    <div
+      data-test="modal"
+      className="modal-overlay"
+      style={{ display: open ? 'flex' : 'none' }}
+    >
       <div className="modal">
         <button type="button" className="close" onClick={close}>X</button>
         <div className="modal-content">{children}</div>

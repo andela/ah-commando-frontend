@@ -49,14 +49,13 @@ export const createUser = (userData, history) => async (dispatch) => {
     type: LOADING,
   });
   try {
-    const response = await axiosInstance.post('users', { user: { ...userData } });
-    if (response.status === 200) {
+    const response = await axiosInstance.post('users/', { user: { ...userData } });
+    if (response.status === 201) {
       const { user } = response.data;
-      console.log('user object', user);
       localStorage.setItem('haven', user.token);
       setToken(user.token);
       dispatch(setCurrentUser(jwtDecode(user.token)));
-      history.push('/signup');
+      history.push('/');
       toast.dismiss();
       toast.success('Registration Successful!');
     }

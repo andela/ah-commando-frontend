@@ -130,7 +130,7 @@ export class SignIn extends Component {
               type="email"
               handleChange={this.handleChange}
               placeholder="john.doe@foo.bar"
-              label="email"
+              label="Email"
               error={errors.email}
             />
             <Input
@@ -139,7 +139,7 @@ export class SignIn extends Component {
               type="password"
               handleChange={this.handleChange}
               placeholder="**********"
-              label="password"
+              label="Password"
               togglable
               visible={showPassword}
               handleToggle={this.toggleVisibility}

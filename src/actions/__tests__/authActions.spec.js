@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 import nock from 'nock';
 import {
   logIn,
+  createUser,
 } from '@Actions/authActions';
 
 const middlewares = [thunk];
@@ -12,8 +13,11 @@ const url = 'https://a-haven-staging.herokuapp.com/api/v1';
 describe('Auth action tests', () => {
   describe('Auth Action tests return values', () => {
     const userData = {
-      email: 'john.doe@gmail.com',
-      password: 'password',
+      firstname: 'john',
+      lastname: 'doe',
+      username: 'johndoe1_',
+      email: 'johun.doe@gmail.com',
+      password: 'password1$',
     };
 
     const history = {
@@ -22,6 +26,10 @@ describe('Auth action tests', () => {
 
     it('signin should return expected values', () => {
       expect(logIn(userData, history)).toMatchSnapshot();
+    });
+
+    it('signup should return expected values', () => {
+      expect(createUser(userData, history)).toMatchSnapshot();
     });
   });
 
@@ -64,6 +72,32 @@ describe('Auth action tests', () => {
         .reply(400, errorResponse.err);
 
       return store.dispatch(logIn({}, { push: jest.fn() }))
+        .then(() => {
+          expect(store.getActions()).toMatchSnapshot();
+        });
+    });
+
+    it('registers a user successfully', () => {
+      nock(url)
+        .post('/users')
+        .reply(201, response);
+      return store.dispatch(createUser({}, { push: jest.fn() }))
+        .then(() => {
+          expect(store.getActions()).toMatchSnapshot();
+        });
+    });
+
+    it('should error as expected', () => {
+      const errorResponse = {
+        err: {
+          response: {},
+        },
+      };
+      nock(url)
+        .post('/users')
+        .reply(400, errorResponse.err);
+
+      return store.dispatch(createUser({}, { push: jest.fn() }))
         .then(() => {
           expect(store.getActions()).toMatchSnapshot();
         });

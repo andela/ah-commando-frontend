@@ -35,6 +35,57 @@ class Validator {
       }),
   };
 
+  static firstnameSchema = {
+    firstname: Joi.string().lowercase().trim().required()
+      .regex(/^[a-zA-Z]+$/)
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case 'string.regex.base':
+              err.message = 'Firstname can only contain letters';
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+  };
+
+  static lastnameSchema = {
+    lastname: Joi.string().lowercase().trim().required()
+      .regex(/^[a-zA-Z]+$/)
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case 'string.regex.base':
+              err.message = 'Lastname can only contain letters';
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+  };
+
+  static usernameSchema = {
+    username: Joi.string().lowercase().trim().required()
+      .regex(/^[a-z0-9_-]+$/)
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case 'string.regex.base':
+              err.message = 'Username can only contain Alphanumeric characters, underscores and hyphens';
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+  };
+
   static validate(field, schema) {
     const { error } = Joi.validate(field, schema, { abortEarly: false });
 

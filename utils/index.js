@@ -8,6 +8,10 @@ export const {
   validate,
   emailSchema,
   passwordSchema,
+  firstnameSchema,
+  lastnameSchema,
+  usernameSchema,
+  passwordConfirmSchema,
 } = Validator;
 export const isEmpty = empty;
 export default (component, attr) => {

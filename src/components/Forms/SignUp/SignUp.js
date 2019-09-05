@@ -8,130 +8,169 @@ import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
 import { closeModal } from '@Actions/uiActions';
 import { createUser } from '@Actions/authActions';
-// import { validate, emailSchema, passwordSchema } from '@Utils/';
+import {
+  validate,
+  emailSchema,
+  passwordSchema,
+  firstnameSchema,
+  lastnameSchema,
+  usernameSchema,
+} from '@Utils/';
 import './SignUp.scss';
 
-class SignUp extends Component {
+export class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
+      firstname: '',
+      lastname: '',
+      username: '',
       email: '',
       password: '',
-      // passwordConfirm: '',
+      passwordConfirm: '',
       showPassword: false,
-      // errors: {},
+      showConfirm: false,
+      errors: {},
       isFormValid: true,
     };
   }
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    // const errors = {};
-    // const [errorValue] = validate({
-    //   [name]: value,
-    // }, name === 'password' ? passwordSchema : emailSchema);
+  getSchema = (name) => {
+    switch (name) {
+      case 'password':
+        return passwordSchema;
+      case 'firstname':
+        return firstnameSchema;
+      case 'lastname':
+        return lastnameSchema;
+      case 'username':
+        return usernameSchema;
+      case 'email':
+        return emailSchema;
+      default:
+        return null;
+    }
+  }
 
-    // errors[name] = errorValue || '';
-    // this.setFormValidity(errors);
+  handleChange = (e) => {
+    const { password } = this.state;
+    const { name, value } = e.target;
+    const errors = {};
+    if (name !== 'passwordConfirm') {
+      const [errorValue] = validate({
+        [name]: value,
+      }, this.getSchema(name));
+      errors[name] = errorValue || '';
+    } else {
+      errors[name] = this.confirmPassword(password, value);
+    }
+    this.setFormValidity(errors);
     this.setState({
       [name]: value,
-      // errors,
+      errors,
     });
   }
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('props ===>', this.props);
-    const {
-      firstName,
-      lastName,
-      email,
-      password,
-      // passwordConfirm,
-      // errors,
-    } = this.state;
     const { signUp, history } = this.props;
-    // const formIsValid = this.validForm();
-
-    // if (!formIsValid) {
-    //   return this.setFormValidity(errors);
-    // }
-    signUp({
-      firstName,
-      lastName,
+    const {
+      firstname,
+      lastname,
+      username,
       email,
       password,
-      // passwordConfirm,
-      isFormValid: true,
-      // errors: {},
+      errors,
+    } = this.state;
+    const formIsValid = this.validateForm();
+    if (!formIsValid) {
+      return this.setFormValidity(errors);
+    }
+
+    signUp({
+      firstname,
+      lastname,
+      username,
+      email,
+      password,
     }, history);
   }
 
-  // validateForm = () => {
-  //   const {
-  //     firstName,
-  //     lastName,
-  //     email,
-  //     password,
-  //     passwordConfirm,
-  //     errors,
-  //   } = this.state;
+  validateForm = () => {
+    const errors = {};
+    const {
+      firstname,
+      lastname,
+      username,
+      email,
+      password,
+      passwordConfirm,
+    } = this.state;
 
-  //   errors.firstName = validate('firstName', firstName).firstName;
-  //   errors.lastName = validate('lastName', lastName).lastName;
-  //   errors.email = validate('email', email).email;
-  //   errors.password = validate('password', password).password;
-  //   errors.Password = validate('passwordCOnfirm', passwordConfirm).password;
+    const [firstnameError] = validate({ firstname }, firstnameSchema);
+    const [lastnameError] = validate({ lastname }, lastnameSchema);
+    const [usernameError] = validate({ username }, usernameSchema);
+    const [emailError] = validate({ email }, emailSchema);
+    const [passwordError] = validate({ password }, passwordSchema);
+    const passwordConfirmError = this.confirmPassword(password, passwordConfirm);
 
-  //   this.setState({ errors });
-  //   return this.setFormValidity(errors);
-  // }
+    errors.firstname = firstnameError || '';
+    errors.lastname = lastnameError || '';
+    errors.username = usernameError || '';
+    errors.email = emailError || '';
+    errors.password = passwordError || '';
+    errors.passwordConfirm = passwordConfirmError || '';
 
-  // setFormValidity = (errors) => {
-  //   let valid = true;
-  //   Object.values(errors).forEach((value) => {
-  //     if (value.length > 0) {
-  //       valid = false;
-  //     }
-  //   });
-  //   this.setState({ isFormValid: valid });
+    return this.setFormValidity(errors);
+  }
 
-  //   return valid;
-  // }
+  confirmPassword = (a, b) => (a === b ? '' : 'Passwords do not match');
 
-  toggleVisibility = () => {
+  setFormValidity = (errors) => {
+    let valid = true;
+    Object.values(errors).forEach((value) => {
+      if (value.length > 0) {
+        valid = false;
+      }
+    });
+    this.setState({ isFormValid: valid });
+
+    return valid;
+  }
+
+  toggleVisibility = (field) => {
     this.setState(prevState => ({
-      showPassword: !prevState.showPassword,
+      [field]: !prevState[field],
     }));
   }
 
   resetModal = () => {
     const { close } = this.props;
     this.setState({
-      firstName: '',
-      lastName: '',
+      firstname: '',
+      lastname: '',
+      username: '',
       email: '',
       password: '',
-      // passwordConfirm: '',
+      passwordConfirm: '',
       showPassword: false,
-      // errors: {},
+      errors: {},
       isFormValid: true,
     });
     close();
   }
 
   render() {
-    console.log('hhhhhhdd');
     const {
-      firstName,
-      lastName,
+      firstname,
+      lastname,
+      username,
       email,
       password,
-      // passwordConfirm,
-      // showPassword,
-      // errors,
+      passwordConfirm,
+      showPassword,
+      showConfirm,
+      errors,
       isFormValid,
     } = this.state;
     const {
@@ -152,22 +191,31 @@ class SignUp extends Component {
           </p>
           <form style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
             <Input
-              name="firstName"
-              value={firstName}
+              name="firstname"
+              value={firstname}
               type="text"
               handleChange={this.handleChange}
               placeholder="John"
-              label="firstname"
-              // error={errors.firstName}
+              label="Firstname"
+              error={errors.firstname}
             />
             <Input
-              name="lastName"
-              value={lastName}
+              name="lastname"
+              value={lastname}
               type="text"
               handleChange={this.handleChange}
               placeholder="Doe"
-              label="lastname"
-              // error={errors.lastName}
+              label="Lastname"
+              error={errors.lastname}
+            />
+            <Input
+              name="username"
+              value={username}
+              type="text"
+              handleChange={this.handleChange}
+              placeholder="johnDoe123"
+              label="Username"
+              error={errors.lastname}
             />
             <Input
               name="email"
@@ -175,8 +223,8 @@ class SignUp extends Component {
               type="email"
               handleChange={this.handleChange}
               placeholder="john.doe@foo.bar"
-              label="email"
-              // error={errors.email}
+              label="Email"
+              error={errors.email}
             />
             <Input
               name="password"
@@ -184,18 +232,24 @@ class SignUp extends Component {
               type="password"
               handleChange={this.handleChange}
               placeholder="**********"
-              label="password"
-              // error={errors.password}
+              label="Password"
+              togglable
+              visible={showPassword}
+              handleToggle={() => this.toggleVisibility('showPassword')}
+              error={errors.password}
             />
-            {/* <Input
+            <Input
               name="passwordConfirm"
               value={passwordConfirm}
               type="password"
               handleChange={this.handleChange}
               placeholder="**********"
               label="Confirm"
-              // error={errors.password}
-            /> */}
+              togglable
+              visible={showConfirm}
+              handleToggle={() => this.toggleVisibility('showConfirm')}
+              error={errors.passwordConfirm}
+            />
             <Button
               label={loading ? null : 'create account'}
               handleClick={this.handleSubmit}
@@ -213,7 +267,7 @@ class SignUp extends Component {
             </Button>
           </form>
           <div className="alternative-login">
-            <p>Or create ann account using:</p>
+            <p>Or create an account using:</p>
             <div className="social-login">
               <span>
                 <i className="fab fa-google fa-lg" style={{ color: 'red' }} />
@@ -233,11 +287,6 @@ class SignUp extends Component {
                 Sign in
               </Link>
             </p>
-          </div>
-          <div className="forgot-password">
-            <Link to="/">
-              Forgot Password?
-            </Link>
           </div>
         </div>
       </Modal>
