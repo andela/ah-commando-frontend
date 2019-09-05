@@ -9,10 +9,14 @@ import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
 import { closeModal, openModal } from '@Actions/uiActions';
+import AuthStore from '@Lib/AuthStore';
 import { logIn, loginViaSocial } from '@Actions/authActions';
-import { validate, emailSchema, passwordSchema } from '@Utils/';
+import {
+  validate, emailSchema, passwordSchema, setToken,
+} from '@Utils/';
 import './SignIn.scss';
 
+const { decryptQuery } = AuthStore;
 export class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +27,22 @@ export class SignIn extends Component {
       errors: {},
       isFormValid: true,
     };
+  }
+
+  componentDidMount() {
+    const { history } = this.props;
+    const socialLogin = localStorage.getItem('socialLogin');
+    if (!socialLogin) return false;
+    if (socialLogin) {
+      const searchParams = new URLSearchParams(window.location.search);
+      if (!searchParams.get('user') || !searchParams.get('token')) return false;
+      const token = decryptQuery(searchParams.get('token'));
+      const user = searchParams.get('user');
+      localStorage.setItem('haven', token);
+      setToken(token);
+      localStorage.setItem('user', user);
+      history.push('/login');
+    }
   }
 
   handleChange = (e) => {
@@ -100,19 +120,10 @@ export class SignIn extends Component {
     close();
   }
 
-  handleSocialSingin = (e) => {
-    const { signinViaSocial, history } = this.props;
-    const iconName = e.target.getAttribute('name');
-    switch (iconName) {
-      case 'gg':
-        signinViaSocial(iconName, history);
-        break;
-      case 'fb':
-        console.log('facebook');
-        break;
-      default:
-        return false;
-    }
+  handleSocialSignin = (e) => {
+    const { signinViaSocial } = this.props;
+    const brand = e.target.getAttribute('name');
+    return signinViaSocial(brand);
   }
 
   render() {
@@ -168,6 +179,7 @@ export class SignIn extends Component {
               handleClick={this.handleSubmit}
               disabled={loading ? true : !isFormValid}
               type="submit"
+              id="signin"
               style={{
                 height: '45px',
                 width: '300px',
@@ -182,11 +194,11 @@ export class SignIn extends Component {
           <div className="alternative-login">
             <p>Or create an account Using:</p>
             <div className="social-login">
-              <span name="gg" onClick={this.handleSocialSingin}>
+              <span name="google" id="google" onClick={this.handleSocialSignin}>
                 <i className="fab fa-google fa-lg" style={{ color: 'red' }} />
                 Google
               </span>
-              <span name="fb" onClick={this.handleSocialSingin}>
+              <span name="facebook" id="facebook" onClick={this.handleSocialSignin}>
                 <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} />
                 Facebook
               </span>

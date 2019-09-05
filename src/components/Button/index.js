@@ -12,16 +12,16 @@ const Button = (props) => {
     type,
     disabled,
     style,
-    datatest,
+    id,
   } = props;
   return (
     <div className="btn-container">
       <button
-        datatest={datatest}
         style={style}
         disabled={disabled}
         type={type}
         onClick={handleClick}
+        id={id}
       >
         <div>
           {children || label}
@@ -32,10 +32,10 @@ const Button = (props) => {
 };
 
 Button.propTypes = {
-  datatest: PropTypes.string,
   label: PropTypes.string,
   handleClick: PropTypes.func.isRequired,
   children: PropTypes.node,
+  id: PropTypes.string,
   style: PropTypes.shape({
     height: PropTypes.string,
     width: PropTypes.string,
@@ -53,6 +53,7 @@ Button.defaultProps = {
   style: null,
   type: '',
   disabled: false,
+  id: '',
 };
 
 export default Button;

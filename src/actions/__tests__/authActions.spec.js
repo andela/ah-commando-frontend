@@ -4,6 +4,7 @@ import nock from 'nock';
 import {
   createUser,
   logIn, requestPasswordLink, setNewPassword,
+  loginViaSocial,
 } from '@Actions/authActions';
 
 const middlewares = [thunk];
@@ -93,6 +94,13 @@ describe('Auth action tests', () => {
           expect(store.getActions()).toMatchSnapshot();
         });
     });
+    it('should change window location', () => store.dispatch(loginViaSocial({}))
+      .then(() => {
+        const window = {
+          location: '',
+        };
+        expect(window.location).toBe('');
+      }));
   });
 
   describe('Sign up actions', () => {

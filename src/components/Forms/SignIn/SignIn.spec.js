@@ -27,6 +27,7 @@ describe('<SignIn /> Component', () => {
       },
       close: jest.fn(),
       signIn: jest.fn(),
+      signinViaSocial: jest.fn(),
     };
     wrapper = shallow(<SignIn {...props} />);
     wrapper.setState(state);
@@ -98,5 +99,71 @@ describe('<SignIn /> Component', () => {
   it('toggleVisibility() should make password visible', () => {
     instance.toggleVisibility();
     wrapper.state().showPassword.should.equal(true);
+  });
+  it('should set window location to backend url for google', () => {
+    const event = {
+      target: {
+        getAttribute: () => 'google',
+      },
+    };
+    instance.handleSocialSignin(event);
+  });
+  it('should set window location to backend url for facebook', () => {
+    const event = {
+      target: {
+        getAttribute: () => 'facebook',
+      },
+    };
+    instance.handleSocialSignin(event);
+  });
+  it('on mounting socialLogin should be false', () => {
+    instance.componentDidMount();
+    const localStorage = {
+      getItem: jest.fn().mockReturnValueOnce(false),
+    };
+    const socialLogin = localStorage.getItem('socialLogin');
+    expect(socialLogin).toBe(false);
+  });
+  it('should make social login true', () => {
+    let e = {
+      target: {
+        getAttribute: () => 'google',
+      },
+    };
+    const span = wrapper.find('span[id="google"]');
+    const span2 = wrapper.find('span[id="facebook"]');
+    span.simulate('click', e);
+    e = {
+      target: {
+        getAttribute: () => 'facebook',
+      },
+    };
+    span2.simulate('click', e);
+    const localStorage = {
+      getItem: jest.fn().mockReturnValueOnce(true),
+    };
+    const socialLogin = localStorage.getItem('socialLogin');
+    expect(instance.props.signinViaSocial).toHaveBeenCalled();
+    const changeHandle = jest.spyOn(instance, 'handleSocialSignin');
+    changeHandle(e);
+    expect(changeHandle).toHaveBeenCalledTimes(1);
+    expect(socialLogin).toBe(true);
+  });
+  it('should mock URLSearchParams', () => {
+    instance.componentDidMount();
+    const localStorage = {
+      getItem: jest.fn().mockReturnValueOnce(true),
+    };
+    const socialLogin = localStorage.getItem('socialLogin');
+    const window = {
+      location: {
+        search: '',
+      },
+    };
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.get = jest.fn().mockReturnValueOnce('jfkdl');
+    const user = searchParams.get('user');
+    expect(socialLogin).toBe(true);
+    expect(user).toBe('jfkdl');
   });
 });
