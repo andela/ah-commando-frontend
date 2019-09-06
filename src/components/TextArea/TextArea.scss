@@ -1,0 +1,49 @@
+
+
+.textarea-container{
+  width: 300px;
+  height: 45px;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 45px;
+  margin-left: 25px;
+  label {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 11px;
+    line-height: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+    min-width: 76px;
+    height: 81px;
+    background-color: #FFC700;
+  }
+}
+
+textarea {
+  width: 100%;
+  border: 1px solid #C4C4C4;
+  border-left: 0;
+  margin: 0;
+  padding: 8px;
+  font-size: 14px;
+
+  &::placeholder {
+    color: rgba(128, 128, 128, 0.287);
+  }
+}
+
+.error {
+  box-shadow: 0 0 5px rgb(238, 81, 81);
+  border: 1px solid rgb(238, 81, 81);
+}
+
+.error-div {
+  margin-bottom: 5px;
+  font-family: 'Inconsolata', monospace;
+  color: red;
+  max-width: 316px;
+}

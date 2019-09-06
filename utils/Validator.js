@@ -86,6 +86,10 @@ class Validator {
       }),
   };
 
+  static bioSchema = {
+    bio: Joi.string().lowercase(),
+  };
+
   static validate(field, schema) {
     const { error } = Joi.validate(field, schema, { abortEarly: false });
 

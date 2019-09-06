@@ -134,7 +134,7 @@ $desktop: 375px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 27.94% 72.06%;
-  grid-template-areas: 'image body'; 
+  grid-template-areas: 'image body';
   @include desktop {
     width: 986px;
     height: 147px;
@@ -162,9 +162,10 @@ $desktop: 375px;
   .article-details {
     grid-area: body;
     padding: 2px;
+    margin-left: 2rem;
     @include desktop{
-      padding: 0 174px 0 41.5px;
-      margin: 0 auto;
+      // padding: 0 174px 0 41.5px;
+      // margin: 0 auto;
     }
     .title-container {
       .title {
@@ -232,7 +233,7 @@ $desktop: 375px;
         color: rgba(0, 0, 0, 0.6);
         margin-left: 3px;
       }
-    
+
       .hor-readTime {
         display: none;
         @include desktop {

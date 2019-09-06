@@ -1,0 +1,141 @@
+.profile-container{
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 12% 75%;
+  grid-column-gap: 60px;
+  font-family: 'Montserrat', sans-serif;
+}
+.sidebar ul{
+  list-style-type: none;
+}
+.sidebar ul li{
+  list-style-type: none;
+  padding-bottom: 25px;
+}
+.sidebar ul li a{
+  text-decoration: none;
+  color: #000000;
+  font-size: 14px;
+  font-weight: bold;
+}
+.profile-header{
+  display: grid;
+  grid-template-columns: 80% 20%;
+  grid-column-gap: 30px;
+  padding: 20px;
+}
+.profile-image{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+.profile-details h3 {
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
+}
+.profile-details span p {
+  font-weight: bold;
+  font-size: 12px;
+  color: #858585;
+  padding: 0;
+  margin-top: -20px;
+}
+.profile-details p {
+  font-weight: 100;
+  font-size: 13px;
+  padding-top: 10px;
+  margin: 0;
+  width: 90%;
+  line-height: 23px;
+}
+.following{
+  font-size: 12px;
+  font-weight: bold;
+}
+.followers{
+  font-size: 12px;
+  margin: 20px 10px 10px;
+  font-weight: bold;
+}
+.name-button{
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 20% 30%;
+}
+.profile-links {
+  width: 90%;
+  padding-bottom: 10px;
+  border-bottom: #000000 1px solid;
+}
+
+.profile-links ul{
+  padding-left: 20px;
+}
+.profile-links ul li{
+  list-style-type: none;
+  float: left;
+  margin-right: 30px;
+}
+.profile-links ul li a{
+  text-decoration: none;
+  color: #000000;
+  font-size: 14px;
+  font-weight: bold;
+}
+.profile-article{
+  margin: 0;
+  padding-top: 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr
+}
+.single-article {
+  padding: 20px;
+}
+.profile-footer{
+  margin: 100px 0 30px 0;
+}
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 50px;
+}
+.close:hover,
+.close:focus {
+  color: #FFC700;
+  text-decoration: none;
+  cursor: pointer;
+}
+.profile-img{
+  position: relative;
+  left: 25%;
+  transform: translateY(-280px);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: transparent;
+  padding-top: 65px;
+  padding-left: 55px;
+  color: white;
+}
+.form-image{
+  position: relative;
+  left: 45%;
+  opacity: .5;
+  transform: translateY(-220px);
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  color: white;
+}
+.update-form{
+  margin-top: 30px;
+  margin-left: 20%;
+}
+.profile-heading{
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+}
