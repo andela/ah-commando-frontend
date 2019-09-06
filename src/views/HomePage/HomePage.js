@@ -6,7 +6,7 @@ import Header from '@Components/Header';
 import Footer from '@Components/Footer';
 import SignUp from '@Components/Forms/SignUp';
 import SignIn from '@Components/Forms/SignIn';
-import PasswordRequest from '@Components//Forms/PasswordRequest';
+import PasswordRequest from '@Components/Forms/PasswordRequest';
 import HomeCardArticle from './HomeCardArticle';
 import Banner from './Banner';
 import MainCardSection from './MainCardSection';

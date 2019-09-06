@@ -28,6 +28,7 @@ describe('Password reset component', () => {
       token: '',
       id: '',
       showPassword: false,
+      showconfirm: true,
       confirmPassword: '',
       error: {},
     };
@@ -45,6 +46,12 @@ describe('Password reset component', () => {
     wrapper.state().showPassword.should.equal(true);
   });
 
+  it('should toggle confirm password', () => {
+    instance.togglePassword('showconfirm');
+    wrapper.state().showPassword.should.equal(false);
+  });
+
+
   it('should handle input change', () => {
     const e = {
       target: {
@@ -54,6 +61,19 @@ describe('Password reset component', () => {
     };
     instance.handleChange(e);
     wrapper.state().password.should.equal(e.target.value);
+  });
+
+  it('should handle confirm password', () => {
+    const e = {
+      preventDefault: jest.fn(),
+      target: {
+        name: 'confirmPassword',
+        value: 'Banke@1920',
+      },
+    };
+    instance.confirmPassword = jest.fn();
+    instance.handleSubmit(e);
+    expect(instance.confirmPassword).toHaveBeenCalledTimes(0);
   });
 
   it('should validate password', () => {
@@ -69,6 +89,7 @@ describe('Password reset component', () => {
       },
     };
     instance.handleSubmit(e);
+    instance.passwordReset = jest.fn();
     expect(e.preventDefault).toHaveBeenCalled();
   });
 
