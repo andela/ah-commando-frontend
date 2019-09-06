@@ -92,8 +92,10 @@ export class PasswordRequest extends Component {
               value={email}
               handleChange={this.handleChange}
               error={error.email}
+              id="passwordEmail"
             />
             <Button
+              datatest="send-password-link"
               label={loading ? null : 'Send Request Link'}
               type="submit"
               handleClick={this.handleSubmit}

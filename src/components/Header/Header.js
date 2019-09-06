@@ -65,6 +65,7 @@ export class Header extends Component {
             : (
               <div className="action">
                 <Button
+                  datatest="loginButton"
                   label="sign in"
                   handleClick={signIn}
                   disabled={false}

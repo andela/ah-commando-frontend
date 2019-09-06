@@ -166,72 +166,78 @@ describe('Auth action tests', () => {
         });
     });
 
+    // it('should throw error as expected', () => {
+    //   const errorResponse = {
+    //     err: {
+    //       response: {
+    //         data: {},
+    //       },
+    //     },
+    //   };
+    //   nock(url)
+    //     .post('/users/passwordReset')
+    //     .reply(400, errorResponse.err);
+
+    //   return store.dispatch(requestPasswordLink({}))
+    //     .then(() => {
+    //       expect(store.getActions()).toMatchSnapshot();
+    //     });
+    // });
+  });
+
+  describe('Async password reset action test', () => {
+    let store;
+    const response = {
+      data: {
+        message: 'Success, Password Reset Successfully',
+      },
+    };
+
+    const data = {
+      password: 'DenJohn@123',
+      id: 2,
+      token: 'abcd',
+    };
+
+    const { id, token } = data;
+
+    beforeEach(() => {
+      store = mockStore({});
+    });
+
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
+    it('reset new password', () => (store.dispatch(setNewPassword({ id, token }, { push: jest.fn() }))
+      .then(() => {
+        nock(url)
+          .put(`users/resetPassword/${id}/${token}`)
+          .reply(200, response);
+      })
+      .then(() => {
+        expect(store.getActions()).toMatchSnapshot();
+      })
+    ));
+
     it('should throw error as expected', () => {
       const errorResponse = {
         err: {
-          response: {},
+          response: {
+            data: {},
+          },
         },
       };
-      nock(url)
-        .post('/users/passwordReset')
-        .reply(400, errorResponse.err);
 
-      return store.dispatch(requestPasswordLink({}))
+      return store.dispatch(setNewPassword({ id, token }, { push: jest.fn() }))
+        .then(() => {
+          nock(url)
+            .post(`users/resetPassword/${id}/${token}`)
+            .reply(400, errorResponse.err);
+        })
         .then(() => {
           expect(store.getActions()).toMatchSnapshot();
         });
     });
   });
-
-  //   describe('Async password reset action test', () => {
-  //     let store;
-  //     const response = {
-  //       data: {
-  //         message: 'Success, Password Reset Successfully',
-  //       },
-  //     };
-
-  //     const data = {
-  //       password: 'DenJohn@123',
-  //       id: 2,
-  //       token: 'abcd',
-  //     };
-
-  //     const { id, token } = data;
-
-  //     beforeEach(() => {
-  //       store = mockStore({});
-  //     });
-
-  //     afterEach(() => {
-  //       nock.cleanAll();
-  //     });
-
-  //     it('reset new password', () => {
-  //       nock(url)
-  //         .put(`users/resetPassword/${id}/${token}`)
-  //         .reply(200, response);
-
-  //       return store.dispatch(setNewPassword({}))
-  //         .then(() => {
-  //           expect(store.getActions()).toMatchSnapshot();
-  //         });
-  //     });
-
-  //     it('should throw error as expected', () => {
-  //       const errorResponse = {
-  //         err: {
-  //           response: {},
-  //         },
-  //       };
-  //       nock(url)
-  //         .post(`users/resetPassword/${id}/${token}`)
-  //         .reply(400, errorResponse.err);
-
-  //       return store.dispatch(setNewPassword({}, { push: jest.fn() }))
-  //         .then(() => {
-  //           expect(store.getActions()).toMatchSnapshot();
-  //         });
-  //     });
-  //   });
 });

@@ -146,7 +146,7 @@ export class SignIn extends Component {
               error={errors.password}
             />
             <Button
-              datatest="login-button"
+              datatest="loginButton"
               label={loading ? null : 'Sign In'}
               handleClick={this.handleSubmit}
               disabled={loading ? true : !isFormValid}
@@ -187,6 +187,7 @@ export class SignIn extends Component {
           </div>
           <div className="forgot-password">
             <Button
+              datatest="request-passwordBtn"
               label="Forgot Password?"
               handleClick={requestPassword}
               type="button"

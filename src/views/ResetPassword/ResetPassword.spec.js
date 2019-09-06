@@ -1,7 +1,7 @@
 import React from 'react';
 import chai from 'chai';
 import { shallow } from 'enzyme';
-import { ResetPassword } from './';
+import { ResetPassword } from '@Views/ResetPassword/ResetPassword';
 
 chai.should();
 
