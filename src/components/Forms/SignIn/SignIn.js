@@ -195,11 +195,11 @@ export class SignIn extends Component {
             <p>Or create an account Using:</p>
             <div className="social-login">
               <span name="google" id="google" onClick={this.handleSocialSignin}>
-                <i className="fab fa-google fa-lg" style={{ color: 'red' }} />
+                <i className="fab fa-google fa-lg" style={{ color: 'red' }} onClick={this.handleSocialSignin} name="google" />
                 Google
               </span>
               <span name="facebook" id="facebook" onClick={this.handleSocialSignin}>
-                <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} />
+                <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} onClick={this.handleSocialSignin} name="facebook" />
                 Facebook
               </span>
             </div>

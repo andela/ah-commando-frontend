@@ -1,6 +1,7 @@
 import React from 'react';
 import chai from 'chai';
 import { shallow } from 'enzyme';
+import sinon from 'sinon';
 import { SignIn } from '@Components/Forms/SignIn/SignIn';
 
 chai.should();
@@ -124,5 +125,81 @@ describe('<SignIn /> Component', () => {
     };
     const socialLogin = localStorage.getItem('socialLogin');
     expect(socialLogin).toBe(false);
+  });
+});
+describe('test social media sign in', () => {
+  const props = {
+    ui: {
+      loading: false,
+      modalOpen: true,
+      modal: 'signin',
+    },
+    history: {
+      push: sinon.spy(),
+    },
+    close: jest.fn(),
+    signIn: jest.fn(),
+    signinViaSocial: sinon.spy(),
+  };
+  const e = {
+    target: {
+      getAttribute: jest.fn().mockReturnValueOnce('google'),
+    },
+  };
+  const wrapper = shallow(<SignIn {...props} />);
+  const instance = wrapper.instance();
+  const span = wrapper.find('span[name="google"]');
+  it('should click the google signin button', () => {
+    span.simulate('click', e);
+    expect(wrapper).toMatchSnapshot();
+    expect(instance.props.signinViaSocial.calledOnce).toBe(true);
+  });
+  it('should error if no user is found', () => {
+    span.simulate('click', e);
+    instance.componentDidMount();
+    const window = {
+      location: {
+        search: sinon.match(),
+      },
+    };
+    const localStorage = {
+      getItem: jest.fn().mockReturnValueOnce(true),
+    };
+    const socialLogin = localStorage.getItem('socialLogin');
+    expect(socialLogin).toBe(true);
+    const URLSearchParmas = sinon.spy();
+    const searchParams = new URLSearchParmas(window.location.search);
+    searchParams.get = jest.fn().mockReturnValueOnce(false);
+    expect(searchParams.get('user')).toBe(false);
+    expect(searchParams.get('token')).toBe(undefined);
+    expect(instance.componentDidMount()).toBe(false);
+  });
+  it('should pass and redirect if user is found', () => {
+    span.simulate('click', e);
+    instance.componentDidMount();
+    const window = {
+      location: {
+        search: sinon.match('token=nmknfkm&&user=kdlmfklm'),
+      },
+    };
+    const localStorage = {
+      getItem: jest.fn().mockReturnValueOnce(true),
+      setItem: sinon.spy(),
+    };
+    const setToken = sinon.spy();
+    const socialLogin = localStorage.getItem('socialLogin');
+    expect(socialLogin).toBe(true);
+    const URLSearchParmas = sinon.spy();
+    const searchParams = new URLSearchParmas(window.location.search);
+    searchParams.get = jest.fn().mockReturnValue(true);
+    expect(searchParams.get('user')).toBe(true);
+    expect(searchParams.get('token')).toBe(true);
+    const decryptQuery = jest.fn().mockReturnValueOnce('jnkjkjjkjnjkjjkkkknjkjkj');
+    const token = decryptQuery(searchParams.get('token'));
+    expect(token).toBe('jnkjkjjkjnjkjjkkkknjkjkj');
+    expect(localStorage.setItem.calledOnce).toBe(false);
+    expect(setToken.calledOnce).toBe(false);
+    expect(localStorage.setItem.calledOnce).toBe(false);
+    expect(instance.props.history.calledOnce).toBe(undefined);
   });
 });

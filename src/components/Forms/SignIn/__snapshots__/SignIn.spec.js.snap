@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`test social media sign in should click the google signin button 1`] = `
+<Modal
+  close={[Function]}
+  data-test="signup-form"
+  open={true}
+>
+  <div
+    className="form"
+  >
+    <h3
+      className="form-header"
+    >
+      Sign in
+    </h3>
+    <p
+      className="form-text"
+    >
+      Sign in to experience author’s haven great community of creative minds. Follow your favourite authors and interact with the articles you love
+    </p>
+    <form
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "column",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Input
+        error=""
+        handleChange={[Function]}
+        handleToggle={null}
+        id=""
+        label="Email"
+        name="email"
+        placeholder="john.doe@foo.bar"
+        togglable={false}
+        type="email"
+        value=""
+        visible={false}
+      />
+      <Input
+        error=""
+        handleChange={[Function]}
+        handleToggle={[Function]}
+        id=""
+        label="Password"
+        name="password"
+        placeholder="**********"
+        togglable={true}
+        type="password"
+        value=""
+        visible={false}
+      />
+      <Button
+        disabled={false}
+        handleClick={[Function]}
+        id="signin"
+        label="Sign in"
+        style={
+          Object {
+            "backgroundColor": "#000",
+            "borderRadius": "0",
+            "color": "#ffc700",
+            "height": "45px",
+            "width": "300px",
+          }
+        }
+        type="submit"
+      />
+    </form>
+    <div
+      className="alternative-login"
+    >
+      <p>
+        Or create an account Using:
+      </p>
+      <div
+        className="social-login"
+      >
+        <span
+          id="google"
+          name="google"
+          onClick={[Function]}
+        >
+          <i
+            className="fab fa-google fa-lg"
+            name="google"
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "red",
+              }
+            }
+          />
+          Google
+        </span>
+        <span
+          id="facebook"
+          name="facebook"
+          onClick={[Function]}
+        >
+          <i
+            className="fab fa-facebook fa-lg"
+            name="facebook"
+            onClick={[Function]}
+            style={
+              Object {
+                "color": "blue",
+              }
+            }
+          />
+          Facebook
+        </span>
+      </div>
+    </div>
+    <div
+      className="switch-context"
+    >
+      <p>
+        No account?
+         
+        <Link
+          to="/"
+        >
+          Sign up
+        </Link>
+      </p>
+    </div>
+    <div
+      className="forgot-password"
+    >
+      <Link
+        to="/"
+      >
+        Forgot Password?
+      </Link>
+    </div>
+  </div>
+</Modal>
+`;
