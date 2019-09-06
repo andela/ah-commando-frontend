@@ -151,7 +151,6 @@ export class SignIn extends Component {
               handleClick={this.handleSubmit}
               disabled={loading ? true : !isFormValid}
               type="submit"
-              datatest="test"
               style={{
                 height: '45px',
                 width: '300px',

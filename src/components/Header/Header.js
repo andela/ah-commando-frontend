@@ -71,7 +71,6 @@ export class Header extends Component {
                   disabled={false}
                   type="button"
                   style={buttonStyle}
-                  datatest="test"
                 />
                 <Button
                   datatest="signup-button"
