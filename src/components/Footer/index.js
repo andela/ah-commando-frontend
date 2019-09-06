@@ -3,7 +3,6 @@ import './Footer.scss';
 
 const Footer = () => (
   <div className="footer-container">
-    <hr />
     <div className="footer-labels">
       <div className="about">
         <label>ABOUT</label>

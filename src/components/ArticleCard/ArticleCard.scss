@@ -43,6 +43,7 @@ $desktop: 376px;
     height: 79.98px;
     margin: 0 auto;
     object-fit: cover;
+    border-radius: 5px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     @include desktop{
       width: 193px;
@@ -159,6 +160,7 @@ $desktop: 376px;
     width: 88.29px;
     height: 64.31px;
     margin: 0 auto;
+    border-radius: 5px;
     object-fit: cover;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     transition: all 1s ease-in;
@@ -170,7 +172,6 @@ $desktop: 376px;
   .article-details {
     grid-area: body;
     padding: 2px;
-    margin-left: 2rem;
     @include desktop{
       padding: 0 174px 0 20px;
     }

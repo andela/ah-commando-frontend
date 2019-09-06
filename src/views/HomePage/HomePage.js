@@ -71,7 +71,9 @@ export class Home extends Component {
         <div className="banner" data-test="Banner">
           <Banner />
         </div>
-        <Footer />
+        <div style={{ padding: '30px' }}>
+          <Footer />
+        </div>
       </div>
     );
   }
