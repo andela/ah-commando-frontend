@@ -166,4 +166,20 @@ describe('<SignUp /> Component', () => {
     instance.handleSubmit(event);
     expect(instance.confirmPassword).toHaveBeenCalled();
   });
+  it('should set window location to backend url for google', () => {
+    const event = {
+      target: {
+        getAttribute: () => 'google',
+      },
+    };
+    instance.handleSocialSignin(event);
+  });
+  it('should set window location to backend url for facebook', () => {
+    const event = {
+      target: {
+        getAttribute: () => 'facebook',
+      },
+    };
+    instance.handleSocialSignin(event);
+  });
 });

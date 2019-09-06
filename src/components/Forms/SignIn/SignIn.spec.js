@@ -1,7 +1,6 @@
 import React from 'react';
 import chai from 'chai';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
 import { SignIn } from '@Components/Forms/SignIn/SignIn';
 
 chai.should();
@@ -118,6 +117,7 @@ describe('<SignIn /> Component', () => {
     instance.handleSocialSignin(event);
   });
   it('on mounting socialLogin should be false', () => {
+    instance.componentDidMount = jest.fn();
     instance.componentDidMount();
     const localStorage = {
       getItem: jest.fn().mockReturnValueOnce(false),
@@ -131,8 +131,7 @@ describe('<SignIn /> Component', () => {
         search: jest.fn().mockReturnValueOnce(false),
       },
     };
-    instance.componentDidMount();
-    const URLSearchParams = sinon.spy();
+    const URLSearchParams = jest.fn();
     const searchParams = new URLSearchParams(window.location.search);
     searchParams.get = jest.fn().mockReturnValueOnce(false);
     const user = searchParams.get('user');
