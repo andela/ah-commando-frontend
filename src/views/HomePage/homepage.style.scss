@@ -1,0 +1,80 @@
+$desktop: 375px;
+
+@mixin desktop {
+  @media (max-width: #{$desktop}) {
+    @content
+  }
+}
+
+.homepage{
+  display: flex;
+  flex-direction: column;
+
+  .articleSection{
+    display: flex;
+    width: 90%;
+    margin: 10px auto;
+    margin-top: 30px;
+    justify-content: center;
+
+    .featured {
+      width: 70%;
+      margin-right: 30px;
+      padding-right: 20px;
+      @include desktop {
+        width: #{$desktop};
+      }
+    }
+
+    .aside {
+      position: sticky;
+      top:0;
+      height: 500px;
+      overflow-y: hidden;
+      width: 20%;
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid silver;
+      margin-top: 5px;
+      transition: all .4s ease-out;
+      padding-left: 30px;
+
+      .top{
+        top: 7px;
+      }
+
+      .bottom{
+        bottom: 7px;
+      }
+
+      .btns{
+        position: absolute;
+        background: white;
+        left: 70%;
+        font-size: 24px;
+        color: rgba(0,0,0,0.5);
+        text-align: center;
+        display: flex;
+        align-content: center;
+        justify-content: center;
+        border: 1px solid rgba(121,121,121,0.5);
+        z-index: 5;
+
+        button {
+          background: inherit;
+          border:none;
+          width: 20px;
+          height: 20px;
+        }
+      }
+
+      @include desktop {
+        display: none;
+      }
+    }
+  }
+
+  .banner{
+    margin-bottom: 20px;
+  }
+}

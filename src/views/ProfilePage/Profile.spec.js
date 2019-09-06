@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import findByTestAttribute from '@Utils/';
+import { findByTestAttribute } from '@Utils/';
 import { Profile } from './Profile';
 
 const state = {
@@ -59,8 +59,8 @@ const props = {
     createdAt: '2019-09-04T10:38:23.968Z',
     updatedAt: '2019-09-04T10:38:23.968Z',
   })),
-  uploadImage: jest.fn(() => {}),
-  renderProfileCards: jest.fn(() => {}),
+  uploadImage: jest.fn(() => { }),
+  renderProfileCards: jest.fn(() => { }),
   image: {
     loading: false,
   },
@@ -75,7 +75,7 @@ describe('Profile component test', () => {
       instance = wrapper.instance();
     });
     afterEach(() => {
-      wrapper.unmount();
+      // wrapper.unmount();
     });
     it('Should render without error', () => {
       const component = findByTestAttribute(wrapper, 'profileComponent');

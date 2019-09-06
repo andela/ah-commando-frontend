@@ -1,0 +1,78 @@
+$desktop: 375px;
+
+@mixin desktop {
+  @media (max-width: #{$desktop}) {
+    @content
+  }
+}
+
+.featuredsection{
+  position: relative;
+  margin-top: 20px;
+
+  .left{
+    left: -10px;
+  }
+
+  .right{
+    right: -10px;
+  }
+
+  button {
+    background: inherit;
+    border:none;
+  }
+
+  .btn{
+    position: absolute;
+    background: white;
+    top: 60%;
+    font-size: 24px;
+    color: rgba(0,0,0,0.5);
+    text-align: center;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    border: 1px solid rgba(121,121,121,0.5);
+    z-index: 5;
+
+    button {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .header{
+    padding: 3px 0;
+    margin: 2px -10px;
+    text-transform: capitalize;
+    position: sticky;
+    top:0;
+    z-index: 6;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid silver;
+
+    button {
+      width: 50px;
+      font-size: 14px;
+
+      :hover {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .horizontal {
+    margin-bottom: 10px;
+  }
+
+  .verticalCards {
+    display: flex;
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+  }
+}

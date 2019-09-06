@@ -5,18 +5,23 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
     min-width: 100px;
-    padding: 12px;
     background-color: #FFC700;
     font-size: 16px;
     border-radius: 5px;
     border: none;
     outline: 0;
     margin: 0 10px;
+    width: 100px;
+    height: 35px;
 
     &:disabled {
-      background-color: rgba(255, 200, 0, 0.431);
-      color: white;
+      background-color: rgba(121, 121, 121, 0.431)!important;
+      color: white!important;
       cursor: not-allowed;
     }
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center
   }
 }

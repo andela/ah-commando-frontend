@@ -23,7 +23,9 @@ const Button = (props) => {
         type={type}
         onClick={handleClick}
       >
-        {children || label}
+        <div>
+          {children || label}
+        </div>
       </button>
     </div>
   );

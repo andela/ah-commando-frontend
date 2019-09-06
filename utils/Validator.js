@@ -70,7 +70,7 @@ class Validator {
   };
 
   static usernameSchema = {
-    username: Joi.string().lowercase().trim().required()
+    username: Joi.string().lowercase().required()
       .regex(/^[a-z0-9_-]+$/)
       .error((errors) => {
         errors.forEach((err) => {

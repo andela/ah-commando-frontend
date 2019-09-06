@@ -4,7 +4,7 @@ $accent-color: #ffa500;
   justify-content: center;
   align-items: center;
   position: fixed;
-  z-index: 1;
+  z-index: 2000;
   left: 0;
   top: 0;
   width: 100vw;
@@ -14,29 +14,32 @@ $accent-color: #ffa500;
   padding: 10%;
 
   .modal {
+    z-index: 2000;
     border: .5px solid #88888810;
     min-width: 700px;
     border-radius: 10px;
     background-color: white;
-    box-shadow: 1px 2px 8px -1px rgba(0,0,0,0.56);
+    box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.56);
+    position: relative;
   }
-  
+
   .modal-content {
-    padding: 60px 60px 60px 60px;
+    padding: 50px 30px;
   }
-  
+
   .close {
+    position: absolute;
     color: #aaa;
-    float: right;
+    right: 0;
     font-family: 'Montserrat', sans-serif;
     font-size: 20px;
-    padding: 20px;
+    padding: 40px;
     transition: all .4s;
     border: none;
     background: none;
     outline: none;
   }
-  
+
   .close:hover,
   .close:focus {
     color: $accent-color;

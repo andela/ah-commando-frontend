@@ -1,42 +1,92 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
+import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+import Skeleton from 'react-skeleton-loader';
 import './ArticleCard.scss';
+import { thousandths } from '@Utils/';
 import Icon from '../Icon';
 
-const ArticleCard = (props) => {
-  const { type, data } = props;
-  return (
-    <div className={`${type}`}>
-      <div className="image-container">
-        <img className="img" alt="logo" src={data.image} />
-      </div>
-      <div className="article-details">
-        <div className="title-container">
-          <label className="title">{data.title}</label>
-          <label className="author-name">{data.authorName}</label>
-          <label className="description">{data.description}</label>
+class ArticleCard extends Component {
+  state = {
+    loading: 0,
+    error: false,
+  }
+
+  handleLoad = () => {
+    this.setState({
+      loading: 1,
+    });
+  }
+
+  handleError = () => {
+    this.setState({
+      error: true,
+      loading: 1,
+    });
+  }
+
+
+  render() {
+    const { type, data } = this.props;
+
+    if (!data) {
+      return (
+        <div data-test="loadingComponent">
+          ...loading
         </div>
-        <div className="icons">
-          <div className="like">
-            <Icon name="likes" className="like" />
-            <label className="icon-label">{data.likes}</label>
-          </div>
-          <div className="dislike">
-            <Icon name="dislikes" />
-            <label className="icon-label">{data.dislikes}</label>
-          </div>
-          <div className="comment">
-            <Icon name="comments" />
-            <label className="icon-label">{data.comments}</label>
-          </div>
-          <label className="hor-readTime">{`${data.readTime} min read`}</label>
+      );
+    }
+
+    const {
+      image, title, author, description, likesCount, dislikesCount, comment, readTime,
+    } = data;
+
+    const { firstname, lastname } = author;
+    const likes = thousandths(likesCount);
+    const dislikes = thousandths(dislikesCount);
+    const comments = thousandths(comment.length);
+    const { loading, error } = this.state;
+    return (
+      <div className={`${type}`}>
+        <div className="image-container">
+          {loading === 0 ? <Skeleton width="100%" height="100%" /> : ''}
+          <img
+            className="img"
+            alt=""
+            src={error
+              ? 'https://res.cloudinary.com/drdje1skj/image/upload/v1567527717/placeholder-image4_s2xbim.jpg'
+              : image}
+            onLoad={this.handleLoad}
+            style={{ opacity: loading }}
+            onError={this.handleError}
+          />
         </div>
-        <label className="ver-readTime">{`${data.readTime} min read`}</label>
+        <div className="article-details">
+          <div className="title-container">
+            <p className="title">{title}</p>
+            <label className="author-name">{`${firstname} ${lastname}`}</label>
+            <label className="description">{description}</label>
+          </div>
+          <div className="icons">
+            <div className="like">
+              <Icon name="likes" className="like" />
+              <label className="icon-label">{likes}</label>
+            </div>
+            <div className="dislike">
+              <Icon name="dislikes" />
+              <label className="icon-label">{dislikes}</label>
+            </div>
+            <div className="comment">
+              <Icon name="comments" />
+              <label className="icon-label">{comments}</label>
+            </div>
+            <label className="hor-readTime">{`${readTime} min read`}</label>
+          </div>
+          <label className="ver-readTime">{`${readTime} min read`}</label>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 ArticleCard.propTypes = {
   type: PropTypes.string,
@@ -45,10 +95,14 @@ ArticleCard.propTypes = {
     title: PropTypes.string,
     authorName: PropTypes.string,
     description: PropTypes.string,
-    likes: PropTypes.number,
-    dislikes: PropTypes.number,
-    comments: PropTypes.number,
+    likesCount: PropTypes.number,
+    dislikesCount: PropTypes.number,
+    comment: PropTypes.any,
     readTime: PropTypes.number,
+    author: PropTypes.shape({
+      firstname: PropTypes.string,
+      lastname: PropTypes.string,
+    }),
   }),
 };
 
@@ -61,7 +115,7 @@ ArticleCard.defaultProps = {
     description: '',
     likes: 2,
     dislikes: 1,
-    comments: 1,
+    comment: 1,
     readTime: 1,
   },
 };

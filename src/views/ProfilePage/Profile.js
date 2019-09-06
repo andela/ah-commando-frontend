@@ -77,7 +77,7 @@ export class Profile extends Component {
     const errors = {};
     const [errorValue] = validate({
       [name]: value,
-    // eslint-disable-next-line no-nested-ternary
+      // eslint-disable-next-line no-nested-ternary
     }, name === 'username' ? usernameSchema : name === 'bio' ? bioSchema : emailSchema);
     errors[name] = errorValue || '';
     this.setFormValidity(errors);
@@ -197,7 +197,7 @@ export class Profile extends Component {
     return (
       <div data-test="profileComponent">
         <Header />
-        { dialogOpen ? (
+        {dialogOpen ? (
           <Dialog>
             <span className="close" onClick={this.handleToggleEditProfileModal}>&times;</span>
             <p className="profile-heading">Edit your profile</p>
@@ -258,13 +258,13 @@ export class Profile extends Component {
         <div className="profile-container">
           <div className="sidebar">
             <ul>
-              <li><Link href="/">New Article</Link></li>
-              <li><Link href="/">Bookmarks</Link></li>
-              <li><Link href="/">Account</Link></li>
-              <li><Link href="/">Stats</Link></li>
-              <li><Link href="/">Notification</Link></li>
-              <li><Link href="/">Help</Link></li>
-              <li><Link href="/">Log Out</Link></li>
+              <li><Link to="/">New Article</Link></li>
+              <li><Link to="/">Bookmarks</Link></li>
+              <li><Link to="/">Account</Link></li>
+              <li><Link to="/">Stats</Link></li>
+              <li><Link to="/">Notification</Link></li>
+              <li><Link to="/">Help</Link></li>
+              <li><Link to="/">Log Out</Link></li>
             </ul>
           </div>
           <div className="main">
@@ -272,11 +272,21 @@ export class Profile extends Component {
               <div className="profile-details">
                 <div className="name-button">
                   <h3>{`${firstname} ${lastname}`}</h3>
-                  <span><Button handleClick={this.handleToggleEditProfileModal} datatest="edit-button">Edit Profile</Button></span>
-                  <span><p>{`@${username}`}</p></span>
+                  <span>
+                    <Button
+                      handleClick={this.handleToggleEditProfileModal}
+                      datatest="edit-button"
+                      style={{ padding: '0px 5px', width: '150px' }}
+                    >
+                      Edit Profile
+                    </Button>
+                  </span>
+                  <span style={{ marginTop: '10px' }}>
+                    <p>{`@${username}`}</p>
+                  </span>
                 </div>
                 <p>
-                  { bio }
+                  {bio}
                 </p>
                 <p className="following-follower">
                   <span className="following">{`${followingCount} Following`}</span>
@@ -292,16 +302,16 @@ export class Profile extends Component {
           <div className="profile-links">
             <ul>
               <li className="active">
-                <Link href="/">Profile</Link>
+                <Link to="/">Profile</Link>
               </li>
               <li>
-                <Link href="/">Likes</Link>
+                <Link to="/">Likes</Link>
               </li>
               <li>
-                <Link href="/">Highlighted</Link>
+                <Link to="/">Highlighted</Link>
               </li>
               <li>
-                <Link href="/">Comments</Link>
+                <Link to="/">Comments</Link>
               </li>
             </ul>
           </div>
