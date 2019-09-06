@@ -125,16 +125,4 @@ describe('<SignIn /> Component', () => {
     const socialLogin = localStorage.getItem('socialLogin');
     expect(socialLogin).toBe(false);
   });
-  it('should mock componentDidMount', () => {
-    const window = {
-      location: {
-        search: jest.fn().mockReturnValueOnce(false),
-      },
-    };
-    const URLSearchParams = jest.fn();
-    const searchParams = new URLSearchParams(window.location.search);
-    searchParams.get = jest.fn().mockReturnValueOnce(false);
-    const user = searchParams.get('user');
-    expect(user).toBe(false);
-  });
 });
