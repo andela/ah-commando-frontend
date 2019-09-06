@@ -13,6 +13,7 @@ const Button = (props) => {
     disabled,
     style,
     id,
+    datatest,
   } = props;
   return (
     <div className="btn-container">
@@ -22,6 +23,7 @@ const Button = (props) => {
         type={type}
         onClick={handleClick}
         id={id}
+        datatest={datatest}
       >
         <div>
           {children || label}
@@ -45,6 +47,7 @@ Button.propTypes = {
   }),
   type: PropTypes.string,
   disabled: PropTypes.bool,
+  datatest: PropTypes.string,
 };
 
 Button.defaultProps = {

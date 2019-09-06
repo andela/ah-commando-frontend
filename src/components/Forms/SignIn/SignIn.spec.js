@@ -1,6 +1,7 @@
 import React from 'react';
 import chai from 'chai';
 import { shallow } from 'enzyme';
+import sinon from 'sinon';
 import { SignIn } from '@Components/Forms/SignIn/SignIn';
 
 chai.should();
@@ -124,46 +125,17 @@ describe('<SignIn /> Component', () => {
     const socialLogin = localStorage.getItem('socialLogin');
     expect(socialLogin).toBe(false);
   });
-  it('should make social login true', () => {
-    let e = {
-      target: {
-        getAttribute: () => 'google',
-      },
-    };
-    const span = wrapper.find('span[id="google"]');
-    const span2 = wrapper.find('span[id="facebook"]');
-    span.simulate('click', e);
-    e = {
-      target: {
-        getAttribute: () => 'facebook',
-      },
-    };
-    span2.simulate('click', e);
-    const localStorage = {
-      getItem: jest.fn().mockReturnValueOnce(true),
-    };
-    const socialLogin = localStorage.getItem('socialLogin');
-    expect(instance.props.signinViaSocial).toHaveBeenCalled();
-    const changeHandle = jest.spyOn(instance, 'handleSocialSignin');
-    changeHandle(e);
-    expect(changeHandle).toHaveBeenCalledTimes(1);
-    expect(socialLogin).toBe(true);
-  });
-  it('should mock URLSearchParams', () => {
-    instance.componentDidMount();
-    const localStorage = {
-      getItem: jest.fn().mockReturnValueOnce(true),
-    };
-    const socialLogin = localStorage.getItem('socialLogin');
+  it('should mock componentDidMount', () => {
     const window = {
       location: {
-        search: '',
+        search: jest.fn().mockReturnValueOnce(false),
       },
     };
+    instance.componentDidMount();
+    const URLSearchParams = sinon.spy();
     const searchParams = new URLSearchParams(window.location.search);
-    searchParams.get = jest.fn().mockReturnValueOnce('jfkdl');
+    searchParams.get = jest.fn().mockReturnValueOnce(false);
     const user = searchParams.get('user');
-    expect(socialLogin).toBe(true);
-    expect(user).toBe('jfkdl');
+    expect(user).toBe(false);
   });
 });
