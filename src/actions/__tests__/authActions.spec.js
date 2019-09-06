@@ -166,23 +166,25 @@ describe('Auth action tests', () => {
         });
     });
 
-    // it('should throw error as expected', () => {
-    //   const errorResponse = {
-    //     err: {
-    //       response: {
-    //         data: {},
-    //       },
-    //     },
-    //   };
-    //   nock(url)
-    //     .post('/users/passwordReset')
-    //     .reply(400, errorResponse.err);
+    it('should throw error as expected', async () => {
+      const errorResponse = {
+        err: {
+          response: {
+            error: '',
+          },
+        },
+      };
 
-    //   return store.dispatch(requestPasswordLink({}))
-    //     .then(() => {
-    //       expect(store.getActions()).toMatchSnapshot();
-    //     });
-    // });
+      return store.dispatch(requestPasswordLink('james@james.com'))
+        .then(() => {
+          nock(url)
+            .post('/users/passwordReset')
+            .reply(404, errorResponse.err);
+        })
+        .then(() => {
+          expect(store.getActions()).toMatchSnapshot();
+        }).catch(e => e);
+    });
   });
 
   describe('Async password reset action test', () => {
