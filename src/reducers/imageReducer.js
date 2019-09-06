@@ -1,4 +1,4 @@
-import * as types from '../actions/types/index';
+import * as types from '@Actions/types';
 
 const initialState = {
   image: '',

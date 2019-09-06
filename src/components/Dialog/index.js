@@ -1,15 +1,3 @@
-/* eslint-disable react/prop-types */
-import React from 'react';
-import './Dialog.scss';
+import Dialog from './Dialog';
 
-const Dialog = (props) => {
-  const { children } = props;
-  return (
-    <div id="myModal" className="modal-profile">
-      <div className="modal-content-profile">
-        { children }
-      </div>
-    </div>
-  );
-};
 export default Dialog;

@@ -10,7 +10,7 @@ import {
   getArticles,
   getArticlesStart,
   getArticlesSuccess,
-} from '../profileAction';
+} from '@Actions/profileAction';
 
 jest.mock('../profileFunc');
 const middlewares = [thunk];

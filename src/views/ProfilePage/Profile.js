@@ -3,24 +3,24 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import Header from '@Components/Header/index';
-import Button from '@Components/Button/index';
-import Footer from '@Components/Footer/index';
-import Dialog from '@Components/Dialog/index';
-import Input from '@Components/Input/index';
-import TextArea from '@App/components/TextArea/TextArea';
-import ArticleCard from '@Components/ArticleCard/index';
+import Header from '@Components/Header';
+import Button from '@Components/Button';
+import Footer from '@Components/Footer';
+import Dialog from '@Components/Dialog';
+import Input from '@Components/Input';
+import TextArea from '@App/components/TextArea/';
+import ArticleCard from '@Components/ArticleCard/';
 import connectComponent from '@Lib/connect-component';
+import { getProfile, editProfile, getArticles } from '@Actions/profileAction';
+import { postImage } from '@Actions/imageAction';
 import {
   validate,
   emailSchema,
   usernameSchema,
   bioSchema,
 } from '@Utils/';
-import { getProfile, editProfile, getArticles } from '../../actions/profileAction';
-// import { getArticles } from '../../actions/articleAction';
-import { postImage } from '../../actions/imageAction';
 import './Profile.scss';
 
 
@@ -258,13 +258,13 @@ export class Profile extends Component {
         <div className="profile-container">
           <div className="sidebar">
             <ul>
-              <li><a href="/">New Article</a></li>
-              <li><a href="/">Bookmarks</a></li>
-              <li><a href="/">Account</a></li>
-              <li><a href="/">Stats</a></li>
-              <li><a href="/">Notification</a></li>
-              <li><a href="/">Help</a></li>
-              <li><a href="/">Log Out</a></li>
+              <li><Link href="/">New Article</Link></li>
+              <li><Link href="/">Bookmarks</Link></li>
+              <li><Link href="/">Account</Link></li>
+              <li><Link href="/">Stats</Link></li>
+              <li><Link href="/">Notification</Link></li>
+              <li><Link href="/">Help</Link></li>
+              <li><Link href="/">Log Out</Link></li>
             </ul>
           </div>
           <div className="main">
@@ -292,16 +292,16 @@ export class Profile extends Component {
           <div className="profile-links">
             <ul>
               <li className="active">
-                <a href="/">Profile</a>
+                <Link href="/">Profile</Link>
               </li>
               <li>
-                <a href="/">Likes</a>
+                <Link href="/">Likes</Link>
               </li>
               <li>
-                <a href="/">Highlighted</a>
+                <Link href="/">Highlighted</Link>
               </li>
               <li>
-                <a href="/">Comments</a>
+                <Link href="/">Comments</Link>
               </li>
             </ul>
           </div>

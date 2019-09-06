@@ -1,4 +1,4 @@
-import * as types from '../actions/types/index';
+import * as types from '@Actions/types';
 import profileReducer from './profileReducer';
 
 describe('Profile Reducer', () => {
