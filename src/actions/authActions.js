@@ -74,3 +74,55 @@ export const createUser = (userData, history) => async (dispatch) => {
     });
   }
 };
+
+export const requestPasswordLink = (email) => async (dispatch) => {
+  const response = await axiosInstance.post('users/passwordReset', { user: { email } });
+  dispatch({
+    type: LOADING,
+  });
+
+  try {
+    if (response.data.status === 200) {
+      toast.dismiss();
+      toast.success(response.data.message);
+    }
+    dispatch({
+      type: NOT_LOADING,
+    });
+    return dispatch({
+      type: MODAL_CLOSE,
+    });
+  } catch (err) {
+    const { error } = err.response.data;
+    toast.dismiss();
+    toast.error(error, { autoClose: 5000 });
+    return dispatch({
+      type: NOT_LOADING,
+    });
+  }
+};
+
+export const setNewPassword = (data, history) => async (dispatch) => {
+  dispatch({
+    type: LOADING,
+  });
+
+  try {
+    const { password, id, token } = data;
+
+    const response = await axiosInstance.put(`users/resetPassword/${id}/${token}`, { user: { password } });
+
+    if (response.status === 200) {
+      history.push('/');
+      toast.dismiss();
+      toast.success(response.data.message);
+    }
+    dispatch({
+      type: NOT_LOADING,
+    });
+  } catch (err) {
+    const { error } = err.response.data;
+    toast.dismiss();
+    toast.error(error, { autoClose: 5000 });
+  }
+};

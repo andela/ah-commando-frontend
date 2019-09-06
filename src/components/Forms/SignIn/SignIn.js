@@ -6,7 +6,7 @@ import Modal from '@Components/Modal';
 import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
-import { closeModal } from '@Actions/uiActions';
+import { closeModal, openModal } from '@Actions/uiActions';
 import { logIn } from '@Actions/authActions';
 import { validate, emailSchema, passwordSchema } from '@Utils/';
 import './SignIn.scss';
@@ -111,7 +111,7 @@ export class SignIn extends Component {
         loading,
         modalOpen,
         modal,
-      },
+      }, requestPassword,
     } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
 
@@ -146,7 +146,8 @@ export class SignIn extends Component {
               error={errors.password}
             />
             <Button
-              label={loading ? null : 'Sign in'}
+              datatest="login-button"
+              label={loading ? null : 'Sign In'}
               handleClick={this.handleSubmit}
               disabled={loading ? true : !isFormValid}
               type="submit"
@@ -185,9 +186,20 @@ export class SignIn extends Component {
             </p>
           </div>
           <div className="forgot-password">
-            <Link to="/">
-              Forgot Password?
-            </Link>
+            <Button
+              label="Forgot Password?"
+              handleClick={requestPassword}
+              type="button"
+              style={{
+                backgroundColor: '#fff',
+                color: '#8075e6',
+                borderRadius: '0',
+                cursor: 'pointer',
+                fontSize: '12px',
+                padding: '0px',
+                margin: '0px',
+              }}
+            />
           </div>
         </div>
       </Modal>
@@ -206,11 +218,13 @@ SignIn.propTypes = {
   }).isRequired,
   close: PropTypes.func.isRequired,
   signIn: PropTypes.func.isRequired,
+  requestPassword: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
   withRouter(SignIn), {
     close: closeModal,
     signIn: logIn,
+    requestPassword: () => openModal('passwordModal'),
   },
 );
