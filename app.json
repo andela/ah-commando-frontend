@@ -2,9 +2,7 @@
   "name": "ah-commando-frontend",
   "description": "Review apps for new PRs to the repo",
   "scripts": {},
-  "env": {
-    "SECRET_KEY": "string"
-  },
+  "env": {},
   "formation": {},
   "addons": [],
   "buildpacks": [],
