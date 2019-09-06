@@ -214,7 +214,7 @@ describe('Auth action tests', () => {
     it('reset new password', () => (store.dispatch(setNewPassword({ id, token }, { push: jest.fn() }))
       .then(() => {
         nock(url)
-          .put(`users/resetPassword/${id}/${token}`)
+          .put(`/users/resetPassword/${id}/${token}`)
           .reply(200, response);
       })
       .then(() => {
@@ -234,7 +234,7 @@ describe('Auth action tests', () => {
       return store.dispatch(setNewPassword({ id, token }, { push: jest.fn() }))
         .then(() => {
           nock(url)
-            .post(`users/resetPassword/${id}/${token}`)
+            .post(`/users/resetPassword/${id}/${token}`)
             .reply(400, errorResponse.err);
         })
         .then(() => {
