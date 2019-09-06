@@ -1,18 +1,15 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:100,400,500,600&display=swap');
-
 $body-color: #ffa500;
 
 h1 {
   color: $body-color;
 }
 
-*,
-*::before,
-*::after {
-  margin: 0;
+*,*::before, *::after {
   padding: 0;
+  margin:0;
   box-sizing: border-box;
   outline: none;
+  line-height: 1.5;
 }
 
 body {

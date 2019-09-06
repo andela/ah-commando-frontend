@@ -1,11 +1,8 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-
 import React from 'react';
 import './Footer.scss';
 
 const Footer = () => (
   <div className="footer-container">
-    <hr />
     <div className="footer-labels">
       <div className="about">
         <label>ABOUT</label>

@@ -1,4 +1,4 @@
-$desktop: 375px;
+$desktop: 376px;
 
 %svg {
   width: 18.37px;
@@ -26,7 +26,7 @@ $desktop: 375px;
 .vertical {
   width: 115.72px;
   height: 193px;
-  margin: 10px;
+  margin: 10px 20px 10px 0;
   @include desktop {
     width: 193px;
     height: 250px;
@@ -34,12 +34,16 @@ $desktop: 375px;
   .image-container {
     width: 100%;
     margin: 0 auto;
+    @include desktop{
+      height: 129px;
+    }
   }
   .img {
     width: 115.72px;
     height: 79.98px;
     margin: 0 auto;
     object-fit: cover;
+    border-radius: 5px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     @include desktop{
       width: 193px;
@@ -57,6 +61,11 @@ $desktop: 375px;
         margin-top: 10px;
         @include desktop{
           font-size: 12px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
+          white-space: nowrap;
+          width: 90%;
         }
       }
       .author-name {
@@ -75,40 +84,42 @@ $desktop: 375px;
     .icons {
       display: flex;
       flex-direction: row;
+      align-items: center;
       margin-top: 15px;
-      .like {
+      color:rgba(0, 0, 0, 0.8);
+
+      .like, .dislike, .comment{
         display: flex;
+        align-items: center;
         font-size: 10px;
         @include desktop {
           font-size: 14px;
         }
       }
+
       .dislike {
-        display: flex;
         margin-left: 10px;
-        font-size: 10px;
-        @include desktop {
-          font-size: 14px;
-        }
       }
+
       .comment {
-        display: flex;
         margin-left: auto;
         font-size: 10px;
-        @include desktop {
-          font-size: 14px;
-        }
       }
+
       .icon-label {
         @extend %labels;
         font-family: 'Monaco', sans-serif;
         font-size: 10px;
         height: 100%;
-        color: rgba(0, 0, 0, 0.6);
+        color: rgba(0, 0, 0, 0.7);
         margin-left: 5px;
         @include desktop {
           font-size: 12px;
         }
+      }
+      .icon-container {
+        font-size: 11px;
+        color: rgba(0, 0, 0, 0.7);
       }
       .hor-readTime {
         display: none;
@@ -124,10 +135,6 @@ $desktop: 375px;
   }
 }
 
-
-
-
-
 .horizontal {
   width: 355.5px;
   height: 102.86px;
@@ -139,21 +146,24 @@ $desktop: 375px;
     width: 986px;
     height: 147px;
   }
-  .imagec-container {
+  .image-container {
     width: 100%;
     margin: 0 auto;
     grid-area: image;
     @include desktop{
       width: 100%;
       margin: 0 auto;
+      height: 147px;
     }
   }
   .img {
     width: 88.29px;
     height: 64.31px;
     margin: 0 auto;
+    border-radius: 5px;
     object-fit: cover;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    transition: all 1s ease-in;
     @include desktop{
       width: 100%;
       height: 147px;
@@ -162,10 +172,8 @@ $desktop: 375px;
   .article-details {
     grid-area: body;
     padding: 2px;
-    margin-left: 2rem;
     @include desktop{
-      // padding: 0 174px 0 41.5px;
-      // margin: 0 auto;
+      padding: 0 174px 0 20px;
     }
     .title-container {
       .title {
@@ -190,6 +198,11 @@ $desktop: 375px;
       }
       .description {
         @extend %labels;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 9px;
         margin: 3px 3px;
         font-weight: 100;
@@ -203,23 +216,25 @@ $desktop: 375px;
     .icons {
       display: flex;
       flex-direction: row;
+      align-items: center;
       margin-top: 5px;
       margin: 3px;
       @include desktop {
         margin-top: 15px;
       }
-      .like {
+      .like, .dislike,  .comment{
         display: flex;
+        align-items: center;
       }
+
       .dislike {
-        display: flex;
         margin-left: 8px;
         @include desktop {
           margin-left: 15px;
         }
       }
+
       .comment {
-        display: flex;
         margin-left: 8px;
         @include desktop {
           margin-left: 30px;
@@ -228,10 +243,15 @@ $desktop: 375px;
       .icon-label {
         @extend %labels;
         font-family: 'Monaco';
-        font-size: 10px;
+        font-size: 11px;
         line-height: 13px;
-        color: rgba(0, 0, 0, 0.6);
+        color: rgba(0, 0, 0, 0.7);
         margin-left: 3px;
+      }
+
+      .icon-container {
+        font-size: 11px;
+        color: rgba(0, 0, 0, 0.7);
       }
 
       .hor-readTime {

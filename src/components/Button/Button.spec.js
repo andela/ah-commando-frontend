@@ -1,7 +1,7 @@
 /* eslint-disable react/forbid-foreign-prop-types */
 import React from 'react';
 import { shallow } from 'enzyme';
-import checkPropTypes from 'check-prop-types';
+import { checkProps } from '@Utils/';
 import Button from './';
 
 let wrapper;
@@ -11,6 +11,7 @@ const shallowRender = () => {
     handleClick: jest.fn(),
     children: null,
     type: 'submit',
+    datatest: 'test',
   };
   const component = shallow(<Button {...props} />);
   return component;
@@ -31,8 +32,9 @@ describe('Button component test', () => {
       handleClick: jest.fn(),
       children: null,
       type: 'submit',
+      datatest: 'test',
     };
-    const error = checkPropTypes(Button.propTypes, expectedProps, 'props', Button.name);
+    const error = checkProps(wrapper, wrapper.propTypes, expectedProps);
     expect(error).toBeUndefined();
   });
 

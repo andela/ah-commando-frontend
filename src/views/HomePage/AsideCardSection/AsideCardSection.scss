@@ -1,0 +1,13 @@
+.editorsChoice{
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+ .header{
+    padding-top: 5px;
+    padding-left: 20px;
+    margin: 0 -3px;
+    z-index: 2;
+    position: sticky;
+    top:0;
+    background: white;
+  }
+}

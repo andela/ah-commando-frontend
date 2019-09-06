@@ -1,0 +1,68 @@
+$desktop: 375px;
+
+@mixin desktop {
+  @media (max-width: #{$desktop}) {
+    @content
+  }
+}
+
+.banner {
+  width: 1034px;
+  height:280px;
+  background-image: url('../../../../public/bannerImg.jpg');
+  background-color: rgb(61, 47, 51);
+  background-blend-mode: lighten;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: flex;
+  margin: auto;
+  justify-content: flex-end;
+  align-items: center;
+  @include desktop {
+    width: #{$desktop};
+    height: 200px;
+    background-size: 50% 100%;
+  }
+
+  .bannerCta{
+    width: 588px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    h1{
+      color: white;
+      margin: 20px;
+      font-weight: 100;
+      font-family: monaco;
+    }
+
+    .bannerText{
+      color: white;
+      font-size: 13px;
+      margin-bottom: 30px;
+      font-family: 'Raleway', sans-serif;
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    @include desktop {
+      width: 50%;
+
+      h1 {
+        font-size: 14px;
+        margin: 5px;
+      }
+
+      p {
+        margin-bottom: 10px;
+        font-size: 11px;
+      }
+
+    }
+
+    h1+p{
+      margin: 0;
+    }
+  }
+}

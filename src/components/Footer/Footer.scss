@@ -8,10 +8,13 @@ $desktop: 375px;
 .footer-container {
   width: 98%;
   margin: 0 auto;
+  border-top:1px solid rgba(191, 191, 191, 0.8);
+
   .footer-labels {
     width: 100%;
     margin: 0 auto;
     display: flex;
+    padding-top: 10px;
     @include desktop{
       width: 30%;
     }

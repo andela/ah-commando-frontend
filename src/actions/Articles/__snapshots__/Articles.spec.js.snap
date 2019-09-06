@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Page Articles Actions Should get the Editors choice Articles 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "data": Array [
+        Object {
+          "body": "Some test",
+          "title": "Example title 1",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 2",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 3",
+        },
+      ],
+    },
+    "type": "GET_EDITORS_CHOICE",
+  },
+]
+`;
+
+exports[`Home Page Articles Actions Should get the HomePage Articles 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "data": Array [
+        Object {
+          "body": "Some test",
+          "title": "Example title 1",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 2",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 3",
+        },
+      ],
+    },
+    "type": "GET_HOME_ARTICLES_FROM_DATABASE",
+  },
+]
+`;
+
+exports[`Home Page Articles Actions Should get the featured Articles 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "data": Array [
+        Object {
+          "body": "Some test",
+          "title": "Example title 1",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 2",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 3",
+        },
+      ],
+    },
+    "type": "GET_FEATURED",
+  },
+]
+`;

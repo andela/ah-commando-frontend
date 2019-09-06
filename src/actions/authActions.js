@@ -24,7 +24,7 @@ export const logIn = (userData, history) => async (dispatch) => {
       localStorage.setItem('haven', user.token);
       setToken(user.token);
       dispatch(setCurrentUser(jwtDecode(user.token)));
-      history.push('/login');
+      history.push('/');
       toast.dismiss();
       toast.success('Login Successful');
     }

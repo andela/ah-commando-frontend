@@ -1,20 +1,91 @@
 import { shallow } from 'enzyme';
 import React from 'react';
-import findByTestAttribute from '@Utils/';
-import { Home } from './';
+import { findByTestAttribute, checkProps } from '@Utils/';
+import { Home } from './HomePage';
 
-describe('Article card component test', () => {
-  let wrapper, props;
-  beforeEach(() => {
-    props = {
-      signIn: jest.fn(),
+const setUp = props => shallow(<Home {...props} />);
+
+describe('HomePage component test', () => {
+  let wrapper;
+
+  describe('HomePage tests with full props', () => {
+    const props = {
+      getHomePageArticles: () => { },
+      getArticle: () => { },
+      getEditorsChoice: () => { },
     };
-    wrapper = shallow(<Home {...props} />);
-  });
-  describe('Card tests', () => {
+    beforeEach(() => {
+      wrapper = setUp(props);
+    });
+
     it('Should render without failing', () => {
       const component = findByTestAttribute(wrapper, 'homepageComponent');
       expect(component.length).toBe(1);
+    });
+
+    it('should not throw a warning with the correct prop type', () => {
+      const error = checkProps(wrapper, wrapper.protypes, props);
+      expect(error).toBeUndefined();
+    });
+  });
+
+  describe('Tests for class methods', () => {
+    const props = {
+      getHomePageArticles: () => { },
+      getArticle: () => { },
+      getEditorsChoice: () => { },
+    };
+
+    const e = {
+      target: {
+        parentElement: {
+          nextElementSibling: {
+            scrolltop: 400,
+          },
+          previousElementSibling: {
+            scrolltop: 400,
+          },
+        },
+      },
+    };
+
+    beforeEach(() => {
+      wrapper = setUp(props);
+    });
+
+    it('successfully calls the onClick handler for top scroller', () => {
+      const appInstance = wrapper.instance();
+      jest.spyOn(appInstance, 'handleClick');
+      wrapper.find('[data-test="topBtn"]').simulate('click', e);
+      expect(appInstance.handleClick).toHaveBeenCalled();
+    });
+
+    it('successfully calls the onClick handler for bottom scroller', () => {
+      const appInstance = wrapper.instance();
+      jest.spyOn(appInstance, 'handleClick');
+      wrapper.find('[data-test="bottomBtn"]').simulate('click', e);
+      expect(appInstance.handleClick).toHaveBeenCalled();
+    });
+  });
+
+  describe('Mock the props sent in click', () => {
+    const mockgetArticles = jest.fn();
+    const mockgetHomePageArticles = jest.fn();
+    const mockgetEditorsChoice = jest.fn();
+
+    it('Should render without failing', () => {
+      const props = {
+        getHomePageArticles: mockgetArticles,
+        getArticle: mockgetHomePageArticles,
+        getEditorsChoice: mockgetEditorsChoice,
+      };
+
+      const Wrapper = setUp(props);
+      Wrapper.instance().componentDidMount();
+      expect(mockgetArticles).toHaveBeenCalled();
+      expect(mockgetHomePageArticles).toHaveBeenCalled();
+      expect(mockgetEditorsChoice).toHaveBeenCalled();
+      Wrapper.instance().componentWillUnmount();
     });
   });
 });

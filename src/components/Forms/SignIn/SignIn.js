@@ -150,6 +150,7 @@ export class SignIn extends Component {
               handleClick={this.handleSubmit}
               disabled={loading ? true : !isFormValid}
               type="submit"
+              datatest="test"
               style={{
                 height: '45px',
                 width: '300px',
@@ -170,7 +171,7 @@ export class SignIn extends Component {
               </span>
               <span>
                 <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} />
-                  Facebook
+                Facebook
               </span>
             </div>
           </div>

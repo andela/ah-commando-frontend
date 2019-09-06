@@ -26,6 +26,7 @@
   ],
   "rules": {
     "jsx-a11y/label-has-associated-control": 0,
+    "react/state-in-constructor": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "arrow-parens": 0,
     "react/jsx-props-no-spreading": 0,
@@ -44,7 +45,7 @@
     "curly": ["error", "multi-line"],
     "import/no-unresolved": 0,
     "import/no-named-as-default": 0,
-    "no-shadow": ["error", { "allow": ["req", "res", "err"] }],
+    "no-shadow": 0,
   },
   "settings": {
     "import/resolver": {
