@@ -1,4 +1,4 @@
-import * as types from './types/index';
+import * as types from '@Actions/types';
 import { axiosInstance } from '@Utils/';
 
 export const postImageStart = () => ({

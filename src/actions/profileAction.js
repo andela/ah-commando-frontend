@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
-import * as types from './types/index';
+import * as types from '@Actions/types';
 import { axiosInstance } from '@Utils/';
 
 export const getProfileStart = () => ({
