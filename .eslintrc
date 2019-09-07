@@ -18,11 +18,11 @@
     "ecmaFeatures": {
       "jsx": true,
       "arrowFunctions": true
-    },
+    }
   },
   "plugins": [
     "react",
-    "import",
+    "import"
   ],
   "rules": {
     "jsx-a11y/label-has-associated-control": 0,
@@ -31,6 +31,7 @@
     "react/state-in-constructor": 0,
     "react/no-array-index-key": 0,
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "react/no-did-update-set-state": 0,
     "arrow-parens": 0,
     "react/jsx-props-no-spreading": 0,
     "import/no-useless-path-segments": 0,
@@ -48,7 +49,8 @@
     "curly": ["error", "multi-line"],
     "import/no-unresolved": 0,
     "import/no-named-as-default": 0,
-    "no-shadow": 0
+    "no-shadow": 0,
+    "no-return-assign": 0
   },
   "settings": {
     "import/resolver": {
