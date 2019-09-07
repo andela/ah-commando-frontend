@@ -1,3 +1,5 @@
+import * as types from '@Actions/types';
+
 const initialState = {
   searchQuery: '',
   page: 1,
@@ -16,7 +18,7 @@ const initialState = {
 
 const filterReducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'UPDATE_FILTER': {
+    case types.UPDATE_FILTER: {
       const { field, value } = action.payload;
       return {
         ...state,
@@ -27,7 +29,7 @@ const filterReducer = (state = initialState, action) => {
       };
     }
 
-    case 'DISPLAY_FILTER': {
+    case types.DISPLAY_FILTER: {
       const value = state.displayFields[`${action.payload}`] === 'hide' ? 'show' : 'hide';
       return {
         ...state,
@@ -38,7 +40,7 @@ const filterReducer = (state = initialState, action) => {
       };
     }
 
-    case 'REMOVE_FILTER': {
+    case types.REMOVE_FILTER: {
       const { field, value } = action.payload;
       return {
         ...state,
@@ -49,7 +51,7 @@ const filterReducer = (state = initialState, action) => {
       };
     }
 
-    case 'UPDATE_ARTICLES': {
+    case types.UPDATE_ARTICLES: {
       const { payload } = action;
       return {
         ...state,
@@ -59,7 +61,7 @@ const filterReducer = (state = initialState, action) => {
       };
     }
 
-    case 'UPDATE_SEARCHQUERY': {
+    case types.UPDATE_SEARCHQUERY: {
       const { payload } = action;
       return {
         ...state,
@@ -67,7 +69,7 @@ const filterReducer = (state = initialState, action) => {
       };
     }
 
-    case 'UPDATE_PAGENUMBER': {
+    case types.UPDATE_PAGENUMBER: {
       const { payload } = action;
       return {
         ...state,
