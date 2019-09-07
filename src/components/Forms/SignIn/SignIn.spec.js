@@ -224,7 +224,6 @@ describe('should test password rest modal', () => {
     showSignUpModal: jest.fn(),
   };
   const wrapper = shallow(<SignIn {...props} />);
-  const instance = wrapper.instance();
   it('shoudl open reset password modal', () => {
     const btn = wrapper.find('.fg-ps');
     btn.simulate('click');
@@ -234,6 +233,6 @@ describe('should test password rest modal', () => {
   it('should open show signup modal', () => {
     const signUpModal = wrapper.find('#sc-sn');
     signUpModal.simulate('click');
-    expect(instance.props.showSignUpModal).toHaveBeenCalled();
+    expect(props.showSignUpModal).toHaveBeenCalled();
   });
 });

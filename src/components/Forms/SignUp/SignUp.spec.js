@@ -183,4 +183,9 @@ describe('<SignUp /> Component', () => {
     };
     instance.handleSocialSignin(event);
   });
+  it('should show signin modal', () => {
+    const signInModal = wrapper.find('#sc-sn');
+    signInModal.simulate('click');
+    expect(props.showSignInModal).toHaveBeenCalled();
+  });
 });
