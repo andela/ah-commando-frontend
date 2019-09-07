@@ -211,7 +211,7 @@ export class SignIn extends Component {
             <div>
               No account?
               {' '}
-              <p id="sc-sn" onClick={showSignUpModal}>
+              <p id="sc-sn" onClick={() => showSignUpModal('signup')}>
                 Sign up
               </p>
             </div>
@@ -220,7 +220,7 @@ export class SignIn extends Component {
             <Button
               datatest="request-passwordBtn"
               label="Forgot Password?"
-              handleClick={requestPassword}
+              handleClick={() => requestPassword('passwordModal')}
               type="button"
               className="fg-ps"
               style={{
@@ -260,8 +260,8 @@ export default connectComponent(
   withRouter(SignIn), {
     close: closeModal,
     signIn: logIn,
-    requestPassword: () => openModal('passwordModal'),
+    requestPassword: openModal,
     signinViaSocial: loginViaSocial,
-    showSignUpModal: () => openModal('signup'),
+    showSignUpModal: openModal,
   },
 );

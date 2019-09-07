@@ -28,9 +28,9 @@ describe('<SignIn /> Component', () => {
       },
       close: jest.fn(),
       signIn: jest.fn(),
-      signinViaSocial: jest.fn(),
+      signinViaSocial: sinon.spy(),
       requestPassword: jest.fn(),
-      showSignUpModal: jest.fn(),
+      showSignUpModal: sinon.spy(),
     };
     wrapper = shallow(<SignIn {...props} />);
     wrapper.setState(state);
@@ -224,12 +224,6 @@ describe('should test password rest modal', () => {
     showSignUpModal: jest.fn(),
   };
   const wrapper = shallow(<SignIn {...props} />);
-  it('shoudl open reset password modal', () => {
-    const btn = wrapper.find('.fg-ps');
-    btn.simulate('click');
-    const requestPassword = sinon.spy();
-    expect(requestPassword.calledOnce).toBe(false);
-  });
   it('should open show signup modal', () => {
     const signUpModal = wrapper.find('#sc-sn');
     signUpModal.simulate('click');

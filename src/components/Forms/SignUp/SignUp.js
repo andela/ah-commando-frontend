@@ -300,7 +300,7 @@ export class SignUp extends Component {
             <div>
               Have an account?
               {' '}
-              <p onClick={showSignInModal} id="sc-sn">
+              <p onClick={() => showSignInModal('signin')} id="sc-sn">
                 Sign in
               </p>
             </div>
@@ -331,6 +331,6 @@ export default connectComponent(
     close: closeModal,
     signUp: createUser,
     signinViaSocial: loginViaSocial,
-    showSignInModal: () => openModal('signin'),
+    showSignInModal: openModal,
   },
 );

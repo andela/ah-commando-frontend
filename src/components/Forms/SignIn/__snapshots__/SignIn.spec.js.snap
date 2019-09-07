@@ -126,7 +126,7 @@ exports[`test social media sign in should click the google signin button 1`] = `
          
         <p
           id="sc-sn"
-          onClick={[MockFunction]}
+          onClick={[Function]}
         >
           Sign up
         </p>
@@ -139,7 +139,7 @@ exports[`test social media sign in should click the google signin button 1`] = `
         className="fg-ps"
         datatest="request-passwordBtn"
         disabled={false}
-        handleClick={[MockFunction]}
+        handleClick={[Function]}
         id=""
         label="Forgot Password?"
         style={
