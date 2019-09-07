@@ -1,13 +1,8 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable react/no-array-index-key */
-/* eslint-disable react/destructuring-assignment */
-
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
-import ArticleCard from '../../components/ArticleCard';
-import connectComponent from '../../lib/connect-component';
-import { getArticles } from '../../actions/searchActions';
+import ArticleCard from '@Components/ArticleCard';
+import connectComponent from '@Lib/connect-component';
+import { getFilteredArticles } from '@Actions/searchActions';
 import './SearchBody.scss';
 
 export class SearchBody extends Component {
@@ -17,7 +12,7 @@ export class SearchBody extends Component {
     if (articles[0] === 'No result found') {
       return 'No result found for this search';
     }
-    const page = filters.page;
+    const { page } = filters;
     const start = (page - 1) * 20;
     const end = start + 20 > articles.length ? (articles.length) : start + 20;
     const displayResults = articles.slice(start, end);
@@ -59,8 +54,9 @@ export class SearchBody extends Component {
 
 SearchBody.propTypes = {
   filters: PropTypes.shape({
+    page: PropTypes.number,
     searchResults: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 };
 
-export default connectComponent(SearchBody, { getArticles });
+export default connectComponent(SearchBody, { getFilteredArticles });

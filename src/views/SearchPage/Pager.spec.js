@@ -1,14 +1,8 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/forbid-foreign-prop-types */
 import React from 'react';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
-import checkPropTypes from 'check-prop-types';
-// eslint-disable-next-line import/named
 import { Pager, Arrows, Page } from './Pager';
 
 let wrapper, instance;
-const buildStore = configureStore();
 const props = {
   filters: {
     searchQuery: '',
@@ -47,8 +41,6 @@ const props2 = {
   updatePageNumber: jest.fn(),
 };
 
-let store;
-
 const shallowRender = () => {
   const component = shallow(<Pager {...props} />);
   return component;
@@ -56,7 +48,6 @@ const shallowRender = () => {
 
 describe('Article component test', () => {
   beforeEach(() => {
-    // store = buildStore(initialState);
     wrapper = shallowRender();
     instance = wrapper.instance();
   });
@@ -78,24 +69,12 @@ describe('Article component test', () => {
     div.find('div').simulate('click');
     expect(callBack.mock.calls.length).toEqual(1);
   });
-  // it('should not throw a warning with the correct prop type', () => {
-  //   const expectedProps = {
-  //     type: 'vertical',
-  //     data,
-  //   };
-  //  const error = checkPropTypes(ArticleCard.propTypes, expectedProps, 'props', ArticleCard.name);
-  //   expect(error).toBeUndefined();
-  // });
 
-  it('should render a .pager_container class', () => {
+  it('should render a .titleclass', () => {
     expect(wrapper.find('.title')).toHaveLength(1);
   });
 
-  // it('should render a .article-details class', () => {
-  //   expect(wrapper.find('.article-details')).toHaveLength(1);
-  // });
-
-  it('should render a .pager_container class', () => {
+  it('should call all class functions', () => {
     const wrapper = shallow(<Pager {...props2} />);
     const instance2 = wrapper.instance();
     instance.updatePageNumber(7);

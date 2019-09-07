@@ -1,13 +1,13 @@
 import React from 'react';
+import Header from '@Components/Header';
+import Footer from '@Components/Footer';
 import Filter from './Filter';
-import Footer from '../../components/Footer';
 import SearchBody from './SearchBody';
 import Pager from './Pager';
 import './SearchPage.scss';
-import Header from '../../components/Header';
 
 const SearchPage = () => (
-  <div className="search_page">
+  <div className="search_page" datatest="searchPage-component">
     <div className="header">
       <Header display="hide" />
       <Pager />

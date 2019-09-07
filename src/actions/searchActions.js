@@ -1,4 +1,3 @@
-/* eslint-disable prefer-destructuring */
 import axios from 'axios';
 import {
   UPDATE_FILTER, DISPLAY_FILTER, REMOVE_FILTER, UPDATE_ARTICLES,
@@ -35,21 +34,9 @@ export const updatePageNumber = (payload) => ({
   payload,
 });
 
-export const getArticles = (searchQuery) => (dispatch) => axios.post(`https://a-haven-staging.herokuapp.com/api/v1/articles/search/filter?searchQuery=${searchQuery}&limit=200`, {
-})
-  .then((response) => {
-    const { articles } = response.data;
-    const { data } = articles;
-    dispatch(updateArticles(data));
-  })
-  .catch(() => {
-    dispatch(updateArticles(['No result found']));
-  });
-
 export const getFilteredArticles = () => (dispatch, getState) => {
   const { filters } = getState();
-  console.log(filters);
-  const searchQuery = filters.searchQuery;
+  const { searchQuery } = filters;
   const filterBody = filters.updateFields;
   const keys = Object.keys(filterBody);
   const object = {};
@@ -63,7 +50,7 @@ export const getFilteredArticles = () => (dispatch, getState) => {
     }
   });
 
-  return axios.post(`https://a-haven-staging.herokuapp.com/api/v1/articles/search/filter?searchQuery=${searchQuery}&limit=200`, object)
+  return axios.post(`https://a-haven-staging.herokuapp.com/api/v1/articles/search/filter?searchQuery=${searchQuery}&limit=2000`, object)
     .then((response) => {
       const { articles } = response.data;
       const { data } = articles;

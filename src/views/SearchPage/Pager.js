@@ -1,16 +1,8 @@
-/* eslint-disable prefer-destructuring */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable react/prop-types */
-/* eslint-disable no-useless-constructor */
-/* eslint-disable react/prefer-stateless-function */
-
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import Icon from '@Components/Icon';
 import connectComponent from '@Lib/connect-component';
-import { updatePageNumber } from '../../actions/searchActions';
+import { updatePageNumber } from '@Actions/searchActions';
 import './Pager.scss';
 
 export class Pager extends Component {
@@ -23,12 +15,14 @@ export class Pager extends Component {
   }
 
   updatePageNumber(number) {
-    this.props.updatePageNumber(number);
+    const { updatePageNumber } = this.props;
+    updatePageNumber(number);
   }
 
   previousPage() {
     const { filters } = this.props;
-    const page = filters.page;
+
+    const { page } = filters;
     if (page > 1) {
       this.updatePageNumber(page - 1);
     }
@@ -36,7 +30,7 @@ export class Pager extends Component {
 
   nextPage() {
     const { filters } = this.props;
-    const page = filters.page;
+    const { page } = filters;
     const articles = filters.searchResults;
     const totalArticles = articles.length;
     const pages = Math.ceil(totalArticles / 20);
@@ -59,7 +53,7 @@ export class Pager extends Component {
     const articles = filters.searchResults;
     const totalArticles = articles.length;
     const pages = Math.ceil(totalArticles / 20);
-    const searchQuery = filters.searchQuery;
+    const { searchQuery } = filters;
 
     return (
       <div className="pager_container">
@@ -76,6 +70,25 @@ export class Pager extends Component {
   }
 }
 
+Pager.propTypes = {
+  updatePageNumber: PropTypes.func.isRequired,
+  filters: PropTypes.shape({
+    page: PropTypes.number,
+    searchResults: PropTypes.arrayOf(PropTypes.strinng),
+    searchQuery: PropTypes.string,
+    displayFields: PropTypes.shape({
+      categories: PropTypes.string,
+      tags: PropTypes.string,
+      authors: PropTypes.string,
+    }),
+    updateFields: PropTypes.shape({
+      categories: PropTypes.array,
+      tags: PropTypes.array,
+      authors: PropTypes.array,
+    }),
+  }).isRequired,
+};
+
 export const Arrows = (props) => {
   const { direction, handleClick } = props;
   return (
@@ -87,6 +100,7 @@ export const Arrows = (props) => {
 
 Arrows.propTypes = {
   direction: PropTypes.string.isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export const Page = (props) => {
@@ -100,6 +114,7 @@ export const Page = (props) => {
 
 Page.propTypes = {
   children: PropTypes.number.isRequired,
+  handleChange: PropTypes.func.isRequired,
 };
 
 export default connectComponent(Pager, { updatePageNumber });

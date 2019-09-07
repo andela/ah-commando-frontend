@@ -1,8 +1,3 @@
-/* eslint-disable react/prop-types */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/no-array-index-key */
-
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import './Filter.scss';
@@ -23,32 +18,36 @@ export class Filter extends Component {
   }
 
   filterResult = () => {
-    this.props.getFilteredArticles();
+    const { getFilteredArticles } = this.props;
+    getFilteredArticles();
   }
 
   handleInputChange = (e, field) => {
+    const { updateFilters, removeFilters } = this.props;
     if (e.keyCode === 13) {
       e.preventDefault();
-      this.props.updateFilters({ field, value: e.target.value });
+      updateFilters({ field, value: e.target.value });
       e.target.value = '';
       this.filterResult();
     } else if (e.target.type === 'checkbox') {
       if (e.target.checked) {
-        this.props.updateFilters({ field, value: e.target.value });
+        updateFilters({ field, value: e.target.value });
       } else {
-        this.props.removeFilters({ field, value: e.target.value });
+        removeFilters({ field, value: e.target.value });
       }
       this.filterResult();
     }
   }
 
   handleDelete = (field, value) => {
-    this.props.removeFilters({ field, value });
+    const { removeFilters } = this.props;
+    removeFilters({ field, value });
     this.filterResult();
   }
 
   handleDisplayFilters = (field) => {
-    this.props.displayFilters(field);
+    const { displayFilters } = this.props;
+    displayFilters(field);
   }
 
   getCategories = () => catego.map((field, index) => (
@@ -83,7 +82,7 @@ export class Filter extends Component {
           handleChange={this.handleInputChange}
           display={tags}
           filtername="tags"
-          selections={this.props.filters.updateFields.tags}
+          selections={filters.updateFields.tags}
           IconClick={this.handleDelete}
         />
         <FilterContainer
@@ -91,7 +90,7 @@ export class Filter extends Component {
           handleChange={this.handleInputChange}
           display={authors}
           filtername="authors"
-          selections={this.props.filters.updateFields.authors}
+          selections={filters.updateFields.authors}
           IconClick={this.handleDelete}
         />
       </div>
@@ -103,6 +102,7 @@ Filter.propTypes = {
   updateFilters: PropTypes.func.isRequired,
   removeFilters: PropTypes.func.isRequired,
   displayFilters: PropTypes.func.isRequired,
+  getFilteredArticles: PropTypes.func.isRequired,
   filters: PropTypes.shape({
     displayFields: PropTypes.shape({
       categories: PropTypes.string,

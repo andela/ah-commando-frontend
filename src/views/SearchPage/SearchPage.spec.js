@@ -1,11 +1,10 @@
-/* eslint-disable react/forbid-foreign-prop-types */
 import React from 'react';
 import { shallow } from 'enzyme';
 import Filter from '@Views/SearchPage/Filter';
 import Pager from '@Views/SearchPage/Pager';
 import Header from '@Components/Header';
 import Footer from '@Components/Footer';
-import SearchPage from './SearchPage';
+import SearchPage from './';
 
 let wrapper;
 const shallowRender = () => {

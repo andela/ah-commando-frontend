@@ -1,9 +1,5 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/forbid-foreign-prop-types */
 import React from 'react';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
-import checkPropTypes from 'check-prop-types';
 import { Filter } from './Filter';
 import FilterComponents from './FilterComponents';
 
@@ -92,7 +88,7 @@ describe('Article component test', () => {
     expect(callBack.mock.calls.length).toEqual(1);
   });
 
-  it('should not throw a warning with the correct prop type', () => {
+  it('should call all methods', () => {
     instance.filterResult();
     instance.handleInputChange({
       target: {
@@ -106,7 +102,7 @@ describe('Article component test', () => {
     expect(props.getFilteredArticles).toHaveBeenCalled();
   });
 
-  it('should not throw a warning with the correct prop type', () => {
+  it('should call the handle input method', () => {
     instance.handleInputChange({
       target: {
         value: '',
@@ -118,7 +114,7 @@ describe('Article component test', () => {
     expect(props.getFilteredArticles).toHaveBeenCalled();
   });
 
-  it('should not throw a warning with the correct prop type', () => {
+  it('should call the handle input method', () => {
     instance.handleInputChange({
       target: {
         value: '',
@@ -131,7 +127,7 @@ describe('Article component test', () => {
     expect(props.getFilteredArticles).toHaveBeenCalled();
   });
 
-  it('should not throw a warning with the correct prop type', () => {
+  it('should call the handle input method', () => {
     instance.handleInputChange({
       target: {
         value: '',
@@ -143,11 +139,4 @@ describe('Article component test', () => {
     }, 'field');
     expect(props.getFilteredArticles).toHaveBeenCalled();
   });
-  // it('should render a .image-container class', () => {
-  //   expect(wrapper.find('.image-container')).toHaveLength(1);
-  // });
-
-  // it('should render a .article-details class', () => {
-  //   expect(wrapper.find('.article-details')).toHaveLength(1);
-  // });
 });

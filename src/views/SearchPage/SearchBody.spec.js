@@ -1,12 +1,7 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/forbid-foreign-prop-types */
 import React from 'react';
 import { shallow } from 'enzyme';
-import configureStore from 'redux-mock-store';
-// eslint-disable-next-line import/named
-import { SearchBody } from './SearchBody/';
+import { SearchBody } from './SearchBody';
 
-let wrapper;
 const props = {
   filters: {
     searchQuery: '',
@@ -86,7 +81,7 @@ const shallowRender = () => {
 
 describe('Article component test', () => {
   beforeEach(() => {
-    wrapper = shallowRender();
+    shallowRender();
   });
 
   it('should render without crashing', () => {
@@ -104,23 +99,4 @@ describe('Article component test', () => {
   it('should render Arrow component without crashing', () => {
     shallow(<SearchBody {...props4} />);
   });
-  // it('should render Arrow component without crashing', () => {
-  //   shallow(<Arrows direction="up" />);
-  // });
-  // it('should not throw a warning with the correct prop type', () => {
-  //   const expectedProps = {
-  //     type: 'vertical',
-  //     data,
-  //   };
-  //  const error = checkPropTypes(ArticleCard.propTypes, expectedProps, 'props', ArticleCard.name);
-  //   expect(error).toBeUndefined();
-  // });
-
-  // it('should render a .pager_container class', () => {
-  //   expect(wrapper.find('.title')).toHaveLength(1);
-  // });
-
-  // it('should render a .article-details class', () => {
-  //   expect(wrapper.find('.article-details')).toHaveLength(1);
-  // });
 });

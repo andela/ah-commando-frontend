@@ -9,11 +9,10 @@ import {
   updateFilters,
   displayFilters,
   removeFilters,
-  getArticles,
   getFilteredArticles,
   updateSearchQuery,
   updatePageNumber,
-} from './searchActions';
+} from '@Actions/searchActions';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -122,19 +121,9 @@ describe('get articles actions', () => {
 
   it('adds new articles to the store', () => {
     nock(url)
-      .post('/articles/search/filter?searchQuery=on&limit=200')
+      .post('/articles/search/filter?searchQuery=on&limit=2000')
       .reply(200, [{ a: 'b' }, { c: 'd' }]);
     return store.dispatch(getFilteredArticles())
-      .then(() => {
-        expect(store.getActions()).toMatchSnapshot();
-      });
-  });
-
-  it('adds new articles to the store', () => {
-    nock(url)
-      .post('/articles/search/filter?searchQuery=on&limit=200')
-      .reply(200, [{ a: 'b' }, { c: 'd' }]);
-    return store.dispatch(getArticles())
       .then(() => {
         expect(store.getActions()).toMatchSnapshot();
       });
