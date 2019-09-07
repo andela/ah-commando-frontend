@@ -65,12 +65,12 @@ export class Header extends Component {
             : (
               <div className="action">
                 <Button
+                  datatest="loginButton"
                   label="sign in"
                   handleClick={signIn}
                   disabled={false}
                   type="button"
                   style={buttonStyle}
-                  datatest="test"
                 />
                 <Button
                   datatest="signup-button"
