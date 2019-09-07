@@ -29,6 +29,7 @@ describe('<SignIn /> Component', () => {
       close: jest.fn(),
       signIn: jest.fn(),
       signinViaSocial: jest.fn(),
+      showSignInModal: jest.fn(),
     };
     wrapper = shallow(<SignIn {...props} />);
     wrapper.setState(state);

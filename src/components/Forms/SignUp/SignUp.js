@@ -1,14 +1,15 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import Modal from '@Components/Modal';
 import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
-import { closeModal } from '@Actions/uiActions';
+import { closeModal, openModal } from '@Actions/uiActions';
 import { createUser, loginViaSocial } from '@Actions/authActions';
 import './SignUp.scss';
 import {
@@ -187,6 +188,7 @@ export class SignUp extends Component {
         modalOpen,
         modal,
       },
+      showSignInModal,
     } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
 
@@ -298,9 +300,9 @@ export class SignUp extends Component {
             <p>
               Have an account?
               {' '}
-              <Link to="/">
+              <p onClick={showSignInModal} id="sc-sn">
                 Sign in
-              </Link>
+              </p>
             </p>
           </div>
         </div>
@@ -321,6 +323,7 @@ SignUp.propTypes = {
   close: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired,
   signinViaSocial: PropTypes.func.isRequired,
+  showSignInModal: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
@@ -328,5 +331,6 @@ export default connectComponent(
     close: closeModal,
     signUp: createUser,
     signinViaSocial: loginViaSocial,
+    showSignInModal: () => openModal('signin'),
   },
 );

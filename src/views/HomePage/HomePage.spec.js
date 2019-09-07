@@ -10,9 +10,9 @@ describe('HomePage component test', () => {
 
   describe('HomePage tests with full props', () => {
     const props = {
-      getHomePageArticles: () => { },
-      getArticle: () => { },
-      getEditorsChoice: () => { },
+      homePageGet: () => { },
+      homeArticleGet: () => { },
+      editorsChoiceGet: () => { },
     };
     beforeEach(() => {
       wrapper = setUp(props);
@@ -31,9 +31,9 @@ describe('HomePage component test', () => {
 
   describe('Tests for class methods', () => {
     const props = {
-      getHomePageArticles: () => { },
-      getArticle: () => { },
-      getEditorsChoice: () => { },
+      homePageGet: () => { },
+      homeArticleGet: () => { },
+      editorsChoiceGet: () => { },
     };
 
     const e = {
@@ -75,9 +75,9 @@ describe('HomePage component test', () => {
 
     it('Should render without failing', () => {
       const props = {
-        getHomePageArticles: mockgetArticles,
-        getArticle: mockgetHomePageArticles,
-        getEditorsChoice: mockgetEditorsChoice,
+        homePageGet: mockgetArticles,
+        homeArticleGet: mockgetHomePageArticles,
+        editorsChoiceGet: mockgetEditorsChoice,
       };
 
       const Wrapper = setUp(props);

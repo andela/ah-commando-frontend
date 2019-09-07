@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
@@ -8,8 +9,8 @@ import Modal from '@Components/Modal';
 import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
-import { closeModal, openModal } from '@Actions/uiActions';
 import AuthStore from '@Lib/AuthStore';
+import { closeModal, openModal } from '@Actions/uiActions';
 import { logIn, loginViaSocial } from '@Actions/authActions';
 import {
   validate, emailSchema, passwordSchema, setToken,
@@ -140,6 +141,7 @@ export class SignIn extends Component {
         modalOpen,
         modal,
       }, requestPassword,
+      showSignUpModal,
     } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
 
@@ -208,9 +210,9 @@ export class SignIn extends Component {
             <p>
               No account?
               {' '}
-              <Link to="/">
-                Sign up
-              </Link>
+              <p id="sc-sn" onClick={showSignUpModal}>
+              Sign up
+              </p>
             </p>
           </div>
           <div className="forgot-password">
@@ -249,6 +251,7 @@ SignIn.propTypes = {
   signIn: PropTypes.func.isRequired,
   requestPassword: PropTypes.func.isRequired,
   signinViaSocial: PropTypes.func.isRequired,
+  showSignUpModal: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
@@ -257,5 +260,6 @@ export default connectComponent(
     signIn: logIn,
     requestPassword: () => openModal('passwordModal'),
     signinViaSocial: loginViaSocial,
+    showSignUpModal: () => openModal('signup'),
   },
 );
