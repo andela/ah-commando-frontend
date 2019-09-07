@@ -73,13 +73,14 @@
     font-size: 12px;
     margin-top: 15px;
 
-    a {
+    p {
       color: #460DE5;
       font-weight: 100;
       transition: all .2s;
 
       &:hover {
         color: #ffa500;
+        cursor: pointer;
       }
     }
   }

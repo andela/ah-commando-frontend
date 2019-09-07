@@ -31,7 +31,6 @@ export class SignIn extends Component {
   }
 
   componentDidMount() {
-    const { history } = this.props;
     const searchParams = new URLSearchParams(window.location.search);
     if (!searchParams.get('user') || !searchParams.get('token')) return false;
     const token = decryptQuery(searchParams.get('token'));
@@ -39,7 +38,6 @@ export class SignIn extends Component {
     localStorage.setItem('haven', token);
     setToken(token);
     localStorage.setItem('user', user);
-    history.push('/');
   }
 
   handleChange = (e) => {
@@ -213,22 +211,9 @@ export class SignIn extends Component {
             </div>
           </div>
           <div className="forgot-password">
-            <Button
-              datatest="request-passwordBtn"
-              label="Forgot Password?"
-              handleClick={() => requestPassword('passwordModal')}
-              type="button"
-              className="fg-ps"
-              style={{
-                backgroundColor: '#fff',
-                color: '#8075e6',
-                borderRadius: '0',
-                cursor: 'pointer',
-                fontSize: '12px',
-                padding: '0px',
-                margin: '0px',
-              }}
-            />
+            <p className="fg-ps" onClick={() => requestPassword('passwordModal')}>
+                Forgot password?
+            </p>
           </div>
         </div>
       </Modal>

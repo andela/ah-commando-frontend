@@ -180,7 +180,6 @@ describe('test social media sign in', () => {
   });
   it('should pass and redirect if user is found', () => {
     span.simulate('click', e);
-    instance.componentDidMount();
     const window = {
       location: {
         search: sinon.match('token=nmknfkm&&user=kdlmfklm'),
@@ -189,6 +188,7 @@ describe('test social media sign in', () => {
     const localStorage = {
       setItem: sinon.spy(),
     };
+    instance.componentDidMount();
     const URLSearchParmas = sinon.spy();
     const searchParams = new URLSearchParmas(window.location.search);
     searchParams.get = jest.fn().mockReturnValue(true);
@@ -221,5 +221,10 @@ describe('should test password rest modal', () => {
     const signUpModal = wrapper.find('#sc-sn');
     signUpModal.simulate('click');
     expect(props.showSignUpModal).toHaveBeenCalled();
+  });
+  it('should open show request password modal', () => {
+    const btn = wrapper.find('.fg-ps');
+    btn.simulate('click');
+    expect(props.requestPassword).toHaveBeenCalled();
   });
 });
