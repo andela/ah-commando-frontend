@@ -128,6 +128,5 @@ export const setNewPassword = (data, history) => async (dispatch) => {
 };
 export const loginViaSocial = (brand) => async dispatch => {
   dispatch({ type: null });
-  localStorage.setItem('socialLogin', true);
   window.location = `https://a-haven-staging.herokuapp.com/api/v1/users/${brand}`;
 };

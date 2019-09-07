@@ -32,18 +32,14 @@ export class SignIn extends Component {
 
   componentDidMount() {
     const { history } = this.props;
-    const socialLogin = localStorage.getItem('socialLogin');
-    if (!socialLogin) return false;
-    if (socialLogin) {
-      const searchParams = new URLSearchParams(window.location.search);
-      if (!searchParams.get('user') || !searchParams.get('token')) return false;
-      const token = decryptQuery(searchParams.get('token'));
-      const user = searchParams.get('user');
-      localStorage.setItem('haven', token);
-      setToken(token);
-      localStorage.setItem('user', user);
-      history.push('/login');
-    }
+    const searchParams = new URLSearchParams(window.location.search);
+    if (!searchParams.get('user') || !searchParams.get('token')) return false;
+    const token = decryptQuery(searchParams.get('token'));
+    const user = searchParams.get('user');
+    localStorage.setItem('haven', token);
+    setToken(token);
+    localStorage.setItem('user', user);
+    history.push('/');
   }
 
   handleChange = (e) => {

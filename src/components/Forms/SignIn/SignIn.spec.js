@@ -187,12 +187,8 @@ describe('test social media sign in', () => {
       },
     };
     const localStorage = {
-      getItem: jest.fn().mockReturnValueOnce(true),
       setItem: sinon.spy(),
     };
-    const setToken = sinon.spy();
-    const socialLogin = localStorage.getItem('socialLogin');
-    expect(socialLogin).toBe(true);
     const URLSearchParmas = sinon.spy();
     const searchParams = new URLSearchParmas(window.location.search);
     searchParams.get = jest.fn().mockReturnValue(true);
@@ -202,9 +198,6 @@ describe('test social media sign in', () => {
     const token = decryptQuery(searchParams.get('token'));
     expect(token).toBe('jnkjkjjkjnjkjjkkkknjkjkj');
     expect(localStorage.setItem.calledOnce).toBe(false);
-    expect(setToken.calledOnce).toBe(false);
-    expect(localStorage.setItem.calledOnce).toBe(false);
-    expect(instance.props.history.calledOnce).toBe(undefined);
   });
 });
 describe('should test password rest modal', () => {
