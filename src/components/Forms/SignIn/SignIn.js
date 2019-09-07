@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import Modal from '@Components/Modal';
@@ -140,7 +140,8 @@ export class SignIn extends Component {
         loading,
         modalOpen,
         modal,
-      }, requestPassword,
+      },
+      requestPassword,
       showSignUpModal,
     } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
@@ -207,13 +208,13 @@ export class SignIn extends Component {
             </div>
           </div>
           <div className="switch-context">
-            <p>
+            <div>
               No account?
               {' '}
               <p id="sc-sn" onClick={showSignUpModal}>
-              Sign up
+                Sign up
               </p>
-            </p>
+            </div>
           </div>
           <div className="forgot-password">
             <Button
@@ -221,6 +222,7 @@ export class SignIn extends Component {
               label="Forgot Password?"
               handleClick={requestPassword}
               type="button"
+              className="fg-ps"
               style={{
                 backgroundColor: '#fff',
                 color: '#8075e6',

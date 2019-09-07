@@ -29,7 +29,8 @@ describe('<SignIn /> Component', () => {
       close: jest.fn(),
       signIn: jest.fn(),
       signinViaSocial: jest.fn(),
-      showSignInModal: jest.fn(),
+      requestPassword: jest.fn(),
+      showSignUpModal: jest.fn(),
     };
     wrapper = shallow(<SignIn {...props} />);
     wrapper.setState(state);
@@ -141,6 +142,8 @@ describe('test social media sign in', () => {
     close: jest.fn(),
     signIn: jest.fn(),
     signinViaSocial: sinon.spy(),
+    requestPassword: jest.fn(),
+    showSignUpModal: jest.fn(),
   };
   const e = {
     target: {
@@ -202,5 +205,35 @@ describe('test social media sign in', () => {
     expect(setToken.calledOnce).toBe(false);
     expect(localStorage.setItem.calledOnce).toBe(false);
     expect(instance.props.history.calledOnce).toBe(undefined);
+  });
+});
+describe('should test password rest modal', () => {
+  const props = {
+    ui: {
+      loading: false,
+      modalOpen: true,
+      modal: 'signin',
+    },
+    history: {
+      push: sinon.spy(),
+    },
+    close: jest.fn(),
+    signIn: jest.fn(),
+    signinViaSocial: sinon.spy(),
+    requestPassword: jest.fn(),
+    showSignUpModal: jest.fn(),
+  };
+  const wrapper = shallow(<SignIn {...props} />);
+  const instance = wrapper.instance();
+  it('shoudl open reset password modal', () => {
+    const btn = wrapper.find('.fg-ps');
+    btn.simulate('click');
+    const requestPassword = sinon.spy();
+    expect(requestPassword.calledOnce).toBe(false);
+  });
+  it('should open show signup modal', () => {
+    const signUpModal = wrapper.find('#sc-sn');
+    signUpModal.simulate('click');
+    expect(instance.props.showSignUpModal).toHaveBeenCalled();
   });
 });

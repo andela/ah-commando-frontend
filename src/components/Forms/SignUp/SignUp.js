@@ -297,13 +297,13 @@ export class SignUp extends Component {
             </div>
           </div>
           <div className="switch-context">
-            <p>
+            <div>
               Have an account?
               {' '}
               <p onClick={showSignInModal} id="sc-sn">
                 Sign in
               </p>
-            </p>
+            </div>
           </div>
         </div>
       </Modal>

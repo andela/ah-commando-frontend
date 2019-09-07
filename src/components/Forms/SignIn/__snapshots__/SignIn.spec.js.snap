@@ -55,11 +55,12 @@ exports[`test social media sign in should click the google signin button 1`] = `
         visible={false}
       />
       <Button
-        datatest="test"
+        className=""
+        datatest="loginButton"
         disabled={false}
         handleClick={[Function]}
         id="signin"
-        label="Sign in"
+        label="Sign In"
         style={
           Object {
             "backgroundColor": "#000",
@@ -120,24 +121,40 @@ exports[`test social media sign in should click the google signin button 1`] = `
     <div
       className="switch-context"
     >
-      <p>
+      <div>
         No account?
          
-        <Link
-          to="/"
+        <p
+          id="sc-sn"
+          onClick={[MockFunction]}
         >
           Sign up
-        </Link>
-      </p>
+        </p>
+      </div>
     </div>
     <div
       className="forgot-password"
     >
-      <Link
-        to="/"
-      >
-        Forgot Password?
-      </Link>
+      <Button
+        className="fg-ps"
+        datatest="request-passwordBtn"
+        disabled={false}
+        handleClick={[MockFunction]}
+        id=""
+        label="Forgot Password?"
+        style={
+          Object {
+            "backgroundColor": "#fff",
+            "borderRadius": "0",
+            "color": "#8075e6",
+            "cursor": "pointer",
+            "fontSize": "12px",
+            "margin": "0px",
+            "padding": "0px",
+          }
+        }
+        type="button"
+      />
     </div>
   </div>
 </Modal>

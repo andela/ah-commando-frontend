@@ -14,6 +14,7 @@ const Button = (props) => {
     style,
     id,
     datatest,
+    className,
   } = props;
   return (
     <div className="btn-container">
@@ -22,12 +23,11 @@ const Button = (props) => {
         disabled={disabled}
         type={type}
         onClick={handleClick}
-        id={id}
         datatest={datatest}
+        id={id}
+        className={className}
       >
-        <div>
-          {children || label}
-        </div>
+        {children || label}
       </button>
     </div>
   );
@@ -48,6 +48,7 @@ Button.propTypes = {
   type: PropTypes.string,
   disabled: PropTypes.bool,
   datatest: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Button.defaultProps = {
@@ -57,6 +58,7 @@ Button.defaultProps = {
   type: '',
   disabled: false,
   id: '',
+  className: '',
 };
 
 export default Button;

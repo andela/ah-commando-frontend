@@ -8,10 +8,12 @@ const props = {
   ui: {
     modalOpen: true,
     modal: 'passwordModal',
+    loading: false,
   },
   handleChange: jest.fn(),
   closeModal: jest.fn(),
   handleSubmit: jest.fn(),
+  requestLink: jest.fn(),
 };
 
 const shallowRender = () => {
