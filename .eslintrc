@@ -43,12 +43,12 @@
     "consistent-return": 0,
     "no-param-reassign": 0,
     "comma-dangle": 2,
-    "no-console": 0,
+    "no-console": 1,
     "class-methods-use-this": 0,
     "curly": ["error", "multi-line"],
     "import/no-unresolved": 0,
     "import/no-named-as-default": 0,
-    "no-shadow": 0,
+    "no-shadow": 0
   },
   "settings": {
     "import/resolver": {
@@ -56,5 +56,5 @@
         "config": "build-utils/webpack.common.js"
       }
     }
-  },
+  }
 }
