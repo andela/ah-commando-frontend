@@ -2,6 +2,7 @@ import checkPropTypes from 'check-prop-types';
 import instance, { setAuthToken } from './axios';
 import Validator from './Validator';
 import empty from './isEmpty';
+import Editor from './editor';
 
 export const axiosInstance = instance;
 export const setToken = setAuthToken;
@@ -15,6 +16,8 @@ export const {
   bioSchema,
 } = Validator;
 export const isEmpty = empty;
+
+export const editor = Editor;
 
 export const findByTestAttribute = (component, attr) => {
   const wrapper = component.find(`[data-test='${attr}']`);
