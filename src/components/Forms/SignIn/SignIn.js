@@ -33,11 +33,9 @@ export class SignIn extends Component {
   componentDidMount() {
     const searchParams = new URLSearchParams(window.location.search);
     if (!searchParams.get('user') || !searchParams.get('token')) return false;
-    const token = decryptQuery(searchParams.get('token'));
-    const user = searchParams.get('user');
-    localStorage.setItem('haven', token);
-    setToken(token);
-    localStorage.setItem('user', user);
+    localStorage.setItem('haven', decryptQuery(searchParams.get('token')));
+    setToken(decryptQuery(searchParams.get('token')));
+    localStorage.setItem('user', searchParams.get('user'));
   }
 
   handleChange = (e) => {

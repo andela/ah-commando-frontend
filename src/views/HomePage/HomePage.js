@@ -33,8 +33,7 @@ export class Home extends Component {
   }
 
   handleScroll = () => {
-    const currentHeight = this.scroller.current.getBoundingClientRect().top;
-    if (currentHeight < -2950) {
+    if (this.scroller.current.getBoundingClientRect().top < -2950) {
       this.setState({ asideHeight: '500px' });
     } else {
       this.setState({ asideHeight: '750px' });

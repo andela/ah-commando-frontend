@@ -147,30 +147,28 @@ describe('test social media sign in', () => {
   };
   const e = {
     target: {
-      getAttribute: jest.fn().mockReturnValueOnce('google'),
+      getAttribute: jest.fn().mockReturnValueOnce(' '),
     },
   };
   const wrapper = shallow(<SignIn {...props} />);
   const instance = wrapper.instance();
   const span = wrapper.find('span[name="google"]');
+  const span2 = wrapper.find('span[name="facebook"]');
   it('should click the google signin button', () => {
     span.simulate('click', e);
+    span2.simulate('click', e);
     expect(wrapper).toMatchSnapshot();
-    expect(instance.props.signinViaSocial.calledOnce).toBe(true);
+    expect(props.signinViaSocial.called).toBe(true);
   });
   it('should error if no user is found', () => {
     span.simulate('click', e);
+    span2.simulate('click', e);
     instance.componentDidMount();
     const window = {
       location: {
         search: sinon.match(),
       },
     };
-    const localStorage = {
-      getItem: jest.fn().mockReturnValueOnce(true),
-    };
-    const socialLogin = localStorage.getItem('socialLogin');
-    expect(socialLogin).toBe(true);
     const URLSearchParmas = sinon.spy();
     const searchParams = new URLSearchParmas(window.location.search);
     searchParams.get = jest.fn().mockReturnValueOnce(false);
@@ -178,29 +176,49 @@ describe('test social media sign in', () => {
     expect(searchParams.get('token')).toBe(undefined);
     expect(instance.componentDidMount()).toBe(false);
   });
-  it('should pass and redirect if user is found', () => {
+  it('should test component did mount', () => {
     span.simulate('click', e);
     const window = {
       location: {
-        search: sinon.match('token=nmknfkm&&user=kdlmfklm'),
+        search: sinon.match(),
       },
     };
-    const localStorage = {
-      setItem: sinon.spy(),
-    };
-    instance.componentDidMount();
     const URLSearchParmas = sinon.spy();
     const searchParams = new URLSearchParmas(window.location.search);
-    searchParams.get = jest.fn().mockReturnValue(true);
-    expect(searchParams.get('user')).toBe(true);
-    expect(searchParams.get('token')).toBe(true);
-    const decryptQuery = jest.fn().mockReturnValueOnce('jnkjkjjkjnjkjjkkkknjkjkj');
-    const token = decryptQuery(searchParams.get('token'));
-    expect(token).toBe('jnkjkjjkjnjkjjkkkknjkjkj');
-    expect(localStorage.setItem.calledOnce).toBe(false);
+    searchParams.get = jest.fn().mockReturnValueOnce(true);
+    searchParams.get('user');
+    expect(searchParams.get).toHaveBeenCalled();
+    instance.componentDidMount = jest.fn();
+    instance.componentDidMount();
+    expect(instance.componentDidMount).toHaveBeenCalled();
+    const decryptQuery = jest.fn().mockReturnValueOnce(true);
+    const token = decryptQuery(searchParams.get(''));
+    expect(decryptQuery).toHaveBeenCalled();
+    expect(token).toBe(true);
+    expect(instance.componentDidMount).toMatchSnapshot();
+  });
+  it('should test local store', () => {
+    span.simulate('click', e);
+    const window = {
+      location: {
+        search: sinon.match(),
+      },
+    };
+    const URLSearchParmas = sinon.spy();
+    const searchParams = new URLSearchParmas(window.location.search);
+    searchParams.get = jest.fn().mockReturnValueOnce(true);
+    searchParams.get('user');
+    expect(searchParams.get).toHaveBeenCalled();
+    const localStorage = {
+      setItem: jest.fn(),
+    };
+    const decryptQuery = jest.fn();
+    localStorage.setItem('haven', decryptQuery(searchParams.get('')));
+    expect(decryptQuery).toHaveBeenCalled();
+    expect(localStorage.setItem).toHaveBeenCalled();
   });
 });
-describe('should test password rest modal', () => {
+describe('should test password reset modal', () => {
   const props = {
     ui: {
       loading: false,
