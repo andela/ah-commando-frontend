@@ -124,8 +124,8 @@ Header.propTypes = {
 };
 
 export default connectComponent(withRouter(Header), {
-  signIn: () => openModal('signin'),
-  signUp: () => openModal('signup'),
+  signIn: openModal,
+  signUp: openModal,
   updateSearchQuery,
   getFilteredArticles,
   updatePageNumber,
