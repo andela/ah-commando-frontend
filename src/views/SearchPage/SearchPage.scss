@@ -1,0 +1,21 @@
+.search_page {
+  display: grid;
+  grid-template-areas:
+  'header  header  header  header'
+  'filter   body    body    body'
+  'footer  footer  footer  footer';
+
+  .header {
+    grid-area: header
+  }
+  .filter {
+    grid-area: filter
+  }
+  .body {
+    grid-area: body
+  }
+  .footer {
+    grid-area: footer;
+    margin: 20px;
+  }
+}

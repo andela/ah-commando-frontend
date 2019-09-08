@@ -1,11 +1,14 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '@Components/Button';
 import AuthStore from '@Lib/AuthStore';
 import Icon from '@Components/Icon';
 import connectComponent from '@App/lib/connect-component';
 import { openModal } from '@Actions/uiActions';
+import { updateSearchQuery, getFilteredArticles, updatePageNumber } from '@Actions/searchActions';
 import logo from '../../../public/logo.png';
 import './Header.scss';
 
@@ -25,6 +28,18 @@ export class Header extends Component {
     });
   };
 
+  handleKeyUp = (e) => {
+    if (e.keyCode === 13) {
+      if (e.target.value.length) {
+        this.props.updateSearchQuery(e.target.value);
+        // this.props.getArticles(e.target.value);
+        this.props.getFilteredArticles(e.target.value);
+        this.props.updatePageNumber(1);
+        this.props.history.push('/search');
+      }
+    }
+  };
+
   handleBlur = () => {
     this.setState({
       search: false,
@@ -41,12 +56,13 @@ export class Header extends Component {
           <div className="search">
             <div>
               <div>
-                {search ? <input type="text" placeholder="Search..." onBlur={this.handleBlur} /> : ''}
+                {search ? <input type="text" onKeyUp={(e) => { this.handleKeyUp(e); }} datatest="input-search" placeholder="Search..." onBlur={this.handleBlur} /> : ''}
               </div>
               <button
                 type="button"
                 className="searchButton"
                 onClick={this.handleClick}
+                datatest="search-icon"
               >
                 <Icon name="search" />
               </button>
@@ -105,7 +121,10 @@ Header.propTypes = {
   signUp: PropTypes.func.isRequired,
 };
 
-export default connectComponent(Header, {
+export default connectComponent(withRouter(Header), {
   signIn: () => openModal('signin'),
   signUp: () => openModal('signup'),
+  updateSearchQuery,
+  getFilteredArticles,
+  updatePageNumber,
 });

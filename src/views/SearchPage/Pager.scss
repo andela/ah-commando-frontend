@@ -1,0 +1,47 @@
+.pager_container {
+  display: flex;
+  width: 80%;
+  margin: 25px auto;
+
+  .title{
+    h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+    }
+  }
+}
+.page_number {
+  display: flex;
+  flex-direction: row;
+  margin-left: auto;
+}
+.arrow-container {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border: 1px solid rgba(207, 207, 207, 0.7);
+  margin-left: 3px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(255, 200, 0, 0.5)
+  }
+  p {
+    padding-top: 2px;
+    text-align: center;
+  }
+}
+.page-container {
+  width: 25px;
+  height: 25px;
+  background-color: white;
+  border: 1px solid rgba(207, 207, 207, 0.5);
+  margin-left: 3px;
+  cursor: pointer;
+  &:hover {
+    background-color: rgba(255, 200, 0, 0.5)
+  }
+  p {
+    padding-top: 2px;
+    text-align: center;
+  }
+}

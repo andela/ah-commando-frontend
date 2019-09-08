@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get articles actions adds new articles to the store 1`] = `
+Array [
+  Object {
+    "payload": Array [
+      "No result found",
+    ],
+    "type": "UPDATE_ARTICLES",
+  },
+]
+`;
