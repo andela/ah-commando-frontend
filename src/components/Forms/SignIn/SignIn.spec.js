@@ -210,12 +210,9 @@ describe('test social media sign in', () => {
     const searchParams = {
       get: jest.fn().mockReturnValueOnce('token'),
     };
-    const setToken = jest.fn();
     localStorage.setItem('haven', decryptQuery(searchParams.get('token')));
     expect(decryptQuery).toHaveBeenCalled();
     expect(searchParams.get).toHaveBeenCalled();
-    setToken(decryptQuery(searchParams.get('token')));
-    expect(setToken).toHaveBeenCalled();
   });
 });
 describe('should test password reset modal', () => {
