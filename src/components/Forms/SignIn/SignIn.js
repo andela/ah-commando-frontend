@@ -210,7 +210,7 @@ export class SignIn extends Component {
           </div>
           <div className="forgot-password">
             <p className="fg-ps" onClick={() => requestPassword('passwordModal')}>
-                Forgot password?
+              Forgot password?
             </p>
           </div>
         </div>

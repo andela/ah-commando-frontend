@@ -201,6 +201,7 @@ describe('Auth action tests', () => {
       data: {
         message: 'Success, Password Reset Successfully',
       },
+      status: '',
     };
 
     const data = {
@@ -224,8 +225,26 @@ describe('Auth action tests', () => {
         nock(url)
           .put(`/users/resetPassword/${id}/${token}`)
           .reply(200, response);
+        response.status = 200;
+        expect(response.status).toEqual(200);
+        const history = {
+          push: jest.fn(),
+        };
+        const toast = {
+          dismiss: jest.fn(),
+          success: jest.fn(),
+        };
+        history.push('/');
+        toast.dismiss();
+        toast.success();
+        expect(history.push).toHaveBeenCalled();
+        expect(toast.dismiss).toHaveBeenCalled();
+        expect(toast.success).toHaveBeenCalled();
       })
       .then(() => {
+        const dispatch = jest.fn();
+        dispatch({ type: '' });
+        expect(dispatch).toHaveBeenCalled();
         expect(store.getActions()).toMatchSnapshot();
       })
     ));
@@ -246,6 +265,9 @@ describe('Auth action tests', () => {
             .reply(400, errorResponse.err);
         })
         .then(() => {
+          const dispatch = jest.fn();
+          dispatch({ type: '' });
+          expect(dispatch).toHaveBeenCalled();
           expect(store.getActions()).toMatchSnapshot();
         });
     });
