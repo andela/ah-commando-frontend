@@ -64,7 +64,7 @@ export const editProfile = (payload) => async (dispatch) => {
     localStorage.setItem('haven', response.data.profile.token);
     swal({
       title: 'Edit User Profile',
-      text: 'Your Profile has been edited successfully',
+      text: 'Your Profile has been successfully Edited',
       icon: 'success',
     });
     return dispatch(editProfileSuccess(response.data.profile));
