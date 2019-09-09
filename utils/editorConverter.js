@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 const paragraphBlock = (payload) => `
 <div class="ce-block">
   <div class="ce-block__content">

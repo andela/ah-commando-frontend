@@ -1,8 +1,7 @@
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
-import List from '@editorjs/list';
 
-const editor = () => new EditorJS({
+const editor = (data = null) => new EditorJS({
   autofocus: false,
   holder: 'article-div',
   placeholder: 'Tell us your story...',
@@ -11,11 +10,8 @@ const editor = () => new EditorJS({
       class: Header,
       inlineToolbar: ['link'],
     },
-    list: {
-      class: List,
-      inlineToolbar: true,
-    },
   },
+  data,
 });
 
 export default editor;
