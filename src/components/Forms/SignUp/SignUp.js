@@ -51,7 +51,7 @@ export class SignUp extends Component {
       case 'email':
         return emailSchema;
       default:
-        break;
+        return null;
     }
   }
 
