@@ -14,9 +14,7 @@ export const setCurrentUser = decoded => ({
 });
 
 export const logIn = (userData, history) => async (dispatch) => {
-  dispatch({
-    type: LOADING,
-  });
+  dispatch({ type: LOADING });
   try {
     const response = await axiosInstance.post('users/login', { user: { ...userData } });
     if (response.status === 200) {
@@ -117,12 +115,14 @@ export const setNewPassword = (data, history) => async (dispatch) => {
       toast.dismiss();
       toast.success(response.data.message);
     }
-    dispatch({
-      type: NOT_LOADING,
-    });
+    dispatch({ type: NOT_LOADING });
   } catch (err) {
     const { error } = err.response.data;
     toast.dismiss();
     toast.error(error, { autoClose: 5000 });
   }
+};
+export const loginViaSocial = (brand) => async dispatch => {
+  dispatch({ type: null });
+  window.location = `https://a-haven-staging.herokuapp.com/api/v1/users/${brand}`;
 };

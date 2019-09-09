@@ -56,7 +56,7 @@ export class PasswordRequest extends Component {
 
     if (errMsg) return null;
 
-    requestLink(email);
+    return requestLink(email);
   }
 
   closeModal = () => {

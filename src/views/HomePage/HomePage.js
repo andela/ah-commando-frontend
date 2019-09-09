@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getHomePageArticles, getArticle, getEditorsChoice } from '@App/actions/Articles';
-import connect from '@Lib/connect-component';
+import connectComponent from '@Lib/connect-component';
 import Header from '@Components/Header';
 import Footer from '@Components/Footer';
 import SignUp from '@Components/Forms/SignUp';
@@ -22,10 +22,10 @@ export class Home extends Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll, true);
-    const { getHomePageArticles, getArticle, getEditorsChoice } = this.props;
-    getHomePageArticles();
-    getArticle();
-    getEditorsChoice();
+    const { homePageGet, homeArticleGet, editorsChoiceGet } = this.props;
+    homePageGet();
+    homeArticleGet();
+    editorsChoiceGet();
   }
 
   componentWillUnmount() {
@@ -33,8 +33,7 @@ export class Home extends Component {
   }
 
   handleScroll = () => {
-    const currentHeight = this.scroller.current.getBoundingClientRect().top;
-    if (currentHeight < -2950) {
+    if (this.scroller.current.getBoundingClientRect().top < -2950) {
       this.setState({ asideHeight: '500px' });
     } else {
       this.setState({ asideHeight: '750px' });
@@ -82,9 +81,14 @@ export class Home extends Component {
 }
 
 Home.propTypes = {
-  getHomePageArticles: PropTypes.func.isRequired,
-  getArticle: PropTypes.func.isRequired,
-  getEditorsChoice: PropTypes.func.isRequired,
+  homePageGet: PropTypes.func.isRequired,
+  homeArticleGet: PropTypes.func.isRequired,
+  editorsChoiceGet: PropTypes.func.isRequired,
 };
 
-export default connect(Home, { getHomePageArticles, getArticle, getEditorsChoice });
+export default connectComponent(Home,
+  {
+    homePageGet: getHomePageArticles,
+    homeArticleGet: getArticle,
+    editorsChoiceGet: getEditorsChoice,
+  });

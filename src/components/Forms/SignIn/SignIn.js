@@ -1,16 +1,23 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import Modal from '@Components/Modal';
 import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
+import AuthStore from '@Lib/AuthStore';
 import { closeModal, openModal } from '@Actions/uiActions';
-import { logIn } from '@Actions/authActions';
-import { validate, emailSchema, passwordSchema } from '@Utils/';
+import { logIn, loginViaSocial } from '@Actions/authActions';
+import {
+  validate, emailSchema, passwordSchema, setToken,
+} from '@Utils/';
 import './SignIn.scss';
 
+const { decryptQuery } = AuthStore;
 export class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -21,6 +28,14 @@ export class SignIn extends Component {
       errors: {},
       isFormValid: true,
     };
+  }
+
+  componentDidMount() {
+    const searchParams = new URLSearchParams(window.location.search);
+    if (!searchParams.get('user') || !searchParams.get('token')) return false;
+    localStorage.setItem('haven', decryptQuery(searchParams.get('token')));
+    setToken(decryptQuery(searchParams.get('token')));
+    localStorage.setItem('user', searchParams.get('user'));
   }
 
   handleChange = (e) => {
@@ -98,6 +113,12 @@ export class SignIn extends Component {
     close();
   }
 
+  handleSocialSignin = (e) => {
+    const { signinViaSocial } = this.props;
+    const brand = e.target.getAttribute('name');
+    return signinViaSocial(brand);
+  }
+
   render() {
     const {
       email,
@@ -111,7 +132,9 @@ export class SignIn extends Component {
         loading,
         modalOpen,
         modal,
-      }, requestPassword,
+      },
+      requestPassword,
+      showSignUpModal,
     } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
 
@@ -151,6 +174,7 @@ export class SignIn extends Component {
               handleClick={this.handleSubmit}
               disabled={loading ? true : !isFormValid}
               type="submit"
+              id="signin"
               style={{
                 height: '45px',
                 width: '300px',
@@ -165,41 +189,29 @@ export class SignIn extends Component {
           <div className="alternative-login">
             <p>Or create an account Using:</p>
             <div className="social-login">
-              <span>
-                <i className="fab fa-google fa-lg" style={{ color: 'red' }} />
+              <span name="google" id="google" onClick={this.handleSocialSignin}>
+                <i className="fab fa-google fa-lg" style={{ color: 'red' }} onClick={this.handleSocialSignin} name="google" />
                 Google
               </span>
-              <span>
-                <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} />
+              <span name="facebook" id="facebook" onClick={this.handleSocialSignin}>
+                <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} onClick={this.handleSocialSignin} name="facebook" />
                 Facebook
               </span>
             </div>
           </div>
           <div className="switch-context">
-            <p>
+            <div>
               No account?
               {' '}
-              <Link to="/">
+              <p id="sc-sn" onClick={() => showSignUpModal('signup')}>
                 Sign up
-              </Link>
-            </p>
+              </p>
+            </div>
           </div>
           <div className="forgot-password">
-            <Button
-              datatest="request-passwordBtn"
-              label="Forgot Password?"
-              handleClick={requestPassword}
-              type="button"
-              style={{
-                backgroundColor: '#fff',
-                color: '#8075e6',
-                borderRadius: '0',
-                cursor: 'pointer',
-                fontSize: '12px',
-                padding: '0px',
-                margin: '0px',
-              }}
-            />
+            <p className="fg-ps" onClick={() => requestPassword('passwordModal')}>
+              Forgot password?
+            </p>
           </div>
         </div>
       </Modal>
@@ -219,12 +231,16 @@ SignIn.propTypes = {
   close: PropTypes.func.isRequired,
   signIn: PropTypes.func.isRequired,
   requestPassword: PropTypes.func.isRequired,
+  signinViaSocial: PropTypes.func.isRequired,
+  showSignUpModal: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
   withRouter(SignIn), {
     close: closeModal,
     signIn: logIn,
-    requestPassword: () => openModal('passwordModal'),
+    requestPassword: openModal,
+    signinViaSocial: loginViaSocial,
+    showSignUpModal: openModal,
   },
 );

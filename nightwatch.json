@@ -18,5 +18,9 @@
         }
       }
     }
+  },
+  "desiredCapabilities" : {
+    "browserName" : "chrome",
+    "loggingPrefs": {"driver": "INFO", "server": "OFF", "browser": "INFO"}
   }
 }
