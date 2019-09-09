@@ -18,8 +18,11 @@ const buttonStyle = {
 };
 
 export class Header extends Component {
-  state = {
-    search: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: false,
+    };
   }
 
   handleClick = () => {
@@ -32,7 +35,6 @@ export class Header extends Component {
     if (e.keyCode === 13) {
       if (e.target.value.length) {
         this.props.updateSearchQuery(e.target.value);
-        // this.props.getArticles(e.target.value);
         this.props.getFilteredArticles(e.target.value);
         this.props.updatePageNumber(1);
         this.props.history.push('/search');
