@@ -51,7 +51,7 @@ export class SignUp extends Component {
       case 'email':
         return emailSchema;
       default:
-        return null;
+        break;
     }
   }
 
@@ -200,6 +200,7 @@ export class SignUp extends Component {
             Create an account, follow the adventure everywhere anywhere
           </p>
           <form
+            onSubmit={this.handleSubmit}
             datatest="signup-form"
             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
           >
@@ -226,9 +227,9 @@ export class SignUp extends Component {
               value={username}
               type="text"
               handleChange={this.handleChange}
-              placeholder="johnDoe123"
+              placeholder="johndoe12_"
               label="Username"
-              error={errors.lastname}
+              error={errors.username}
             />
             <Input
               id="email"
