@@ -9,7 +9,6 @@ import Modal from '@Components/Modal';
 import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
-import AuthStore from '@Lib/AuthStore';
 import { closeModal, openModal } from '@Actions/uiActions';
 import { logIn, loginViaSocial } from '@Actions/authActions';
 import {
@@ -17,7 +16,6 @@ import {
 } from '@Utils/';
 import './SignIn.scss';
 
-const { decryptQuery } = AuthStore;
 export class SignIn extends Component {
   constructor(props) {
     super(props);
@@ -34,8 +32,8 @@ export class SignIn extends Component {
     const { history } = this.props;
     const searchParams = new URLSearchParams(window.location.search);
     if (!searchParams.get('user') || !searchParams.get('token')) return false;
-    localStorage.setItem('haven', decryptQuery(searchParams.get('token')));
-    setToken(decryptQuery(searchParams.get('token')));
+    localStorage.setItem('haven', searchParams.get('token'));
+    setToken(searchParams.get('token'));
     localStorage.setItem('user', searchParams.get('user'));
     history.push('/');
   }
