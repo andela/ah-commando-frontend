@@ -1,6 +1,7 @@
 import React from 'react';
 import chai from 'chai';
-import { shallow } from 'enzyme';
+import { act } from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
 import sinon from 'sinon';
 import { SignIn } from '@Components/Forms/SignIn/SignIn';
 
@@ -176,46 +177,45 @@ describe('test social media sign in', () => {
     expect(searchParams.get('token')).toBe(undefined);
     expect(instance.componentDidMount()).toBe(false);
   });
-  it('should test component did mount', () => {
-    span.simulate('click', e);
-    const window = {
-      location: {
-        search: sinon.match(),
+  it('should test componentDidMount', () => {
+    const props = {
+      ui: {
+        loading: false,
+        modalOpen: true,
+        modal: 'signin',
       },
-    };
-    const URLSearchParmas = sinon.spy();
-    const searchParams = new URLSearchParmas(window.location.search);
-    searchParams.get = jest.fn().mockReturnValueOnce(true);
-    searchParams.get('user');
-    expect(searchParams.get).toHaveBeenCalled();
-    instance.componentDidMount = jest.fn();
-    instance.componentDidMount();
-    expect(instance.componentDidMount).toHaveBeenCalled();
-    const decryptQuery = jest.fn().mockReturnValueOnce(true);
-    const token = decryptQuery(searchParams.get(''));
-    expect(decryptQuery).toHaveBeenCalled();
-    expect(token).toBe(true);
-    expect(instance.componentDidMount).toMatchSnapshot();
-  });
-  it('should test local store', () => {
-    span.simulate('click', e);
-    const window = {
-      location: {
-        search: sinon.match(),
+      history: {
+        push: jest.fn(),
       },
+      close: jest.fn(),
+      signIn: jest.fn(),
+      signinViaSocial: jest.fn(),
+      requestPassword: jest.fn(),
+      showSignUpModal: sinon.spy(),
     };
-    const URLSearchParmas = sinon.spy();
-    const searchParams = new URLSearchParmas(window.location.search);
-    searchParams.get = jest.fn().mockReturnValueOnce(true);
-    searchParams.get('user');
-    expect(searchParams.get).toHaveBeenCalled();
-    const localStorage = {
-      setItem: jest.fn(),
-    };
+    act(() => {
+      const e = {
+        target: {
+          getAttribute: jest.fn().mockReturnValueOnce(' '),
+        },
+      };
+      const wrapper = mount(<SignIn {...props} />);
+      const instance = wrapper.instance();
+      const span = wrapper.find('#google');
+      span.simulate('click', e);
+      instance.componentDidMount();
+    });
+    expect(props.signinViaSocial).toHaveBeenCalled();
     const decryptQuery = jest.fn();
-    localStorage.setItem('haven', decryptQuery(searchParams.get('')));
+    const searchParams = {
+      get: jest.fn().mockReturnValueOnce('token'),
+    };
+    const setToken = jest.fn();
+    localStorage.setItem('haven', decryptQuery(searchParams.get('token')));
     expect(decryptQuery).toHaveBeenCalled();
-    expect(localStorage.setItem).toHaveBeenCalled();
+    expect(searchParams.get).toHaveBeenCalled();
+    setToken(decryptQuery(searchParams.get('token')));
+    expect(setToken).toHaveBeenCalled();
   });
 });
 describe('should test password reset modal', () => {

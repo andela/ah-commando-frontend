@@ -145,17 +145,3 @@ exports[`test social media sign in should click the google signin button 1`] = `
   </div>
 </Modal>
 `;
-
-exports[`test social media sign in should test component did mount 1`] = `
-[MockFunction] {
-  "calls": Array [
-    Array [],
-  ],
-  "results": Array [
-    Object {
-      "type": "return",
-      "value": undefined,
-    },
-  ],
-}
-`;
