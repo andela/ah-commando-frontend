@@ -18,8 +18,11 @@ const buttonStyle = {
 };
 
 export class Header extends Component {
-  state = {
-    search: false,
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: false,
+    };
   }
 
   handleClick = () => {
