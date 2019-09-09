@@ -81,20 +81,22 @@ export class Header extends Component {
             : (
               <div className="action">
                 <Button
-                  datatest="loginButton"
                   label="sign in"
-                  handleClick={signIn}
+                  handleClick={() => signIn('signin')}
                   disabled={false}
                   type="button"
                   style={buttonStyle}
+                  id="signin"
+                  datatest="signin-button"
                 />
                 <Button
                   datatest="signup-button"
                   label="sign up"
-                  handleClick={signUp}
+                  handleClick={() => signUp('signup')}
                   disabled={false}
                   type="button"
                   style={buttonStyle}
+                  id="signup"
                 />
               </div>
             )}
@@ -122,8 +124,8 @@ Header.propTypes = {
 };
 
 export default connectComponent(withRouter(Header), {
-  signIn: () => openModal('signin'),
-  signUp: () => openModal('signup'),
+  signIn: openModal,
+  signUp: openModal,
   updateSearchQuery,
   getFilteredArticles,
   updatePageNumber,
