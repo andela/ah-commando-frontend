@@ -18,7 +18,7 @@ export const Banner = ({ signUp }) => (
       <h1>Follow the Adventure Everywhere</h1>
       <p className="bannerText">Join Author’s haven and share your Adventures with the world</p>
       <p className="bannerText">We are here to listen</p>
-      <Button handleClick={signUp} label="Signup" style={style} type="button" datatest="BannerButtontest" />
+      <Button handleClick={() => signUp('signup')} label="Signup" style={style} type="button" datatest="BannerButtontest" />
     </div>
   </article>
 );
@@ -28,5 +28,5 @@ Banner.propTypes = {
 };
 
 export default connectComponent(Banner, {
-  signUp: () => openModal('signup'),
+  signUp: openModal,
 });

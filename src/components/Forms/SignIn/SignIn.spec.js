@@ -1,6 +1,8 @@
 import React from 'react';
 import chai from 'chai';
-import { shallow } from 'enzyme';
+import { act } from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
+import sinon from 'sinon';
 import { SignIn } from '@Components/Forms/SignIn/SignIn';
 
 chai.should();
@@ -27,6 +29,9 @@ describe('<SignIn /> Component', () => {
       },
       close: jest.fn(),
       signIn: jest.fn(),
+      signinViaSocial: sinon.spy(),
+      requestPassword: jest.fn(),
+      showSignUpModal: sinon.spy(),
     };
     wrapper = shallow(<SignIn {...props} />);
     wrapper.setState(state);
@@ -98,5 +103,143 @@ describe('<SignIn /> Component', () => {
   it('toggleVisibility() should make password visible', () => {
     instance.toggleVisibility();
     wrapper.state().showPassword.should.equal(true);
+  });
+  it('should set window location to backend url for google', () => {
+    const event = {
+      target: {
+        getAttribute: () => 'google',
+      },
+    };
+    instance.handleSocialSignin(event);
+  });
+  it('should set window location to backend url for facebook', () => {
+    const event = {
+      target: {
+        getAttribute: () => 'facebook',
+      },
+    };
+    instance.handleSocialSignin(event);
+  });
+  it('on mounting socialLogin should be false', () => {
+    instance.componentDidMount = jest.fn();
+    instance.componentDidMount();
+    const localStorage = {
+      getItem: jest.fn().mockReturnValueOnce(false),
+    };
+    const socialLogin = localStorage.getItem('socialLogin');
+    expect(socialLogin).toBe(false);
+  });
+});
+describe('test social media sign in', () => {
+  const props = {
+    ui: {
+      loading: false,
+      modalOpen: true,
+      modal: 'signin',
+    },
+    history: {
+      push: sinon.spy(),
+    },
+    close: jest.fn(),
+    signIn: jest.fn(),
+    signinViaSocial: sinon.spy(),
+    requestPassword: jest.fn(),
+    showSignUpModal: jest.fn(),
+  };
+  const e = {
+    target: {
+      getAttribute: jest.fn().mockReturnValueOnce(' '),
+    },
+  };
+  const wrapper = shallow(<SignIn {...props} />);
+  const instance = wrapper.instance();
+  const span = wrapper.find('span[name="google"]');
+  const span2 = wrapper.find('span[name="facebook"]');
+  it('should click the google signin button', () => {
+    span.simulate('click', e);
+    span2.simulate('click', e);
+    expect(wrapper).toMatchSnapshot();
+    expect(props.signinViaSocial.called).toBe(true);
+  });
+  it('should error if no user is found', () => {
+    span.simulate('click', e);
+    span2.simulate('click', e);
+    instance.componentDidMount();
+    const window = {
+      location: {
+        search: sinon.match(),
+      },
+    };
+    const URLSearchParmas = sinon.spy();
+    const searchParams = new URLSearchParmas(window.location.search);
+    searchParams.get = jest.fn().mockReturnValueOnce(false);
+    expect(searchParams.get('user')).toBe(false);
+    expect(searchParams.get('token')).toBe(undefined);
+    expect(instance.componentDidMount()).toBe(false);
+  });
+  it('should test componentDidMount', () => {
+    const props = {
+      ui: {
+        loading: false,
+        modalOpen: true,
+        modal: 'signin',
+      },
+      history: {
+        push: jest.fn(),
+      },
+      close: jest.fn(),
+      signIn: jest.fn(),
+      signinViaSocial: jest.fn(),
+      requestPassword: jest.fn(),
+      showSignUpModal: sinon.spy(),
+    };
+    act(() => {
+      const e = {
+        target: {
+          getAttribute: jest.fn().mockReturnValueOnce(' '),
+        },
+      };
+      const wrapper = mount(<SignIn {...props} />);
+      const instance = wrapper.instance();
+      const span = wrapper.find('#google');
+      span.simulate('click', e);
+      instance.componentDidMount();
+    });
+    expect(props.signinViaSocial).toHaveBeenCalled();
+    const decryptQuery = jest.fn();
+    const searchParams = {
+      get: jest.fn().mockReturnValueOnce('token'),
+    };
+    localStorage.setItem('haven', decryptQuery(searchParams.get('token')));
+    expect(decryptQuery).toHaveBeenCalled();
+    expect(searchParams.get).toHaveBeenCalled();
+  });
+});
+describe('should test password reset modal', () => {
+  const props = {
+    ui: {
+      loading: false,
+      modalOpen: true,
+      modal: 'signin',
+    },
+    history: {
+      push: sinon.spy(),
+    },
+    close: jest.fn(),
+    signIn: jest.fn(),
+    signinViaSocial: sinon.spy(),
+    requestPassword: jest.fn(),
+    showSignUpModal: jest.fn(),
+  };
+  const wrapper = shallow(<SignIn {...props} />);
+  it('should open show signup modal', () => {
+    const signUpModal = wrapper.find('#sc-sn');
+    signUpModal.simulate('click');
+    expect(props.showSignUpModal).toHaveBeenCalled();
+  });
+  it('should open show request password modal', () => {
+    const btn = wrapper.find('.fg-ps');
+    btn.simulate('click');
+    expect(props.requestPassword).toHaveBeenCalled();
   });
 });

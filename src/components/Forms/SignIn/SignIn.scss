@@ -37,9 +37,13 @@
         border-right: 1px solid black;
         padding: 5px 10px;
         width: 100%;
+        z-index: 1;
 
         &:last-child {
           border-right: none;
+        }
+        &:hover{
+          cursor: pointer;
         }
 
         i {
@@ -69,13 +73,14 @@
     font-size: 12px;
     margin-top: 15px;
 
-    a {
+    p {
       color: #460DE5;
       font-weight: 100;
       transition: all .2s;
 
       &:hover {
         color: #ffa500;
+        cursor: pointer;
       }
     }
   }

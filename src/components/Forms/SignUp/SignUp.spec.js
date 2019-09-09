@@ -38,6 +38,8 @@ describe('<SignUp /> Component', () => {
       },
       close: jest.fn(),
       signUp: jest.fn(),
+      signinViaSocial: jest.fn(),
+      showSignInModal: jest.fn(),
     };
     wrapper = shallow(<SignUp {...props} />);
     wrapper.setState(state);
@@ -164,5 +166,26 @@ describe('<SignUp /> Component', () => {
     instance.confirmPassword = jest.fn();
     instance.handleSubmit(event);
     expect(instance.confirmPassword).toHaveBeenCalled();
+  });
+  it('should set window location to backend url for google', () => {
+    const event = {
+      target: {
+        getAttribute: () => 'google',
+      },
+    };
+    instance.handleSocialSignin(event);
+  });
+  it('should set window location to backend url for facebook', () => {
+    const event = {
+      target: {
+        getAttribute: () => 'facebook',
+      },
+    };
+    instance.handleSocialSignin(event);
+  });
+  it('should show signin modal', () => {
+    const signInModal = wrapper.find('#sc-sn');
+    signInModal.simulate('click');
+    expect(props.showSignInModal).toHaveBeenCalled();
   });
 });

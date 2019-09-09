@@ -1,13 +1,16 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React, { Component } from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import Modal from '@Components/Modal';
 import Input from '@Components/Input';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
-import { closeModal } from '@Actions/uiActions';
-import { createUser } from '@Actions/authActions';
+import { closeModal, openModal } from '@Actions/uiActions';
+import { createUser, loginViaSocial } from '@Actions/authActions';
 import './SignUp.scss';
 import {
   validate,
@@ -160,6 +163,12 @@ export class SignUp extends Component {
     close();
   }
 
+  handleSocialSignin = (e) => {
+    const { signinViaSocial } = this.props;
+    const brand = e.target.getAttribute('name');
+    return signinViaSocial(brand);
+  }
+
   render() {
     const {
       firstname,
@@ -179,6 +188,7 @@ export class SignUp extends Component {
         modalOpen,
         modal,
       },
+      showSignInModal,
     } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
 
@@ -276,24 +286,24 @@ export class SignUp extends Component {
           <div className="alternative-login">
             <p>Or create an account using:</p>
             <div className="social-login">
-              <span>
-                <i className="fab fa-google fa-lg" style={{ color: 'red' }} />
+              <span name="google" id="google" onClick={this.handleSocialSignin}>
+                <i className="fab fa-google fa-lg" style={{ color: 'red' }} onClick={this.handleSocialSignin} name="google" />
                 Google
               </span>
-              <span>
-                <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} />
+              <span name="facebook" id="facebook" onClick={this.handleSocialSignin}>
+                <i className="fab fa-facebook fa-lg" style={{ color: 'blue' }} onClick={this.handleSocialSignin} name="facebook" />
                 Facebook
               </span>
             </div>
           </div>
           <div className="switch-context">
-            <p>
+            <div>
               Have an account?
               {' '}
-              <Link to="/">
+              <p onClick={() => showSignInModal('signin')} id="sc-sn">
                 Sign in
-              </Link>
-            </p>
+              </p>
+            </div>
           </div>
         </div>
       </Modal>
@@ -312,11 +322,15 @@ SignUp.propTypes = {
   }).isRequired,
   close: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired,
+  signinViaSocial: PropTypes.func.isRequired,
+  showSignInModal: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
   withRouter(SignUp), {
     close: closeModal,
     signUp: createUser,
+    signinViaSocial: loginViaSocial,
+    showSignInModal: openModal,
   },
 );
