@@ -83,15 +83,14 @@ export const createUser = (userData, history) => async (dispatch) => {
 };
 
 export const requestPasswordLink = (email) => async (dispatch) => {
-  const response = await axiosInstance.post('users/passwordReset', { user: { email } });
   dispatch({
     type: LOADING,
   });
 
   try {
+    const response = await axiosInstance.post('users/passwordReset', { user: { email } });
     if (response.data.status === 200) {
-      toast.dismiss();
-      toast.success(response.data.message);
+      swal('Done!', response.data.message, 'success');
     }
     dispatch({
       type: NOT_LOADING,
@@ -101,8 +100,7 @@ export const requestPasswordLink = (email) => async (dispatch) => {
     });
   } catch (err) {
     const { error } = err.response.data;
-    toast.dismiss();
-    toast.error(error, { autoClose: 5000 });
+    swal(' ', error, 'error');
     return dispatch({
       type: NOT_LOADING,
     });
@@ -121,14 +119,12 @@ export const setNewPassword = (data, history) => async (dispatch) => {
 
     if (response.status === 200) {
       history.push('/');
-      toast.dismiss();
-      toast.success(response.data.message);
+      swal('Done!', response.data.message, 'success');
     }
     dispatch({ type: NOT_LOADING });
   } catch (err) {
     const { error } = err.response.data;
-    toast.dismiss();
-    toast.error(error, { autoClose: 5000 });
+    swal(' ', error, 'error');
   }
 };
 export const loginViaSocial = (brand) => async dispatch => {

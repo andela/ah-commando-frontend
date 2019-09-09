@@ -96,7 +96,7 @@ export class PasswordRequest extends Component {
             />
             <Button
               datatest="send-password-link"
-              label={loading ? null : 'Send Request Link'}
+              label={loading ? null : 'Send reset link'}
               type="submit"
               handleClick={this.handleSubmit}
               style={{
