@@ -31,11 +31,13 @@ export class SignIn extends Component {
   }
 
   componentDidMount() {
+    const { history } = this.props;
     const searchParams = new URLSearchParams(window.location.search);
     if (!searchParams.get('user') || !searchParams.get('token')) return false;
     localStorage.setItem('haven', decryptQuery(searchParams.get('token')));
     setToken(decryptQuery(searchParams.get('token')));
     localStorage.setItem('user', searchParams.get('user'));
+    history.push('/');
   }
 
   handleChange = (e) => {
