@@ -90,7 +90,14 @@ export const requestPasswordLink = (email) => async (dispatch) => {
   try {
     const response = await axiosInstance.post('users/passwordReset', { user: { email } });
     if (response.data.status === 200) {
-      swal('Done!', response.data.message, 'success');
+      swal({
+        title: 'Done!',
+        text: 'Check your mail for password reset link',
+        icon: 'success',
+        button: {
+          className: 'sweet-alert-btn',
+        },
+      });
     }
     dispatch({
       type: NOT_LOADING,
@@ -100,7 +107,13 @@ export const requestPasswordLink = (email) => async (dispatch) => {
     });
   } catch (err) {
     const { error } = err.response.data;
-    swal(' ', error, 'error');
+    swal({
+      text: error,
+      icon: 'error',
+      button: {
+        className: 'sweet-alert-btn',
+      },
+    });
     return dispatch({
       type: NOT_LOADING,
     });
@@ -119,12 +132,25 @@ export const setNewPassword = (data, history) => async (dispatch) => {
 
     if (response.status === 200) {
       history.push('/');
-      swal('Done!', response.data.message, 'success');
+      swal({
+        title: 'Done!',
+        text: 'Password reset successfully',
+        icon: 'success',
+        button: {
+          className: 'sweet-alert-btn',
+        },
+      });
     }
     dispatch({ type: NOT_LOADING });
   } catch (err) {
     const { error } = err.response.data;
-    swal(' ', error, 'error');
+    swal({
+      text: error,
+      icon: 'error',
+      button: {
+        className: 'sweet-alert-btn',
+      },
+    });
   }
 };
 export const loginViaSocial = (brand) => async dispatch => {

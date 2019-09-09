@@ -126,7 +126,7 @@ export class ResetPassword extends Component {
                   error={error.confirmPassword}
                 />
                 <Button
-                  label={loading ? null : 'Change Passsword'}
+                  label={loading ? null : 'Change passsword'}
                   type="submit"
                   handleClick={this.handleSubmit}
                   style={{
