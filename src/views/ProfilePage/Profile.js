@@ -8,13 +8,13 @@ import Loader from 'react-loader-spinner';
 import Header from '@Components/Header';
 import Button from '@Components/Button';
 import Footer from '@Components/Footer';
-import Dialog from '@Components/Dialog';
 import Input from '@Components/Input';
 import TextArea from '@App/components/TextArea/';
 import ArticleCard from '@Components/ArticleCard/';
 import connectComponent from '@Lib/connect-component';
 import { getProfile, editProfile, getArticles } from '@Actions/profileAction';
 import { postImage } from '@Actions/imageAction';
+import Icon from '@Components/Icon';
 import {
   validate,
   emailSchema,
@@ -43,6 +43,7 @@ export class Profile extends Component {
       },
       article: [],
     };
+    this.dialog = React.createRef();
   }
 
   async componentDidMount() {
@@ -59,11 +60,8 @@ export class Profile extends Component {
     }));
   }
 
-  handleToggleEditProfileModal = () => {
-    const { dialogOpen } = this.state;
-    this.setState({
-      dialogOpen: !dialogOpen,
-    });
+  handleToggleEditProfileModal = (status = 'open') => {
+    if (status === 'close') return this.dialog.current.close(); this.dialog.current.showModal();
   }
 
   renderProfileCards = (data) => (
@@ -164,7 +162,6 @@ export class Profile extends Component {
     } = payload;
     this.setState(prevState => ({
       ...prevState,
-      dialogOpen: false,
       profile: {
         ...prevState.profile,
         username: Username,
@@ -173,13 +170,14 @@ export class Profile extends Component {
         bio: Bio,
       },
     }));
+    return this.dialog.current.close();
   }
 
   render() {
     const {
       errors,
       isFormValid,
-      dialogOpen, profile:
+      profile:
       {
         firstname,
         username,
@@ -194,15 +192,26 @@ export class Profile extends Component {
     } = this.state;
     const { image: { loading } } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
+    const noArticle = () => (
+      <h1 className="no-article">You have no articles yet</h1>
+    );
     return (
       <div data-test="profileComponent">
         <Header />
-        {dialogOpen ? (
-          <Dialog>
-            <span className="close" onClick={this.handleToggleEditProfileModal}>&times;</span>
-            <p className="profile-heading">Edit your profile</p>
+        <dialog ref={this.dialog}>
+          <div className="container">
+            <span className="close" onClick={() => this.handleToggleEditProfileModal('close')}>&times;</span>
+            <h2 className="profile-heading">Edit your profile</h2>
             <form onSubmit={this.handleSubmit} encType="multipart/form-data" className="update-form">
+              <input type="file" id="image" name="file" className="profile-img" onChange={this.handleImageChange} />
+              <label htmlFor="image" className="form-label">
+                <Icon name="camera" />
+                <img src={image} alt="" className="form-image" />
+              </label>
               <Input
+                style={{
+                  width: '100%',
+                }}
                 name="email"
                 value={email}
                 type="email"
@@ -212,6 +221,9 @@ export class Profile extends Component {
               />
 
               <Input
+                style={{
+                  width: '100%',
+                }}
                 name="username"
                 value={username}
                 type="text"
@@ -221,27 +233,28 @@ export class Profile extends Component {
               />
 
               <TextArea
+                style={{
+                  width: '100%',
+                }}
                 name="bio"
                 value={bio || ''}
                 type="text"
                 label="Bio"
                 error={errors.email}
                 handleChange={this.handleChange}
-                style={{
-                  height: '80px',
-                  width: '300px',
-                }}
               />
+
               <Button
-                label={loading ? null : 'Save'}
+                className="btn"
+                label={loading ? null : 'Update Profile'}
                 handleClick={this.handleSubmit}
                 disabled={loading ? true : !isFormValid}
                 type="submit"
                 datatest="submit-button"
                 style={{
                   height: '45px',
-                  width: '500px',
-                  marginLeft: '25px',
+                  width: '95%',
+                  marginLeft: '5%',
                   color: '#ffc700',
                   backgroundColor: '#000',
                   borderRadius: '0',
@@ -249,11 +262,9 @@ export class Profile extends Component {
               >
                 {loading && loader}
               </Button>
-              <img src={image} alt="" className="form-image" />
-              <input type="file" id="image" name="file" className="profile-img" onChange={this.handleImageChange} />
             </form>
-          </Dialog>
-        ) : (null)}
+          </div>
+        </dialog>
 
         <div className="profile-container">
           <div className="sidebar">
@@ -272,9 +283,10 @@ export class Profile extends Component {
               <div className="profile-details">
                 <div className="name-button">
                   <h3>{`${firstname} ${lastname}`}</h3>
+
                   <span>
                     <Button
-                      handleClick={this.handleToggleEditProfileModal}
+                      handleClick={() => this.handleToggleEditProfileModal('open')}
                       datatest="edit-button"
                       style={{ padding: '0px 5px', width: '150px' }}
                     >
@@ -316,9 +328,11 @@ export class Profile extends Component {
             </ul>
           </div>
           <div />
-          <div className="profile-article" data-test="articleCard">
-            {article && article.map(data => this.renderProfileCards(data))}
-          </div>
+          {article.length === 0 ? (noArticle()) : (
+            <div className="profile-article" data-test="articleCard">
+              {article && article.map(data => this.renderProfileCards(data))}
+            </div>
+          )}
         </div>
         <div className="profile-footer">
           <Footer />

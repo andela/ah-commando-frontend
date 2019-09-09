@@ -25,8 +25,9 @@
   padding: 20px;
 }
 .profile-image{
-  width: 100px;
-  height: 100px;
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
   border-radius: 50%;
 }
 .profile-details h3 {
@@ -62,7 +63,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: 20% 30%;
+  grid-template-columns: 40% 30%;
 }
 .profile-links {
   width: 90%;
@@ -94,48 +95,92 @@
   padding: 20px;
 }
 .profile-footer{
-  margin: 100px 0 30px 0;
-}
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 50px;
-}
-.close:hover,
-.close:focus {
-  color: #FFC700;
-  text-decoration: none;
-  cursor: pointer;
-}
-.profile-img{
   position: relative;
-  left: 25%;
-  transform: translateY(-280px);
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  background: transparent;
-  padding-top: 65px;
-  padding-left: 55px;
-  color: white;
+  width: 100%;
+  bottom: 10px;
 }
-.form-image{
+
+dialog {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0px 2px 4px -1px rgba(0,0,0,0.56);
+  border: none;
+  border-radius: 10px;
+  width: 550px;
+  height: auto;
   position: relative;
-  left: 45%;
-  opacity: .5;
-  transform: translateY(-220px);
-  width: 130px;
-  height: 130px;
-  border-radius: 50%;
-  color: white;
+  padding: 40px 0;
+
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    margin: auto;
+
+    .profile-heading {
+      margin-bottom: 10px;
+      font-size: 20px;
+      font-weight: 400;
+      color: rgba(0,0,0,0.7);
+    }
+
+    .close {
+      color: #aaaaaa;
+      position: absolute;
+      right: 20px;
+      top: 2px;
+      font-size: 50px;
+      font-weight: 200;
+      transform: rotateZ(0);
+      transition: all .5s ease;
+    }
+
+    .close:hover{
+      color: #FFC700;
+      text-decoration: none;
+      cursor: pointer;
+      transform: rotateZ(360deg);
+    }
+
+    .update-form {
+      width: 60%;
+
+      .profile-img{
+        display: none;
+      }
+
+      .form-label{
+        display: block;
+        cursor: pointer;
+        position: relative;
+        text-align: center;
+        margin-bottom: 25px;
+
+        .form-image{
+          opacity: .5;
+          object-fit: cover;
+          width: 130px;
+          height: 130px;
+          border-radius: 50%;
+        }
+
+        .icon-container{
+          position: absolute;
+          top: 50%;
+          left: 51%;
+          transform: translate(-50%, -50%);
+          color: rgba(0,0,0,0.7);
+          margin:0;
+          font-size: 20px;
+        }
+      }
+    }
+  }
 }
-.update-form{
-  margin-top: 30px;
-  margin-left: 20%;
-}
-.profile-heading{
-  text-align: center;
-  margin: 0;
-  padding: 0;
-  font-size: 15px;
+
+::backdrop {
+  background: rgba(255, 255, 255, 0.9)
 }
