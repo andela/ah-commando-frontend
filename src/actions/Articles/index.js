@@ -98,12 +98,7 @@ export const readArticle = slug => async dispatch => {
       type: NOT_LOADING,
     });
   } catch (err) {
-    swal({
-      text: err.response.data.error[0],
-      icon: 'error',
-      buttons: false,
-      timer: 3500,
-    });
+    document.location = '/404';
   }
 };
 
