@@ -10,7 +10,7 @@ import Icon from '@Components/Icon';
 import { convertToHtml } from '@Utils/';
 import './ReadArticle.scss';
 
-class ReadArticle extends Component {
+export class ReadArticle extends Component {
   componentDidMount = async () => {
     const {
       getSingleArticle,
@@ -34,6 +34,11 @@ class ReadArticle extends Component {
     }
   }
 
+  editArticle = () => {
+    const { history, article: { slug } } = this.props;
+    history.push(`/articles/${slug}/edit`);
+  }
+
   render = () => {
     const {
       article: {
@@ -48,9 +53,7 @@ class ReadArticle extends Component {
         likesCount,
         dislikesCount,
         comment,
-        slug,
       },
-      history,
     } = this.props;
     const tags = tagList ? tagList.split(' ')
       .filter(tag => tag.length > 0)
@@ -81,7 +84,7 @@ class ReadArticle extends Component {
                     <p>{`${readTime || 0} min${readTime > 1 ? 's' : ''} read`}</p>
                     <button
                       type="button"
-                      onClick={() => history.push(`/articles/${slug}/edit`)}
+                      onClick={this.editArticle}
                     >
                       Edit Article
                     </button>
