@@ -6,7 +6,7 @@ import Header from '@Components/Header';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
 import { openModal } from '@Actions/uiActions';
-import PublishArticleModal from './PublishArticle';
+import PublishArticleModal from '../PublishArticle/PublishArticle';
 import { editor } from '@Utils/';
 import './CreateArticle.scss';
 

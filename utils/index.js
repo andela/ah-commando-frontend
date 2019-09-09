@@ -3,6 +3,7 @@ import instance, { setAuthToken } from './axios';
 import Validator from './Validator';
 import empty from './isEmpty';
 import Editor from './editor';
+import jsonToHtml from './editorConverter';
 
 export const axiosInstance = instance;
 export const setToken = setAuthToken;
@@ -44,3 +45,5 @@ export const thousandths = (number) => {
   thousands = Math.round(number / 1000000);
   return `${thousands}M`;
 };
+
+export const convertToHtml = jsonToHtml;

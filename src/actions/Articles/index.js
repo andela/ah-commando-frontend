@@ -3,6 +3,7 @@ import swal from '@sweetalert/with-react';
 import {
   LOADING,
   NOT_LOADING,
+  READ_ARTICLE,
 } from '@Actions/types';
 import { axiosInstance } from '@Utils/';
 
@@ -58,14 +59,41 @@ export const createArticle = (articleData, history) => async dispatch => {
     type: LOADING,
   });
   try {
-    await axiosInstance.post('articles', { article: { ...articleData } });
+    const response = await axiosInstance.post('articles', { article: { ...articleData } });
+    const { slug } = response.data.articles;
     swal({
       text: 'Article created successfully',
       icon: 'success',
       buttons: false,
       timer: 3000,
     });
-    history.push('/');
+    await setTimeout(() => {
+      history.push(`articles/${slug}`);
+      document.location.reload();
+    }, 5000);
+    dispatch({
+      type: NOT_LOADING,
+    });
+  } catch (err) {
+    swal({
+      text: err.response.data.error[0],
+      icon: 'error',
+      buttons: false,
+      timer: 5000,
+    });
+  }
+};
+
+export const readArticle = slug => async dispatch => {
+  dispatch({
+    type: LOADING,
+  });
+  try {
+    const response = await axiosInstance.get(`articles/${slug}`);
+    dispatch({
+      type: READ_ARTICLE,
+      payload: response.data.article,
+    });
     dispatch({
       type: NOT_LOADING,
     });
@@ -75,6 +103,37 @@ export const createArticle = (articleData, history) => async dispatch => {
       icon: 'error',
       buttons: false,
       timer: 3500,
+    });
+  }
+};
+
+export const updateArticle = (articleData, articleSlug, history) => async dispatch => {
+  dispatch({
+    type: LOADING,
+  });
+  try {
+    const response = await axiosInstance.put(`articles/${articleSlug}/edit`, { article: { ...articleData } });
+    const { slug } = response.data.article;
+    swal({
+      text: 'Article updated successfully',
+      icon: 'success',
+      buttons: false,
+      timer: 2000,
+    });
+    await setTimeout(() => {
+      history.push(`/articles/${slug}`);
+      document.location.reload();
+    }, 2000);
+
+    dispatch({
+      type: NOT_LOADING,
+    });
+  } catch (err) {
+    swal({
+      text: err.response.data.error[0],
+      icon: 'error',
+      buttons: false,
+      timer: 5000,
     });
   }
 };
