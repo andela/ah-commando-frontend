@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import Skeleton from 'react-skeleton-loader';
+import { Link } from 'react-router-dom';
 import './ArticleCard.scss';
 import { thousandths } from '@Utils/';
 import Icon from '../Icon';
@@ -37,7 +38,7 @@ class ArticleCard extends Component {
     }
 
     const {
-      image, title, author, description, likesCount, dislikesCount, comment, readTime,
+      image, title, author, description, likesCount, dislikesCount, comment, readTime, slug,
     } = data;
 
     const { firstname, lastname } = author;
@@ -47,19 +48,21 @@ class ArticleCard extends Component {
     const { loading, error } = this.state;
     return (
       <div className={`${type}`}>
-        <div className="image-container">
-          {loading === 0 ? <Skeleton width="100%" height="100%" /> : ''}
-          <img
-            className="img"
-            alt=""
-            src={error
-              ? 'https://res.cloudinary.com/drdje1skj/image/upload/v1567527717/placeholder-image4_s2xbim.jpg'
-              : image}
-            onLoad={this.handleLoad}
-            style={{ opacity: loading }}
-            onError={this.handleError}
-          />
-        </div>
+        <Link to={`/articles/${slug}`}>
+          <div className="image-container">
+            {loading === 0 ? <Skeleton width="100%" height="100%" /> : ''}
+            <img
+              className="img"
+              alt=""
+              src={error
+                ? 'https://res.cloudinary.com/drdje1skj/image/upload/v1567527717/placeholder-image4_s2xbim.jpg'
+                : image}
+              onLoad={this.handleLoad}
+              style={{ opacity: loading }}
+              onError={this.handleError}
+            />
+          </div>
+        </Link>
         <div className="article-details">
           <div className="title-container">
             <p className="title">{title}</p>
@@ -99,6 +102,7 @@ ArticleCard.propTypes = {
     dislikesCount: PropTypes.number,
     comment: PropTypes.any,
     readTime: PropTypes.number,
+    slug: PropTypes.string,
     author: PropTypes.shape({
       firstname: PropTypes.string,
       lastname: PropTypes.string,
@@ -117,6 +121,7 @@ ArticleCard.defaultProps = {
     dislikes: 1,
     comment: 1,
     readTime: 1,
+    slug: '',
   },
 };
 
