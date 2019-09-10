@@ -16,9 +16,8 @@ export const Banner = ({ signUp }) => (
   <article className="banner" data-test="bannerComponent">
     <div className="bannerCta">
       <h1>Follow the Adventure Everywhere</h1>
-      <p className="bannerText">Join Author’s haven and share your Adventures with the world</p>
-      <p className="bannerText">We are here to listen</p>
-      <Button handleClick={() => signUp('signup')} label="Signup" style={style} type="button" datatest="BannerButtontest" />
+      <p className="bannerText">Join Authors&#39; Haven and share your adventures with the world</p>
+      <Button handleClick={() => signUp('signup')} label="Sign up" style={style} type="button" datatest="BannerButtontest" />
     </div>
   </article>
 );

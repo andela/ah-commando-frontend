@@ -6,7 +6,7 @@ import connect from '@Lib/connect-component';
 import './AsideCardSection.scss';
 
 export const ArticleCardSection = (props) => {
-  const { homePageArticles: { editorsChoice } } = props;
+  const { homePageArticles: { editorsChoice }, reactRef } = props;
   if (editorsChoice.data[0].description === '') {
     return (
       <div data-test="loadingComponent">
@@ -18,7 +18,7 @@ export const ArticleCardSection = (props) => {
   const { data } = editorsChoice;
 
   return (
-    <section className="editorsChoice" data-test="editorsChoice">
+    <section className="editorsChoice" data-test="editorsChoice" ref={reactRef}>
       <div className="header">
         <p>Editors choice</p>
       </div>
@@ -32,6 +32,7 @@ export const ArticleCardSection = (props) => {
 };
 
 ArticleCardSection.propTypes = {
+  reactRef: PropTypes.shape(),
   homePageArticles: PropTypes.shape({
     editorsChoice: PropTypes.shape({
       data: PropTypes.arrayOf(

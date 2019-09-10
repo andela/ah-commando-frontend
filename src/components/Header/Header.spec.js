@@ -2,6 +2,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Header } from './Header';
+import { findByTestAttribute } from '@Utils/';
 
 
 const shallowRender = () => {
@@ -11,6 +12,11 @@ const shallowRender = () => {
     updateSearchQuery: jest.fn(),
     getFilteredArticles: jest.fn(),
     updatePageNumber: jest.fn(),
+    history: {
+      location: {
+        pathname: '/',
+      },
+    },
   };
   const component = shallow(<Header {...props} />);
   return component;
@@ -21,12 +27,15 @@ describe('Header component', () => {
   beforeEach(() => {
     wrapper = shallowRender();
   });
-  it('should render without crashing', () => {
-    shallowRender();
+
+  it('should render the header component without crashing', () => {
+    const component = findByTestAttribute(wrapper, 'headerComponent');
+    expect(component.length).toBe(1);
   });
 
-  it('should render a .header-top class', () => {
-    expect(wrapper.find('.header-top')).toHaveLength(1);
+  it('should render the navigation component without crashing', () => {
+    const component = findByTestAttribute(wrapper, 'navigationComponent');
+    expect(component.length).toBe(1);
   });
 });
 
@@ -39,6 +48,9 @@ describe('handle modal pop up for signin and signup', () => {
     updatePageNumber: jest.fn(),
     history: {
       push: jest.fn(),
+      location: {
+        pathname: '/',
+      },
     },
   };
   const wrapper = shallow(<Header {...props} />);

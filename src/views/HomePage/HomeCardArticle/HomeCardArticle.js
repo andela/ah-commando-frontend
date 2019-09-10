@@ -86,8 +86,6 @@ export class HomePageArticles extends Component {
                   <Icon name="dislikes" />
                   <p className="icon-label">{dislikes}</p>
                 </div>
-              </div>
-              <div className="icon-holder">
                 <div>
                   <Icon name="comments" />
                   <p className="icon-label">{comments}</p>

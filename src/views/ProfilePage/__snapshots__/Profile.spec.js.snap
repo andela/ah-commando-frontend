@@ -4,7 +4,6 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
 <div
   data-test="profileComponent"
 >
-  <Connect(withRouter(Header)) />
   <dialog>
     <div
       className="container"

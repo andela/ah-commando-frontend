@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Filter from '@Views/SearchPage/Filter';
 import Pager from '@Views/SearchPage/Pager';
-import Header from '@Components/Header';
 import Footer from '@Components/Footer';
 import SearchPage from './';
 
@@ -47,10 +46,6 @@ describe('SearchPage component test', () => {
 
   it('should render a Filter element', () => {
     expect(wrapper.find(Pager)).toHaveLength(1);
-  });
-
-  it('should render a Filter element', () => {
-    expect(wrapper.find(Header)).toHaveLength(1);
   });
 
   it('should render a Filter element', () => {
