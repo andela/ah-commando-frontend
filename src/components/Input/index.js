@@ -19,10 +19,11 @@ const Input = (props) => {
     visible,
     handleToggle,
     id,
+    style,
   } = props;
 
   return (
-    <div className="input">
+    <div style={style} className="input">
       <div className={`input-container${error && ' error'}`}>
         <label>{label}</label>
         <input
@@ -74,6 +75,7 @@ Input.propTypes = {
   togglable: PropTypes.bool,
   visible: PropTypes.bool,
   handleToggle: PropTypes.func,
+  style: PropTypes.shape(),
 };
 
 Input.defaultProps = {
@@ -83,6 +85,7 @@ Input.defaultProps = {
   togglable: false,
   visible: false,
   handleToggle: null,
+  style: {},
 };
 
 export { Search };

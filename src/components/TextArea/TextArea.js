@@ -13,14 +13,13 @@ const TextArea = (props) => {
     style,
   } = props;
   return (
-    <div className="textarea-container">
+    <div style={style} className="textarea-container">
       <label>{label}</label>
       <textarea
         name={name}
         value={value}
         type={type}
         onChange={handleChange}
-        style={style}
       />
       <div className="error-div">
         {error && <div>{error}</div>}
