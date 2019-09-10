@@ -13,6 +13,7 @@ import ReadArticle from '@Views/Articles/ReadArticle';
 import EditArticle from '@Views/Articles/EditArticle';
 import Profile from '@Views/ProfilePage';
 import NotFound from '@Views/404';
+import CategoryPage from '@Views/CategoryPage';
 import './app.scss';
 
 const App = () => (
@@ -31,6 +32,7 @@ const App = () => (
         <Route exact path="/articles/:slug" component={ReadArticle} />
         <Route exact path="/articles/:slug/edit" component={EditArticle} />
         <Route component={NotFound} />
+        <Route exact path="/articles" component={CategoryPage} />
       </Switch>
     </div>
   </BrowserRouter>

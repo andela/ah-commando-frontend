@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars */
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import moxios from 'moxios';
 import nock from 'nock';
-import fetch from 'isomorphic-fetch';
 import {
   updateArticles,
   updateFilters,

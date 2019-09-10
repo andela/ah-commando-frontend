@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`get articles actions adds new articles to the store 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "Articles": undefined,
+      "category": "technology",
+    },
+    "type": "UPDATE_CATEGORY_ARTICLES",
+  },
+]
+`;
