@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getHomePageArticles, getArticle, getEditorsChoice } from '@App/actions/Articles';
-<<<<<<< HEAD
 import connectComponent from '@Lib/connect-component';
-import Header from '@Components/Header';
-=======
-import connect from '@Lib/connect-component';
->>>>>>> Bug(Homepage): Fix errors on homepage
 import Footer from '@Components/Footer';
 import PasswordRequest from '@Components/Forms/PasswordRequest';
 import Icon from '@Components/Icon';
@@ -38,13 +33,9 @@ export class Home extends Component {
   }
 
   handleScroll = () => {
-<<<<<<< HEAD
-    if (this.scroller.current.getBoundingClientRect().top < -2950) {
-=======
     if (this.scroller.current === null) { return; }
     const currentHeight = this.scroller.current.getBoundingClientRect().top;
     if (currentHeight < -2950) {
->>>>>>> Bug(Homepage): Fix errors on homepage
       this.setState({ asideHeight: '500px' });
     } else {
       this.setState({ asideHeight: '750px' });
