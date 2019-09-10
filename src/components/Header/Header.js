@@ -4,12 +4,15 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+// import { setPusherClient } from 'react-pusher';
+import Pusher from 'pusher-js';
 import Button from '@Components/Button';
 import AuthStore from '@Lib/AuthStore';
 import Icon from '@Components/Icon';
 import connectComponent from '@App/lib/connect-component';
 import { openModal } from '@Actions/uiActions';
 import { updateSearchQuery, getFilteredArticles, updatePageNumber } from '@Actions/searchActions';
+import DropDown from '../DropDown';
 import logo from '../../../public/logo.png';
 import './Header.scss';
 
@@ -22,6 +25,14 @@ export class Header extends Component {
   state = {
     search: false,
     searchContent: '',
+  }
+
+  componentDidMount() {
+    const pusher = new Pusher('1b7ecbe2a67c3c20ae67', { cluster: 'eu' });
+    const channel = pusher.subscribe('notify-cvjude');
+    channel.bind('push-notifications', (data) => {
+      alert(`An event was triggered with message: ${data.message}`);
+    });
   }
 
   openSearch = () => {
@@ -95,7 +106,19 @@ export class Header extends Component {
                 <button className="notification" type="button" style={buttonStyle} onClick={this.handleClick}>
                   <Icon name="notification" />
                 </button>
+                <DropDown type="profile" />
                 <Button style={buttonStyle} handleClick={this.handleClick}>Upgrade</Button>
+                <img
+                  src="https://res.cloudinary.com/drdje1skj/image/upload/v1567427029/profile-placeholder_gvxkia.gif"
+                  alt=""
+                  style={{
+                    height: '45px',
+                    width: '45px',
+                    borderRadius: '50%',
+                    margin: '0 50px',
+                    objectFit: 'cover',
+                  }}
+                />
               </div>
             )
             : (
@@ -143,6 +166,13 @@ export class Header extends Component {
 Header.propTypes = {
   signIn: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired,
+  //   auth: prototype.shape({
+  //     isAuthenticated: prototype.bool.isRequired
+  //       user: {
+
+  //     }
+  //   }).isRequired,
+  // };
 };
 
 export default connectComponent(withRouter(Header), {

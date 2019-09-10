@@ -1,7 +1,7 @@
 .header-top {
   width: 100%;
   background-color: #FFF;
-  padding: 5px;
+  // padding: 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,7 +11,7 @@
 
   .logo {
     width: 200px;
-    height: 50px;
+    height: 60px;
   }
 
   .search{
@@ -55,6 +55,9 @@
   .action {
     display: flex;
     flex-direction: row;
+    position: relative;
+    align-items: center;
+
 
     .notification{
       background: inherit;
