@@ -29,6 +29,9 @@ describe('<ReadArticle /> Component', () => {
           id: 5,
         },
       },
+      ui: {
+        loading: false,
+      },
     };
     wrapper = shallow(<ReadArticle {...props} />);
     instance = wrapper.instance();
