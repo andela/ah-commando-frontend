@@ -133,7 +133,6 @@ export const updateArticle = (articleData, articleSlug, history) => async dispat
   }
 };
 
-
 export const deleteAnArticle = (slug, history) => async dispatch => {
   dispatch({
     type: LOADING,

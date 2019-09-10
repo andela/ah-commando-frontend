@@ -1,9 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 import Login from '@Views/LoginPage';
-import 'react-toastify/dist/ReactToastify.css';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Search from '@Views/SearchPage/SearchPage';
 import Home from '@Views/HomePage';
 import ResetPassword from '@Views/ResetPassword';
@@ -16,7 +13,6 @@ import './app.scss';
 
 const App = () => (
   <BrowserRouter>
-    <ToastContainer />
     <div data-test="appComponent">
       <Switch>
         <Route exact path="/" component={Home} />
