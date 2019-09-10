@@ -70,7 +70,7 @@ export class Header extends Component {
                     type="text"
                     autoFocus={search}
                     onKeyUp={(e) => { this.handleKeyUp(e); }}
-                    data-test="search-input"
+                    datatest="input-search"
                     placeholder="Search..."
                     onBlur={this.handleBlur}
                     onChange={this.handleInputChange}

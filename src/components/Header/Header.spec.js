@@ -48,6 +48,9 @@ describe('handle modal pop up for signin and signup', () => {
     updatePageNumber: jest.fn(),
     history: {
       push: jest.fn(),
+      location: {
+        pathname: '/',
+      },
     },
   };
   const wrapper = shallow(<Header {...props} />);
