@@ -206,12 +206,10 @@ describe('test social media sign in', () => {
       instance.componentDidMount();
     });
     expect(props.signinViaSocial).toHaveBeenCalled();
-    const decryptQuery = jest.fn();
     const searchParams = {
       get: jest.fn().mockReturnValueOnce('token'),
     };
-    localStorage.setItem('haven', decryptQuery(searchParams.get('token')));
-    expect(decryptQuery).toHaveBeenCalled();
+    localStorage.setItem('haven', searchParams.get('token'));
     expect(searchParams.get).toHaveBeenCalled();
   });
 });

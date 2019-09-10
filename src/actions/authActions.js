@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import { toast } from 'react-toastify';
+import swal from '@sweetalert/with-react';
 import {
   SET_CURRENT_USER,
   MODAL_CLOSE,
@@ -53,9 +54,13 @@ export const createUser = (userData, history) => async (dispatch) => {
       localStorage.setItem('haven', user.token);
       setToken(user.token);
       dispatch(setCurrentUser(jwtDecode(user.token)));
+      swal({
+        text: 'Registration Successful!',
+        icon: 'success',
+        buttons: false,
+        timer: 3000,
+      });
       history.push('/');
-      toast.dismiss();
-      toast.success('Registration Successful!');
     }
     dispatch({
       type: NOT_LOADING,
@@ -65,8 +70,12 @@ export const createUser = (userData, history) => async (dispatch) => {
     });
   } catch (err) {
     const { error } = err.response.data;
-    toast.dismiss();
-    toast.error(error, { autoClose: 10000 });
+    swal({
+      text: error,
+      icon: 'error',
+      buttons: false,
+      timer: 3000,
+    });
     return dispatch({
       type: NOT_LOADING,
     });
