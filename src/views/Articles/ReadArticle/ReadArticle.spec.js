@@ -11,6 +11,7 @@ describe('<ReadArticle /> Component', () => {
   beforeEach(() => {
     props = {
       getSingleArticle: jest.fn(),
+      deleteArticle: jest.fn(),
       article: {
         title: 'title',
       },
@@ -20,6 +21,12 @@ describe('<ReadArticle /> Component', () => {
       match: {
         params: {
           slug: '',
+        },
+      },
+      auth: {
+        isAuthenticated: true,
+        user: {
+          id: 5,
         },
       },
     };

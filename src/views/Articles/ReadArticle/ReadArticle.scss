@@ -7,11 +7,13 @@
   margin-bottom: 30px;
 
   main {
-    min-width: 650px;
+    width: 100%;
+    
     article {
-      min-width: 650px;
+      // min-width: 100%;
+      width: 45%;
       margin-bottom: 30px;
-      font-size: 22px;
+      font-size: 18px;
       line-height: 250% !important;
       font-weight: 400;
       font-family: 'Lato', sans-serif;
@@ -19,8 +21,8 @@
       text-rendering: optimizeLegibility;
       color: rgb(53, 53, 53);
       p {
-        font-size: 22px;
-        line-height: 250% !important;
+        font-size: 18px;
+        line-height: 200% !important;
         font-weight: 400;
         font-family: 'Lato', sans-serif;
         font-style: normal;
@@ -115,9 +117,10 @@
     overflow: hidden;
     margin-bottom: 20px;
     img {
-      min-height: 600px;
-      max-height: 700px;
+      min-height: 500px;
+      max-height: 600px;
       width: 100vw;
+      object-fit: cover; 
     }
   }
 

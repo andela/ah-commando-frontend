@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 const paragraphBlock = (payload) => `
 <div class="ce-block">
-  <div class="ce-block__content">
+  <div class="">
     <div class="ce-paragraph cdx-block">
       <p style="margin-bottom: 20px">${payload.data.text}</p>
     </div>

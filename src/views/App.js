@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from '@Views/LoginPage';
 import Search from '@Views/SearchPage/SearchPage';
 import Home from '@Views/HomePage';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import ResetPassword from '@Views/ResetPassword';
 import CreateArticle from '@Views/Articles/CreateArticle';
 import ReadArticle from '@Views/Articles/ReadArticle';

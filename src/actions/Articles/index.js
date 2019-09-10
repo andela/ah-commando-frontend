@@ -67,10 +67,7 @@ export const createArticle = (articleData, history) => async dispatch => {
       buttons: false,
       timer: 3000,
     });
-    await setTimeout(() => {
-      history.push(`articles/${slug}`);
-      document.location.reload();
-    }, 5000);
+    history.push(`articles/${slug}`);
     dispatch({
       type: NOT_LOADING,
     });
@@ -98,7 +95,9 @@ export const readArticle = slug => async dispatch => {
       type: NOT_LOADING,
     });
   } catch (err) {
-    document.location = '/404';
+    if (err.response.status === 400) {
+      document.location = '/404';
+    }
   }
 };
 
@@ -115,11 +114,7 @@ export const updateArticle = (articleData, articleSlug, history) => async dispat
       buttons: false,
       timer: 2000,
     });
-    await setTimeout(() => {
-      history.push(`/articles/${slug}`);
-      document.location.reload();
-    }, 2000);
-
+    history.push(`/articles/${slug}`);
     dispatch({
       type: NOT_LOADING,
     });

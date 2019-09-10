@@ -4,7 +4,7 @@ import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
 import { withRouter } from 'react-router-dom';
 import swal from '@sweetalert/with-react';
-import Header from '@Components/Header';
+import Loader from 'react-loader-spinner';
 import { readArticle, deleteAnArticle } from '@Actions/Articles';
 import connectComponent from '@Lib/connect-component';
 import Icon from '@Components/Icon';
@@ -72,6 +72,7 @@ export class ReadArticle extends Component {
 
   render = () => {
     const {
+      ui: { loading },
       article: {
         title,
         description,
@@ -91,68 +92,79 @@ export class ReadArticle extends Component {
       .map((tag, i) => (<li key={i}><p>{tag}</p></li>)) : null;
     const body = this.parseArticleBody(articleBody);
 
+    const loader = (
+      <div className="loader">
+        <Loader
+          type="ThreeDots"
+          color="#ffa500"
+          height={150}
+          width={150}
+        />
+      </div>
+    );
+
     return (
       <>
-        <Header />
-        <div className="read-article">
-          <div className="article-header vertical-center">
-            <h1 className="title">{title}</h1>
-            <p className="description">{description}</p>
-            <div className="article-user center">
-              <div className="article-user-details">
-                <div className="article-img-div center">
-                  <img
-                    src={author ? author.image : 'https://via.placeholder.com/150'}
-                    alt="profile pic"
-                  />
-                </div>
-                <div className="article-details-div center">
-                  <div className="vertical-center name-date">
-                    <p className="author-name">{author ? author.username : 'Loading...'}</p>
-                    <p className="created-date">{moment(createdAt).format('MMM DD, YYYY')}</p>
+        {loading ? loader : (
+          <div className="read-article">
+            <div className="article-header vertical-center">
+              <h1 className="title">{title}</h1>
+              <p className="description">{description}</p>
+              <div className="article-user center">
+                <div className="article-user-details">
+                  <div className="article-img-div center">
+                    <img
+                      src={author ? author.image : 'https://via.placeholder.com/150'}
+                      alt="profile pic"
+                    />
                   </div>
-                  <div className="vertical-center read-time">
-                    <p>{`${readTime || 0} min${readTime > 1 ? 's' : ''} read`}</p>
-                    {this.isMyArticle() && (
+                  <div className="article-details-div center">
+                    <div className="vertical-center name-date">
+                      <p className="author-name">{author ? author.username : 'Loading...'}</p>
+                      <p className="created-date">{moment(createdAt).format('MMM DD, YYYY')}</p>
+                    </div>
+                    <div className="vertical-center read-time">
+                      <p>{`${readTime || 0} min${readTime > 1 ? 's' : ''} read`}</p>
+                      {this.isMyArticle() && (
                       <button
                         type="button"
                         onClick={this.editArticle}
                       >
                         Edit Article
                       </button>
-                    )}
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="main-article-image-div">
-            <img
-              src={image}
-              alt="HD pic"
-            />
-          </div>
-          <main className="center">
-            <article>
-              {ReactHtmlParser(body)}
-            </article>
-          </main>
-          <div className="article-tag-div">
-            <ul>
-              {tags}
-            </ul>
-          </div>
-          <div className="article-stats-div">
-            <div className="center like-count">
-              <Icon name="likes" />
-              <p className="icon-label">{likesCount}</p>
-              <Icon name="dislikes" />
-              <p className="icon-label">{dislikesCount}</p>
+            <div className="main-article-image-div">
+              <img
+                src={image}
+                alt=""
+              />
             </div>
-            <div className="comment-delete">
-              <Icon name="comments" />
-              <p className="icon-label">{comment ? comment.length : 0}</p>
-              {this.isMyArticle() && (
+            <main className="center">
+              <article>
+                {ReactHtmlParser(body)}
+              </article>
+            </main>
+            <div className="article-tag-div">
+              <ul>
+                {tags}
+              </ul>
+            </div>
+            <div className="article-stats-div">
+              <div className="center like-count">
+                <Icon name="likes" />
+                <p className="icon-label">{likesCount}</p>
+                <Icon name="dislikes" />
+                <p className="icon-label">{dislikesCount}</p>
+              </div>
+              <div className="comment-delete">
+                <Icon name="comments" />
+                <p className="icon-label">{comment ? comment.length : 0}</p>
+                {this.isMyArticle() && (
                 <button
                   className="delete-icon"
                   type="button"
@@ -160,10 +172,11 @@ export class ReadArticle extends Component {
                 >
                   <Icon name="trash" />
                 </button>
-              )}
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </>
     );
   };
@@ -176,6 +189,7 @@ ReadArticle.propTypes = {
   article: PropTypes.shape().isRequired,
   history: PropTypes.shape().isRequired,
   auth: PropTypes.shape().isRequired,
+  ui: PropTypes.shape().isRequired,
 };
 
 export default connectComponent(

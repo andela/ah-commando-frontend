@@ -2,7 +2,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import swal from '@sweetalert/with-react';
-import Header from '@Components/Header';
 import Button from '@Components/Button';
 import connectComponent from '@Lib/connect-component';
 import { openModal } from '@Actions/uiActions';
@@ -60,7 +59,6 @@ export class CreateArticle extends Component {
     const { title, articleBody, readyToSubmit } = this.state;
     return (
       <>
-        <Header />
         <div className="article-div">
           <div className="article">
             <div className="align-right">
