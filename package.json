@@ -4,11 +4,12 @@
   "description": "A social platform for the creative heart",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "e2e": "nightwatch",
     "start": "export DEBUG=prod && node server/app.js",
     "dev": "webpack-dev-server --open --config build-utils/webpack.config.js --env.env=dev",
-    "build": "webpack --config build-utils/webpack.config.js --env.env=prod"
+    "build": "webpack --config build-utils/webpack.config.js --env.env=prod",
+    "coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -89,6 +90,7 @@
     "check-prop-types": "^1.1.2",
     "chromedriver": "^76.0.1",
     "clean-webpack-plugin": "^3.0.0",
+    "coveralls": "^3.0.6",
     "css-loader": "^3.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
@@ -113,6 +115,7 @@
     "nightwatch": "^1.2.1",
     "nock": "^11.3.1",
     "node-sass": "^4.12.0",
+    "nyc": "^14.1.1",
     "redux-mock-store": "^1.5.3",
     "sass-loader": "^7.3.1",
     "sinon": "^7.4.2",
