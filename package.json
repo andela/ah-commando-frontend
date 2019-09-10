@@ -33,6 +33,7 @@
     "@fortawesome/free-regular-svg-icons": "^5.10.2",
     "@fortawesome/free-solid-svg-icons": "^5.10.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "@sweetalert/with-react": "^0.1.1",
     "axios": "^0.19.0",
     "chalk": "^2.4.2",
     "check-prop-types": "^1.1.2",
@@ -42,8 +43,8 @@
     "dotenv": "^8.1.0",
     "dotenv-webpack": "^1.7.0",
     "express": "^4.17.1",
-    "joi-browser": "^13.4.0",
     "image-size": "^0.7.4",
+    "joi-browser": "^13.4.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
     "moxios": "^0.4.0",
@@ -54,14 +55,15 @@
     "react-loader-spinner": "^3.1.2",
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
+    "react-skeleton-loader": "^1.0.4",
     "react-spinners": "^0.6.1",
     "react-toastify": "^5.3.2",
-    "react-skeleton-loader": "^1.0.4",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
-    "sinon": "^7.4.2"
+    "sinon": "^7.4.2",
+    "sweetalert": "^2.1.2"
   },
   "husky": {
     "hooks": {
