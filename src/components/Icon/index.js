@@ -20,6 +20,7 @@ import {
   faChevronUp as up_arrow,
   faChevronDown as down_arrow,
   faTimes as close,
+  faTrash as trash,
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons = {
@@ -34,6 +35,7 @@ const icons = {
   up_arrow,
   down_arrow,
   close,
+  trash,
 };
 const Icon = (props) => {
   const { name, handleClick } = props;

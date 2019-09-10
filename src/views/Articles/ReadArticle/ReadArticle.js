@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
 import { withRouter } from 'react-router-dom';
+import swal from '@sweetalert/with-react';
 import Header from '@Components/Header';
-import { readArticle } from '@Actions/Articles';
+import { readArticle, deleteAnArticle } from '@Actions/Articles';
 import connectComponent from '@Lib/connect-component';
 import Icon from '@Components/Icon';
-import { convertToHtml } from '@Utils/';
+import { convertToHtml, isEmpty } from '@Utils/';
 import './ReadArticle.scss';
 
 export class ReadArticle extends Component {
@@ -37,6 +38,36 @@ export class ReadArticle extends Component {
   editArticle = () => {
     const { history, article: { slug } } = this.props;
     history.push(`/articles/${slug}/edit`);
+  }
+
+  isMyArticle = () => {
+    const {
+      article,
+      auth: {
+        isAuthenticated,
+        user: {
+          id,
+        },
+      },
+    } = this.props;
+    const authorId = !isEmpty(article) ? article.authorId : 0;
+
+    return isAuthenticated && (authorId === id);
+  }
+
+  deleteArticle = () => {
+    swal({
+      text: 'Are you sure? Once deleted, this cannot be undone!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+      .then((willDelete) => {
+        if (willDelete) {
+          const { article: { slug }, history, deleteArticle } = this.props;
+          deleteArticle(slug, history);
+        }
+      });
   }
 
   render = () => {
@@ -82,12 +113,14 @@ export class ReadArticle extends Component {
                   </div>
                   <div className="vertical-center read-time">
                     <p>{`${readTime || 0} min${readTime > 1 ? 's' : ''} read`}</p>
-                    <button
-                      type="button"
-                      onClick={this.editArticle}
-                    >
-                      Edit Article
-                    </button>
+                    {this.isMyArticle() && (
+                      <button
+                        type="button"
+                        onClick={this.editArticle}
+                      >
+                        Edit Article
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -116,9 +149,18 @@ export class ReadArticle extends Component {
               <Icon name="dislikes" />
               <p className="icon-label">{dislikesCount}</p>
             </div>
-            <div className="comment-count">
+            <div className="comment-delete">
               <Icon name="comments" />
               <p className="icon-label">{comment ? comment.length : 0}</p>
+              {this.isMyArticle() && (
+                <button
+                  className="delete-icon"
+                  type="button"
+                  onClick={this.deleteArticle}
+                >
+                  <Icon name="trash" />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -129,13 +171,16 @@ export class ReadArticle extends Component {
 
 ReadArticle.propTypes = {
   getSingleArticle: PropTypes.func.isRequired,
+  deleteArticle: PropTypes.func.isRequired,
   match: PropTypes.shape().isRequired,
   article: PropTypes.shape().isRequired,
   history: PropTypes.shape().isRequired,
+  auth: PropTypes.shape().isRequired,
 };
 
 export default connectComponent(
   withRouter(ReadArticle), {
     getSingleArticle: slug => readArticle(slug),
+    deleteArticle: (slug, history) => deleteAnArticle(slug, history),
   },
 );

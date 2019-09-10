@@ -110,7 +110,7 @@ export const updateArticle = (articleData, articleSlug, history) => async dispat
     const response = await axiosInstance.put(`articles/${articleSlug}/edit`, { article: { ...articleData } });
     const { slug } = response.data.article;
     swal({
-      text: 'Article updated successfully',
+      text: 'Article updated',
       icon: 'success',
       buttons: false,
       timer: 2000,
@@ -118,6 +118,36 @@ export const updateArticle = (articleData, articleSlug, history) => async dispat
     await setTimeout(() => {
       history.push(`/articles/${slug}`);
       document.location.reload();
+    }, 2000);
+
+    dispatch({
+      type: NOT_LOADING,
+    });
+  } catch (err) {
+    swal({
+      text: err.response.data.error[0],
+      icon: 'error',
+      buttons: false,
+      timer: 5000,
+    });
+  }
+};
+
+
+export const deleteAnArticle = (slug, history) => async dispatch => {
+  dispatch({
+    type: LOADING,
+  });
+  try {
+    await axiosInstance.delete(`articles/${slug}`);
+    swal({
+      text: 'Article deleted',
+      icon: 'success',
+      buttons: false,
+      timer: 2000,
+    });
+    await setTimeout(() => {
+      history.push('/profile');
     }, 2000);
 
     dispatch({

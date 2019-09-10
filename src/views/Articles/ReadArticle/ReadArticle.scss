@@ -84,6 +84,7 @@
           height: 100%;
           font-size: 14px;
           flex: 1;
+          min-width: 200px;
 
           button {
             font-size: 15px;
@@ -157,10 +158,25 @@
       flex: 2;
     }
 
-    .comment-count {
+    .comment-delete {
       display: flex;
       justify-content: flex-end;
       flex: 10;
+
+      .delete-icon {
+        background: none;
+        border: none;
+        font-size: 18px;
+        padding-bottom: 5px;
+        height: 2px;
+        color: red;
+        transition: ease-in-out .3s;
+        &:hover {
+          color: rgba(255, 0, 0, 0.726);
+          transform: scale(1.2);
+          cursor: pointer;
+        }
+      }
     }
   }
 
