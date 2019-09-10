@@ -110,9 +110,8 @@ export const requestPasswordLink = (email) => async (dispatch) => {
     swal({
       text: error,
       icon: 'error',
-      button: {
-        className: 'sweet-alert-btn',
-      },
+      button: false,
+      timer: 3000,
     });
     return dispatch({
       type: NOT_LOADING,
@@ -147,9 +146,8 @@ export const setNewPassword = (data, history) => async (dispatch) => {
     swal({
       text: error,
       icon: 'error',
-      button: {
-        className: 'sweet-alert-btn',
-      },
+      button: false,
+      timer: 3000,
     });
   }
 };
