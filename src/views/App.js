@@ -6,12 +6,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import Search from '@Views/SearchPage/SearchPage';
 import Home from '@Views/HomePage';
+import SignUp from '@Components/Forms/SignUp';
+import SignIn from '@Components/Forms/SignIn';
+import Header from '@Components/Header';
 import ResetPassword from '@Views/ResetPassword';
 import Profile from '@Views/ProfilePage';
 import './app.scss';
 
 const App = () => (
   <BrowserRouter>
+    <SignIn />
+    <SignUp />
+    <Header />
     <ToastContainer />
     <div data-test="appComponent">
       <Route exact path="/" component={Home} />

@@ -5,7 +5,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
-import Header from '@Components/Header';
 import Button from '@Components/Button';
 import Footer from '@Components/Footer';
 import Input from '@Components/Input';
@@ -197,7 +196,6 @@ export class Profile extends Component {
     );
     return (
       <div data-test="profileComponent">
-        <Header />
         <dialog ref={this.dialog}>
           <div className="container">
             <span className="close" onClick={() => this.handleToggleEditProfileModal('close')}>&times;</span>

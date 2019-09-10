@@ -55,14 +55,14 @@ describe('HomePage component test', () => {
 
     it('successfully calls the onClick handler for top scroller', () => {
       const appInstance = wrapper.instance();
-      jest.spyOn(appInstance, 'handleClick');
+      appInstance.handleClick = jest.fn();
       wrapper.find('[data-test="topBtn"]').simulate('click', e);
       expect(appInstance.handleClick).toHaveBeenCalled();
     });
 
     it('successfully calls the onClick handler for bottom scroller', () => {
       const appInstance = wrapper.instance();
-      jest.spyOn(appInstance, 'handleClick');
+      appInstance.handleClick = jest.fn();
       wrapper.find('[data-test="bottomBtn"]').simulate('click', e);
       expect(appInstance.handleClick).toHaveBeenCalled();
     });

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
@@ -18,18 +19,20 @@ const buttonStyle = {
 };
 
 export class Header extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      search: false,
-    };
+  state = {
+    search: false,
+    searchContent: '',
   }
 
-  handleClick = () => {
-    this.setState({
-      search: true,
-    });
+  openSearch = () => {
+    this.setState((prevState) => ({ search: !prevState.search, searchContent: '' }));
   };
+
+  handleInputChange = (e) => {
+    this.setState({
+      searchContent: e.target.value,
+    });
+  }
 
   handleKeyUp = (e) => {
     if (e.keyCode === 13) {
@@ -43,27 +46,42 @@ export class Header extends Component {
   };
 
   handleBlur = () => {
+    if (this.state.searchContent !== '') return;
     this.setState({
       search: false,
     });
   }
 
   render() {
-    const { search } = this.state;
-    const { signIn, signUp } = this.props;
+    const { search, searchContent } = this.state;
+    const { signIn, signUp, history } = this.props;
+
     return (
       <>
-        <header className="header-top">
-          <img className="logo" src={logo} alt="" />
+        <header className="header-top" data-test="headerComponent">
+          <Link to="/">
+            <img className="logo" src={logo} alt="" />
+          </Link>
           <div className="search">
             <div>
               <div>
-                {search ? <input type="text" onKeyUp={(e) => { this.handleKeyUp(e); }} datatest="input-search" placeholder="Search..." onBlur={this.handleBlur} /> : ''}
+                {search ? (
+                  <input
+                    type="text"
+                    autoFocus={search}
+                    onKeyUp={(e) => { this.handleKeyUp(e); }}
+                    data-test="search-input"
+                    placeholder="Search..."
+                    onBlur={this.handleBlur}
+                    onChange={this.handleInputChange}
+                    value={searchContent}
+                  />
+                ) : ''}
               </div>
               <button
                 type="button"
                 className="searchButton"
-                onClick={this.handleClick}
+                onClick={this.openSearch}
                 datatest="search-icon"
               >
                 <Icon name="search" />
@@ -103,18 +121,20 @@ export class Header extends Component {
               </div>
             )}
         </header>
-        <div className="navigation">
-          <ul>
-            <Link to="/a">Technology</Link>
-            <Link to="/a">Health</Link>
-            <Link to="/a">Culture</Link>
-            <Link to="/a">Science</Link>
-            <Link to="/a">Fashion</Link>
-            <Link to="/a">Education</Link>
-            <Link to="/a">Lifestyle</Link>
-            <Link to="/a">Nature</Link>
-          </ul>
-        </div>
+        {history.location.pathname === '/' ? (
+          <div className="navigation" data-test="navigationComponent">
+            <ul>
+              <Link to="/a">Technology</Link>
+              <Link to="/a">Health</Link>
+              <Link to="/a">Culture</Link>
+              <Link to="/a">Science</Link>
+              <Link to="/a">Fashion</Link>
+              <Link to="/a">Education</Link>
+              <Link to="/a">Lifestyle</Link>
+              <Link to="/a">Nature</Link>
+            </ul>
+          </div>
+        ) : null}
       </>
     );
   }

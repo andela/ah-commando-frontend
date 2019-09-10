@@ -39,6 +39,8 @@ $desktop: 375px;
     button {
       width: 20px;
       height: 20px;
+
+
     }
   }
 
@@ -48,7 +50,7 @@ $desktop: 375px;
     margin-bottom: 10px;
     text-transform: capitalize;
     position: sticky;
-    top:0;
+    top:60px;
     z-index: 6;
     background: white;
     display: flex;

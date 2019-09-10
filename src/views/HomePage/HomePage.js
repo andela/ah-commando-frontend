@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { getHomePageArticles, getArticle, getEditorsChoice } from '@App/actions/Articles';
+<<<<<<< HEAD
 import connectComponent from '@Lib/connect-component';
 import Header from '@Components/Header';
+=======
+import connect from '@Lib/connect-component';
+>>>>>>> Bug(Homepage): Fix errors on homepage
 import Footer from '@Components/Footer';
-import SignUp from '@Components/Forms/SignUp';
-import SignIn from '@Components/Forms/SignIn';
 import PasswordRequest from '@Components/Forms/PasswordRequest';
+import Icon from '@Components/Icon';
 import HomeCardArticle from './HomeCardArticle';
 import Banner from './Banner';
 import MainCardSection from './MainCardSection';
@@ -19,6 +22,8 @@ export class Home extends Component {
   }
 
   scroller = React.createRef();
+
+  articleDiv = React.createRef();
 
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll, true);
@@ -33,7 +38,13 @@ export class Home extends Component {
   }
 
   handleScroll = () => {
+<<<<<<< HEAD
     if (this.scroller.current.getBoundingClientRect().top < -2950) {
+=======
+    if (this.scroller.current === null) { return; }
+    const currentHeight = this.scroller.current.getBoundingClientRect().top;
+    if (currentHeight < -2950) {
+>>>>>>> Bug(Homepage): Fix errors on homepage
       this.setState({ asideHeight: '500px' });
     } else {
       this.setState({ asideHeight: '750px' });
@@ -42,17 +53,14 @@ export class Home extends Component {
 
   handleClick = (e, position) => {
     if (position === 'top') {
-      e.target.parentElement.nextElementSibling.scrollTop += 200;
-    } else e.target.parentElement.previousElementSibling.scrollTop -= 200;
+      this.articleDiv.current.scrollTop -= 200;
+    } else this.articleDiv.current.scrollTop += 200;
   };
 
   render() {
     const { asideHeight } = this.state;
     return (
       <div data-test="homepageComponent" className="homepage" ref={this.scroller}>
-        <SignIn />
-        <SignUp />
-        <Header />
         <PasswordRequest />
         <HomeCardArticle />
         <div className="articleSection">
@@ -61,11 +69,15 @@ export class Home extends Component {
           </section>
           <aside className="aside" style={{ height: asideHeight }}>
             <div className="btns top">
-              <button data-test="topBtn" type="button" onClick={(e) => this.handleClick(e, 'top')}>^</button>
+              <button data-test="topBtn" type="button" onClick={(e) => this.handleClick(e, 'top')}>
+                <Icon name="angleTop" />
+              </button>
             </div>
-            <AsideCardSection />
+            <AsideCardSection reactRef={this.articleDiv} />
             <div className="btns bottom">
-              <button data-test="bottomBtn" type="button" onClick={(e) => this.handleClick(e, 'bottom')}>v</button>
+              <button data-test="bottomBtn" type="button" onClick={(e) => this.handleClick(e, 'bottom')}>
+                <Icon name="angleBottom" />
+              </button>
             </div>
           </aside>
         </div>
