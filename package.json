@@ -4,7 +4,7 @@
   "description": "A social platform for the creative heart",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "test": "jest --coverage",
     "e2e": "nightwatch",
     "start": "export DEBUG=prod && node server/app.js",
     "dev": "webpack-dev-server --open --config build-utils/webpack.config.js --env.env=dev",
