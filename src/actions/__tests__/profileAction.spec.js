@@ -51,7 +51,7 @@ describe('profile action', () => {
     return store.dispatch(getProfile()).then((data) => {
       const expectedAction = {
         type: 'GET_PROFILE_FAILURE',
-        error: { error: 'invalid token', status: 401 },
+        error: { error: 'User not found', status: 404 },
       };
       expect(data).toEqual(expectedAction);
     });
@@ -68,7 +68,7 @@ describe('profile action', () => {
     return store.dispatch(editProfile()).then((data) => {
       const expectedAction = {
         type: 'EDIT_PROFILE_FAILURE',
-        error: { error: 'invalid token', status: 401 },
+        error: { error: 'Authorization error', status: 401 },
       };
       expect(data).toEqual(expectedAction);
     });

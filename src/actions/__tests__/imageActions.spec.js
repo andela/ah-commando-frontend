@@ -23,7 +23,7 @@ describe('Async action creators', () => {
     expect(dispatch).toHaveBeenNthCalledWith(2, {
       type: POST_IMAGE_FAILURE,
       error: {
-        error: 'invalid token',
+        error: 'Authorization error',
         status: 401,
       },
     });
