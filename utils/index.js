@@ -4,6 +4,7 @@ import Validator from './Validator';
 import empty from './isEmpty';
 import Editor from './editor';
 import jsonToHtml from './editorConverter';
+import { createMockStore } from './mockStore';
 
 export const axiosInstance = instance;
 export const setToken = setAuthToken;
@@ -17,6 +18,7 @@ export const {
   bioSchema,
 } = Validator;
 export const isEmpty = empty;
+export const makeMockStore = createMockStore;
 
 export const editor = Editor;
 

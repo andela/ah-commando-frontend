@@ -182,7 +182,7 @@ export class SignIn extends Component {
               id="signin"
               style={{
                 height: '45px',
-                width: '300px',
+                width: '315px',
                 color: '#ffc700',
                 backgroundColor: '#000',
                 borderRadius: '0',

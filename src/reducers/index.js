@@ -9,6 +9,8 @@ import notifications from './notifications';
 import { articleReducer } from './Articles';
 import categoryReducer from './categoriesReducer';
 import tagReducer from './tagReducer';
+import followReducer from './followReducer';
+import unfollowReducer from './unfollowReducer';
 
 const reducers = combineReducers({
   ui: uiReducer,
@@ -21,6 +23,8 @@ const reducers = combineReducers({
   notifications,
   category: categoryReducer,
   tag: tagReducer,
+  follow: followReducer,
+  unfollow: unfollowReducer,
 });
 
 export default reducers;

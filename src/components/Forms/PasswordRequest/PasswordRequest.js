@@ -101,7 +101,8 @@ export class PasswordRequest extends Component {
               handleClick={this.handleSubmit}
               style={{
                 height: '45px',
-                width: '300px',
+                width: '90%',
+                marginLeft: '5%',
                 color: '#ffc700',
                 backgroundColor: '#000',
                 borderRadius: '0',

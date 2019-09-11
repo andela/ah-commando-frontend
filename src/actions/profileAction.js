@@ -49,8 +49,8 @@ export const getArticlesFailure = (error) => ({
 export const getProfile = () => async (dispatch) => {
   dispatch(getProfileStart());
   try {
-    const token = jwtDecode(localStorage.getItem('haven'));
-    const response = await axiosInstance.get(`/profiles/${token.username}`);
+    const response = await axiosInstance.get('/profiles/nonso');
+    // const response = await axiosInstance.get('/user');
     return dispatch(getProfileSuccess(response.data.profile));
   } catch (error) {
     return dispatch(getProfileFailure(error.response.data));

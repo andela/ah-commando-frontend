@@ -65,6 +65,8 @@ const props = {
   image: {
     loading: false,
   },
+  follow: jest.fn(),
+  unollow: jest.fn(),
 };
 
 describe('Profile component test', () => {

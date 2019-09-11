@@ -1,7 +1,9 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
+import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
@@ -12,6 +14,8 @@ import TextArea from '@App/components/TextArea/';
 import ArticleCard from '@Components/ArticleCard/';
 import connectComponent from '@Lib/connect-component';
 import { getProfile, editProfile, getArticles } from '@Actions/profileAction';
+import { followUser } from '@Actions/followActions';
+import { unFollowUser } from '@Actions/unfollowActions';
 import { postImage } from '@Actions/imageAction';
 import Icon from '@Components/Icon';
 import {
@@ -41,6 +45,8 @@ export class Profile extends Component {
         followingCount: '',
       },
       article: [],
+      userToken: '',
+      isFollowing: false,
     };
     this.dialog = React.createRef();
   }
@@ -49,6 +55,7 @@ export class Profile extends Component {
     const { fetchProfile, fetchArticle } = this.props;
     const profileResponse = await fetchProfile();
     const articleResponse = await fetchArticle();
+    const userProfile = jwtDecode(localStorage.getItem('haven')).username;
     this.setState(prevState => ({
       ...prevState,
       profile: {
@@ -56,7 +63,18 @@ export class Profile extends Component {
         ...profileResponse.payload,
       },
       article: articleResponse.payload,
+      userToken: userProfile,
     }));
+
+    const { profile: { followers }, userToken } = this.state;
+    followers.forEach((follower) => {
+      if (follower.username === userToken) {
+        this.setState(prevState => ({
+          ...prevState,
+          isFollowing: true,
+        }));
+      }
+    });
   }
 
   handleToggleEditProfileModal = (status = 'open') => {
@@ -74,7 +92,6 @@ export class Profile extends Component {
     const errors = {};
     const [errorValue] = validate({
       [name]: value,
-      // eslint-disable-next-line no-nested-ternary
     }, name === 'username' ? usernameSchema : name === 'bio' ? bioSchema : emailSchema);
     errors[name] = errorValue || '';
     this.setFormValidity(errors);
@@ -172,6 +189,57 @@ export class Profile extends Component {
     return this.dialog.current.close();
   }
 
+  renderButton = () => {
+    const { profile: { username }, userToken, isFollowing } = this.state;
+    const button = (username === userToken) ? (
+      <Button
+        handleClick={() => this.handleToggleEditProfileModal('open')}
+        datatest="edit-button"
+        style={{ padding: '0px 5px', width: '150px' }}
+      >
+      Edit Profile
+      </Button>
+    ) : isFollowing ? (
+      <Button
+        handleClick={this.handleUnFollowUser}
+        datatest="edit-button"
+        style={{ padding: '0px 5px', width: '150px' }}
+        className="follow-btn"
+      >
+        <span className="unfollow">Following</span>
+      </Button>
+    ) : (
+      <Button
+        handleClick={this.handleFollowUser}
+        datatest="edit-button"
+        style={{ padding: '0px 5px', width: '150px' }}
+        className="unfollow-btn"
+      >
+        <span className="follow">Follow</span>
+      </Button>
+    );
+
+    return button;
+  }
+
+  handleFollowUser = async () => {
+    const { follow } = this.props;
+    await follow();
+    this.setState(prevState => ({
+      ...prevState,
+      isFollowing: true,
+    }));
+  };
+
+  handleUnFollowUser = async () => {
+    const { unfollow } = this.props;
+    await unfollow();
+    this.setState(prevState => ({
+      ...prevState,
+      isFollowing: false,
+    }));
+  };
+
   render() {
     const {
       errors,
@@ -192,7 +260,7 @@ export class Profile extends Component {
     const { image: { loading } } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
     const noArticle = () => (
-      <h1 className="no-article">You have no articles yet</h1>
+      <h1 className="no-article">{loading && loader}</h1>
     );
     return (
       <div data-test="profileComponent">
@@ -232,7 +300,7 @@ export class Profile extends Component {
 
               <TextArea
                 style={{
-                  width: '100%',
+                  width: '101%',
                 }}
                 name="bio"
                 value={bio || ''}
@@ -282,15 +350,7 @@ export class Profile extends Component {
                 <div className="name-button">
                   <h3>{`${firstname} ${lastname}`}</h3>
 
-                  <span>
-                    <Button
-                      handleClick={() => this.handleToggleEditProfileModal('open')}
-                      datatest="edit-button"
-                      style={{ padding: '0px 5px', width: '150px' }}
-                    >
-                      Edit Profile
-                    </Button>
-                  </span>
+                  {this.renderButton()}
                   <span style={{ marginTop: '10px' }}>
                     <p>{`@${username}`}</p>
                   </span>
@@ -348,6 +408,8 @@ Profile.propTypes = {
   image: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
   }),
+  unfollow: PropTypes.func.isRequired,
+  follow: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
@@ -356,5 +418,7 @@ export default connectComponent(
     fetchArticle: getArticles,
     updateProfile: editProfile,
     uploadImage: postImage,
+    follow: followUser,
+    unfollow: unFollowUser,
   },
 );

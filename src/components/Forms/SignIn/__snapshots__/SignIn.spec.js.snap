@@ -70,7 +70,7 @@ exports[`test social media sign in should click the google signin button 1`] = `
             "borderRadius": "0",
             "color": "#ffc700",
             "height": "45px",
-            "width": "300px",
+            "width": "315px",
           }
         }
         type="submit"
