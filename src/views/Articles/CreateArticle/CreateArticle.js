@@ -63,6 +63,7 @@ export class CreateArticle extends Component {
           <div className="article">
             <div className="align-right">
               <Button
+                datatest="publish-button"
                 type="button"
                 disabled={!readyToSubmit}
                 handleClick={this.publish}

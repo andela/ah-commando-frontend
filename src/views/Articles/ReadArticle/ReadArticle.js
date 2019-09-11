@@ -93,7 +93,7 @@ export class ReadArticle extends Component {
     const body = this.parseArticleBody(articleBody);
 
     const loader = (
-      <div className="loader">
+      <div data-test="loader" className="loader">
         <Loader
           type="ThreeDots"
           color="#ffa500"
@@ -127,6 +127,7 @@ export class ReadArticle extends Component {
                       <p>{`${readTime || 0} min${readTime > 1 ? 's' : ''} read`}</p>
                       {this.isMyArticle() && (
                       <button
+                        data-test="edit-article"
                         type="button"
                         onClick={this.editArticle}
                       >

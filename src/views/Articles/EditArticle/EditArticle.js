@@ -104,6 +104,7 @@ export class EditArticle extends Component {
           <div className="article">
             <div className="align-right">
               <Button
+                datatest="edit-ready"
                 type="button"
                 disabled={!readyToSubmit}
                 handleClick={this.publish}

@@ -275,6 +275,7 @@ export class PublishArticle extends Component {
           </div>
           <div className="center">
             <Button
+              datatest="publish-final"
               handleClick={this.publish}
               type="button"
               label="publish"
