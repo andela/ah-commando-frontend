@@ -1,0 +1,23 @@
+.follow-btn:hover .unfollow{
+  display: none;
+}
+
+.follow-btn:hover:before{
+  background-color: rgb(252, 215, 85);
+  padding: 5px 40px;
+  border-radius: 5px;
+  content:"Unfollow"
+}
+
+.unfollow-btn{
+ background: #fff !important;
+ border: 2px solid #FFC700 !important;
+}
+
+.unfollow-btn:hover .follow{
+  display:none;
+}
+
+.unfollow-btn:hover:before{
+  content:"Follow"
+}

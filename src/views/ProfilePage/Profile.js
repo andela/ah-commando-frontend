@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -18,6 +19,8 @@ import { followUser } from '@Actions/followActions';
 import { unFollowUser } from '@Actions/unfollowActions';
 import { postImage } from '@Actions/imageAction';
 import Icon from '@Components/Icon';
+import RenderButton from '@Components/RenderButton';
+
 import {
   validate,
   emailSchema,
@@ -189,38 +192,39 @@ export class Profile extends Component {
     return this.dialog.current.close();
   }
 
-  renderButton = () => {
-    const { profile: { username }, userToken, isFollowing } = this.state;
-    const button = (username === userToken) ? (
-      <Button
-        handleClick={() => this.handleToggleEditProfileModal('open')}
-        datatest="edit-button"
-        style={{ padding: '0px 5px', width: '150px' }}
-      >
-      Edit Profile
-      </Button>
-    ) : isFollowing ? (
-      <Button
-        handleClick={this.handleUnFollowUser}
-        datatest="edit-button"
-        style={{ padding: '0px 5px', width: '150px' }}
-        className="follow-btn"
-      >
-        <span className="unfollow">Following</span>
-      </Button>
-    ) : (
-      <Button
-        handleClick={this.handleFollowUser}
-        datatest="edit-button"
-        style={{ padding: '0px 5px', width: '150px' }}
-        className="unfollow-btn"
-      >
-        <span className="follow">Follow</span>
-      </Button>
-    );
 
-    return button;
-  }
+  // renderButton = () => {
+  //   const { profile: { username }, userToken, isFollowing } = this.state;
+  //   const button = (username === userToken) ? (
+  //     <Button
+  //       handleClick={() => this.handleToggleEditProfileModal('open')}
+  //       datatest="edit-button"
+  //       style={{ padding: '0px 5px', width: '150px' }}
+  //     >
+  //     Edit Profile
+  //     </Button>
+  //   ) : isFollowing ? (
+  //     <Button
+  //       handleClick={this.handleUnFollowUser}
+  //       datatest="edit-button"
+  //       style={{ padding: '0px 5px', width: '150px' }}
+  //       className="follow-btn"
+  //     >
+  //       <span className="unfollow">Following</span>
+  //     </Button>
+  //   ) : (
+  //     <Button
+  //       handleClick={this.handleFollowUser}
+  //       datatest="edit-button"
+  //       style={{ padding: '0px 5px', width: '150px' }}
+  //       className="unfollow-btn"
+  //     >
+  //       <span className="follow">Follow</span>
+  //     </Button>
+  //   );
+
+  //   return button;
+  // }
 
   handleFollowUser = async () => {
     const { follow } = this.props;
@@ -229,6 +233,7 @@ export class Profile extends Component {
       ...prevState,
       isFollowing: true,
     }));
+    // console.log(this.props);
   };
 
   handleUnFollowUser = async () => {
@@ -350,7 +355,14 @@ export class Profile extends Component {
                 <div className="name-button">
                   <h3>{`${firstname} ${lastname}`}</h3>
 
-                  {this.renderButton()}
+                  <RenderButton
+                    handleToggleEditProfileModal={this.handleToggleEditProfileModal}
+                    handleUnFollowUser={this.handleUnFollowUser}
+                    handleFollowUser={this.handleFollowUser}
+                    userToken={this.state && this.state.userToken}
+                    isFollowing={this.state && this.state.isFollowing}
+                    profile={this.state.profile && this.state.profile.username}
+                  />
                   <span style={{ marginTop: '10px' }}>
                     <p>{`@${username}`}</p>
                   </span>
