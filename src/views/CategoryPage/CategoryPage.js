@@ -1,6 +1,6 @@
 import React from 'react';
 import Footer from '@Components/Footer';
-import CategoryBody from '@Views/CategoryPage/CategoryBody';
+import CategoryBody from './CategoryBody/CategoryBody';
 import SideBar from './SideBar';
 import './CategoryPage.scss';
 

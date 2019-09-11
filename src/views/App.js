@@ -5,7 +5,7 @@ import Search from '@Views/SearchPage/SearchPage';
 import Home from '@Views/HomePage';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import SignUp from '@Components/Forms/SignUp';
-import CategoryPage from '@Views/CategoryPage/CategoryPage';
+import CategoryPage from '@Views/CategoryPage';
 import SignIn from '@Components/Forms/SignIn';
 import Header from '@Components/Header';
 import ResetPassword from '@Views/ResetPassword';
