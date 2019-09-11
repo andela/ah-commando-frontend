@@ -146,7 +146,10 @@ export class SignIn extends Component {
             Sign in to experience author’s haven great community of creative minds.
             Follow your favourite authors and interact with the articles you love
           </p>
-          <form style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <form
+            style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
+            data-test="signin-form"
+          >
             <Input
               name="email"
               value={email}
@@ -155,6 +158,7 @@ export class SignIn extends Component {
               placeholder="john.doe@foo.bar"
               label="Email"
               error={errors.email}
+              id="email"
             />
             <Input
               name="password"
@@ -167,6 +171,7 @@ export class SignIn extends Component {
               visible={showPassword}
               handleToggle={this.toggleVisibility}
               error={errors.password}
+              id="password"
             />
             <Button
               datatest="loginButton"

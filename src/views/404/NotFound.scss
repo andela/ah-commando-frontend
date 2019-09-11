@@ -1,0 +1,17 @@
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  h4 {
+    font-size: 2vw;
+  }
+
+  a {
+    font-size: 2.5vw;
+    color: grey;
+    transition: ease-in-out .5s;
+  }
+}

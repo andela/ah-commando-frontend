@@ -6,7 +6,7 @@ const instance = axios.create({
 
 export const setAuthToken = (token) => {
   if (!token) {
-    delete instance.defaults.headers.common.Authorization;
+    return delete instance.defaults.headers.common.Authorization;
   }
   instance.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
