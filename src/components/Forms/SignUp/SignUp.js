@@ -205,6 +205,7 @@ export class SignUp extends Component {
             style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center' }}
           >
             <Input
+              id="firstname"
               name="firstname"
               value={firstname}
               type="text"
@@ -214,6 +215,7 @@ export class SignUp extends Component {
               error={errors.firstname}
             />
             <Input
+              id="lastname"
               name="lastname"
               value={lastname}
               type="text"
@@ -223,6 +225,7 @@ export class SignUp extends Component {
               error={errors.lastname}
             />
             <Input
+              id="username"
               name="username"
               value={username}
               type="text"

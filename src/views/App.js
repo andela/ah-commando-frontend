@@ -14,6 +14,7 @@ import ReadArticle from '@Views/Articles/ReadArticle';
 import EditArticle from '@Views/Articles/EditArticle';
 import Profile from '@Views/ProfilePage';
 import NotFound from '@Views/404';
+import Comments from '@Views/CommentPage';
 import ArticleTags from './ArticlesTag/ArticlesTag';
 import './app.scss';
 
@@ -37,6 +38,12 @@ const App = () => (
         <Route exact path="/tags" component={ArticleTags} />
         <Route component={NotFound} />
       </Switch>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/profile" component={Profile} />
+      <Route exact path="/reset-password" component={ResetPassword} />
+      <Route exact path="/search" component={Search} />
+      <Route exact path="/comments" component={Comments} />
     </div>
   </BrowserRouter>
 );
