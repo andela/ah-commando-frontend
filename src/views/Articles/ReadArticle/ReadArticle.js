@@ -114,7 +114,10 @@ export class ReadArticle extends Component {
                 <div className="article-user-details">
                   <div className="article-img-div center">
                     <img
-                      src={author ? author.image : 'https://via.placeholder.com/150'}
+                      src={
+                        author && author.image !== null ? author.image
+                          : 'https://res.cloudinary.com/drdje1skj/image/upload/v1567427029/profile-placeholder_gvxkia.gif'
+                      }
                       alt="profile pic"
                     />
                   </div>
