@@ -175,7 +175,7 @@ export class SignIn extends Component {
             />
             <Button
               datatest="loginButton"
-              label={loading ? null : 'Sign In'}
+              label={loading ? null : 'Sign in'}
               handleClick={this.handleSubmit}
               disabled={loading ? true : !isFormValid}
               type="submit"

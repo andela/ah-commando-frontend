@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode';
-import { toast } from 'react-toastify';
+import swal from 'sweetalert';
+
 import * as types from '@Actions/types';
 import { axiosInstance } from '@Utils/';
 
@@ -61,8 +62,11 @@ export const editProfile = (payload) => async (dispatch) => {
   try {
     const response = await axiosInstance.put('/user', payload);
     localStorage.setItem('haven', response.data.profile.token);
-    toast.dismiss();
-    toast.success('Profile Edited successfully');
+    swal({
+      title: 'Edit User Profile',
+      text: 'Your Profile has been successfully Edited',
+      icon: 'success',
+    });
     return dispatch(editProfileSuccess(response.data.profile));
   } catch (error) {
     return dispatch(editProfileFailure(error.response.data));

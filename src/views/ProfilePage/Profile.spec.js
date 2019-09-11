@@ -8,14 +8,15 @@ const state = {
   isFormValid: true,
   dialogOpen: false,
   profile: {
-    username: '',
-    email: '',
-    image: '',
-    bio: '',
-    firstname: '',
-    lastname: '',
-    followerCount: '',
-    followingCount: '',
+    username: 'thorsgard',
+    email: 'calix@gmail.com',
+    image: 'calix.img',
+    bio: 'chiboy bio',
+    firstname: 'nono',
+    lastname: 'calix',
+    followerCount: 4,
+    followingCount: 45,
+    chi: 'gty',
   },
   article: [],
 };
@@ -74,9 +75,6 @@ describe('Profile component test', () => {
       wrapper = setUp(props);
       instance = wrapper.instance();
     });
-    afterEach(() => {
-      // wrapper.unmount();
-    });
     it('Should render without error', () => {
       const component = findByTestAttribute(wrapper, 'profileComponent');
       expect(component.length).toBe(1);
@@ -112,22 +110,8 @@ describe('Profile component test', () => {
       instance.componentDidMount();
       setTimeout(() => {
         expect(instance.state.profile.username).toBe('test');
+        expect(instance.state.profile.email).toBe('email.gmail.com');
       }, 2000);
-    });
-
-    it('set profile to state', () => {
-      instance.handleToggleEditProfileModal();
-      expect(instance.state.dialogOpen).toBe(true);
-      const header = wrapper.find('.profile-heading');
-      expect(header).toHaveLength(1);
-    });
-
-    it('set profile to state', () => {
-      instance.handleToggleEditProfileModal();
-      instance.handleToggleEditProfileModal();
-      expect(instance.state.dialogOpen).toBe(false);
-      const header = wrapper.find('.profile-heading');
-      expect(header).toHaveLength(0);
     });
 
     it('set profile to state', () => {
@@ -184,7 +168,6 @@ describe('Profile component test', () => {
 
     it('set profile to state', () => {
       instance.handleImageChange();
-      instance.handleToggleEditProfileModal();
       const fileContents = 'file contents';
       const file = new Blob([fileContents], { type: 'text/plain' });
       const append = jest.fn();
@@ -201,6 +184,18 @@ describe('Profile component test', () => {
         expect(instance.state.profile.username).toBe('u');
         expect(instance.state.profile.email).toBe('e');
       }, 2000);
+    });
+
+    it('shallow render with snapshot', () => {
+      const erp = shallow(<Profile {...props} />);
+      expect(erp).toMatchSnapshot();
+    });
+
+    it('shallow render with snapshot', () => {
+      const erp = shallow(<Profile {...props} />);
+      setTimeout(() => {
+        expect(erp.find('ArticleCard').length).toBe(1);
+      });
     });
   });
 });

@@ -70,6 +70,7 @@ $desktop: 376px;
       }
       .author-name {
         @extend %labels;
+        text-transform: capitalize;
         font-weight: 300;
         font-size: 11px;
         margin-top: 5px;
@@ -97,12 +98,8 @@ $desktop: 376px;
         }
       }
 
-      .dislike {
-        margin-left: 10px;
-      }
-
-      .comment {
-        margin-left: auto;
+      .comment, .dislike {
+        margin-left: 5px;
         font-size: 10px;
       }
 
@@ -112,7 +109,6 @@ $desktop: 376px;
         font-size: 10px;
         height: 100%;
         color: rgba(0, 0, 0, 0.7);
-        margin-left: 5px;
         @include desktop {
           font-size: 12px;
         }
@@ -138,7 +134,6 @@ $desktop: 376px;
 .horizontal {
   width: 355.5px;
   height: 102.86px;
-  margin: 0 auto;
   display: grid;
   grid-template-columns: 27.94% 72.06%;
   grid-template-areas: 'image body';
@@ -188,6 +183,7 @@ $desktop: 376px;
       }
       .author-name {
         @extend %labels;
+        text-transform: capitalize;
         font-weight: 300;
         font-size: 8px;
         margin: 3px 3px;

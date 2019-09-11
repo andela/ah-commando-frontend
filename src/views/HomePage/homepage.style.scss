@@ -30,7 +30,7 @@ $desktop: 375px;
 
     .aside {
       position: sticky;
-      top:0;
+      top:60px;
       height: 500px;
       overflow-y: hidden;
       width: 20%;
@@ -67,6 +67,7 @@ $desktop: 375px;
           border:none;
           width: 20px;
           height: 20px;
+          cursor: pointer;
         }
       }
 

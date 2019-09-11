@@ -210,7 +210,7 @@ describe('Auth action tests', () => {
       token: 'abcd',
     };
 
-    const { id, token } = data;
+    const { id, token, password } = data;
 
     beforeEach(() => {
       store = mockStore({});
@@ -220,10 +220,10 @@ describe('Auth action tests', () => {
       nock.cleanAll();
     });
 
-    it('reset new password', () => (store.dispatch(setNewPassword({ id, token }, { push: jest.fn() }))
+    it('reset new password', () => (store.dispatch(setNewPassword({ id, token, password }, { push: jest.fn() }))
       .then(() => {
         nock(url)
-          .put(`/users/resetPassword/${id}/${token}`)
+          .put(`/users/resetPassword/${id}/${token}`, { user: { password } })
           .reply(200, response);
         response.status = 200;
         expect(response.status).toEqual(200);
@@ -258,10 +258,10 @@ describe('Auth action tests', () => {
         },
       };
 
-      return store.dispatch(setNewPassword({ id, token }, { push: jest.fn() }))
+      return store.dispatch(setNewPassword({ id, token, password }, { push: jest.fn() }))
         .then(() => {
           nock(url)
-            .post(`/users/resetPassword/${id}/${token}`)
+            .post(`/users/resetPassword/${id}/${token}`, { user: { password } })
             .reply(400, errorResponse.err);
         })
         .then(() => {

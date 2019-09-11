@@ -21,6 +21,11 @@ import {
   faChevronDown as down_arrow,
   faTimes as close,
   faTrash as trash,
+  faCamera as camera,
+  faAngleRight as angleRight,
+  faAngleLeft as angleLeft,
+  faAngleUp as angleTop,
+  faAngleDown as angleBottom,
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons = {
@@ -36,6 +41,11 @@ const icons = {
   down_arrow,
   close,
   trash,
+  camera,
+  angleRight,
+  angleLeft,
+  angleTop,
+  angleBottom,
 };
 const Icon = (props) => {
   const { name, handleClick } = props;
@@ -53,7 +63,7 @@ Icon.propTypes = {
 };
 
 Icon.defaultProps = {
-  handleClick: () => {},
+  handleClick: () => { },
   name: '',
 };
 

@@ -4,6 +4,9 @@ import Login from '@Views/LoginPage';
 import Search from '@Views/SearchPage/SearchPage';
 import Home from '@Views/HomePage';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import SignUp from '@Components/Forms/SignUp';
+import SignIn from '@Components/Forms/SignIn';
+import Header from '@Components/Header';
 import ResetPassword from '@Views/ResetPassword';
 import CreateArticle from '@Views/Articles/CreateArticle';
 import ReadArticle from '@Views/Articles/ReadArticle';
@@ -14,6 +17,9 @@ import './app.scss';
 
 const App = () => (
   <BrowserRouter>
+    <SignIn />
+    <SignUp />
+    <Header />
     <div data-test="appComponent">
       <Switch>
         <Route exact path="/" component={Home} />

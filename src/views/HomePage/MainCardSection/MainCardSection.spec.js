@@ -104,14 +104,14 @@ describe('Banner component test', () => {
 
     it('successfully calls the onClick handler for left scroller', () => {
       const appInstance = wrapper.instance();
-      jest.spyOn(appInstance, 'handleClick');
+      appInstance.handleClick = jest.fn();
       wrapper.find('[data-test="leftbtn"]').simulate('click', e);
       expect(appInstance.handleClick).toHaveBeenCalled();
     });
 
     it('successfully calls the onClick handler for right scroller', () => {
       const appInstance = wrapper.instance();
-      jest.spyOn(appInstance, 'handleClick');
+      appInstance.handleClick = jest.fn();
       wrapper.find('[data-test="rightbtn"]').simulate('click', e);
       expect(appInstance.handleClick).toHaveBeenCalled();
     });

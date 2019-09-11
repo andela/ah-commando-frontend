@@ -1,0 +1,299 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile component test have props shallow render with snapshot 1`] = `
+<div
+  data-test="profileComponent"
+>
+  <dialog>
+    <div
+      className="container"
+    >
+      <span
+        className="close"
+        onClick={[Function]}
+      >
+        ×
+      </span>
+      <h2
+        className="profile-heading"
+      >
+        Edit your profile
+      </h2>
+      <form
+        className="update-form"
+        encType="multipart/form-data"
+        onSubmit={[Function]}
+      >
+        <input
+          className="profile-img"
+          id="image"
+          name="file"
+          onChange={[Function]}
+          type="file"
+        />
+        <label
+          className="form-label"
+          htmlFor="image"
+        >
+          <Icon
+            handleClick={[Function]}
+            name="camera"
+          />
+          <img
+            alt=""
+            className="form-image"
+            src=""
+          />
+        </label>
+        <Input
+          error=""
+          handleChange={[Function]}
+          handleToggle={null}
+          id=""
+          label="Email"
+          name="email"
+          placeholder=""
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+          togglable={false}
+          type="email"
+          value=""
+          visible={false}
+        />
+        <Input
+          error=""
+          handleChange={[Function]}
+          handleToggle={null}
+          id=""
+          label="Username"
+          name="username"
+          placeholder=""
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+          togglable={false}
+          type="text"
+          value=""
+          visible={false}
+        />
+        <TextArea
+          handleChange={[Function]}
+          label="Bio"
+          name="bio"
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+          type="text"
+          value=""
+        />
+        <Button
+          className="btn"
+          datatest="submit-button"
+          disabled={false}
+          handleClick={[Function]}
+          id=""
+          label="Update Profile"
+          style={
+            Object {
+              "backgroundColor": "#000",
+              "borderRadius": "0",
+              "color": "#ffc700",
+              "height": "45px",
+              "marginLeft": "5%",
+              "width": "95%",
+            }
+          }
+          type="submit"
+        />
+      </form>
+    </div>
+  </dialog>
+  <div
+    className="profile-container"
+  >
+    <div
+      className="sidebar"
+    >
+      <ul>
+        <li>
+          <Link
+            to="/"
+          >
+            New Article
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+          >
+            Bookmarks
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+          >
+            Account
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+          >
+            Stats
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+          >
+            Notification
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+          >
+            Help
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+          >
+            Log Out
+          </Link>
+        </li>
+      </ul>
+    </div>
+    <div
+      className="main"
+    >
+      <div
+        className="profile-header"
+      >
+        <div
+          className="profile-details"
+        >
+          <div
+            className="name-button"
+          >
+            <h3>
+               
+            </h3>
+            <span>
+              <Button
+                className=""
+                datatest="edit-button"
+                disabled={false}
+                handleClick={[Function]}
+                id=""
+                label=""
+                style={
+                  Object {
+                    "padding": "0px 5px",
+                    "width": "150px",
+                  }
+                }
+                type=""
+              >
+                Edit Profile
+              </Button>
+            </span>
+            <span
+              style={
+                Object {
+                  "marginTop": "10px",
+                }
+              }
+            >
+              <p>
+                @
+              </p>
+            </span>
+          </div>
+          <p />
+          <p
+            className="following-follower"
+          >
+            <span
+              className="following"
+            >
+               Following
+            </span>
+            <span
+              className="followers"
+            >
+               Followers
+            </span>
+          </p>
+        </div>
+        <div
+          className="profile-image"
+        >
+          <img
+            alt=""
+            className="profile-image"
+            src=""
+          />
+        </div>
+      </div>
+    </div>
+    <div />
+    <div
+      className="profile-links"
+    >
+      <ul>
+        <li
+          className="active"
+        >
+          <Link
+            to="/"
+          >
+            Profile
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+          >
+            Likes
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+          >
+            Highlighted
+          </Link>
+        </li>
+        <li>
+          <Link
+            to="/"
+          >
+            Comments
+          </Link>
+        </li>
+      </ul>
+    </div>
+    <div />
+    <h1
+      className="no-article"
+    >
+      You have no articles yet
+    </h1>
+  </div>
+  <div
+    className="profile-footer"
+  >
+    <Footer />
+  </div>
+</div>
+`;

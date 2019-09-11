@@ -37,6 +37,7 @@ exports[`test social media sign in should click the google signin button 1`] = `
         label="Email"
         name="email"
         placeholder="john.doe@foo.bar"
+        style={Object {}}
         togglable={false}
         type="email"
         value=""
@@ -50,6 +51,7 @@ exports[`test social media sign in should click the google signin button 1`] = `
         label="Password"
         name="password"
         placeholder="**********"
+        style={Object {}}
         togglable={true}
         type="password"
         value=""
@@ -61,7 +63,7 @@ exports[`test social media sign in should click the google signin button 1`] = `
         disabled={false}
         handleClick={[Function]}
         id="signin"
-        label="Sign In"
+        label="Sign in"
         style={
           Object {
             "backgroundColor": "#000",

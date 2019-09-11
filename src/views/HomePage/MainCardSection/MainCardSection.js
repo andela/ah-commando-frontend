@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import ArticleCard from '@Components/ArticleCard';
 import PropTypes from 'prop-types';
+import Icon from '@Components/Icon';
 import connect from '@Lib/connect-component';
 import './MainCardSection.scss';
 
 export class MainCardSection extends Component {
-  handleClick = (e, position) => {
+  handleClick = (e, position, index) => {
     if (position === 'left') {
-      e.target.parentElement.nextElementSibling.scrollLeft += 200;
-    } else e.target.parentElement.previousElementSibling.scrollLeft -= 200;
+      this[`articleRef${index}`].scrollLeft -= 200;
+    } else {
+      this[`articleRef${index}`].scrollLeft += 200;
+    }
   };
 
   render() {
@@ -21,8 +24,22 @@ export class MainCardSection extends Component {
       );
     }
 
-    const articles = articleCategories.map((catergory) => {
+    articleCategories.shuffle = (array) => {
+      let currentIndex = array.length, temporaryValue, randomIndex;
+      while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    };
+
+    const articles = articleCategories.shuffle(articleCategories).map((catergory, index) => {
       const { name, Articles } = catergory;
+      let ArticleIndex = -1;
       if (Articles.length > 0) {
         const render = Articles.length > 4;
         return (
@@ -33,17 +50,33 @@ export class MainCardSection extends Component {
                 <p>{'more  >'}</p>
               </button>
             </div>
-            <ArticleCard type="horizontal" data={Articles[0]} />
+            <ArticleCard
+              type="horizontal"
+              data={
+                Articles.find((article, index) => {
+                  ArticleIndex = index;
+                  return article.image !== '';
+                })
+              }
+            />
             <div className="btn left">
-              {render ? <button data-test="leftbtn" type="button" onClick={(e) => this.handleClick(e, 'left')}>{'<'}</button> : ''}
+              {render ? (
+                <button data-test="leftbtn" type="button" onClick={(e) => this.handleClick(e, 'left', index)}>
+                  <Icon name="angleLeft" />
+                </button>
+              ) : ''}
             </div>
-            <section className="verticalCards">
+            <section className="verticalCards" ref={section => { this[`articleRef${index}`] = section; }}>
               {
-                Articles.filter((article, i) => i > 0).map((article) => <ArticleCard key={article.id} type="vertical" data={article} />)
+                Articles.filter((article, i) => (i > 0 && i < 8 && article.image !== '' && i !== ArticleIndex)).map((article) => <ArticleCard key={article.id} type="vertical" data={article} />)
               }
             </section>
             <div className="btn right">
-              {render ? <button data-test="rightbtn" type="button" onClick={(e) => this.handleClick(e, 'right')}>{'>'}</button> : ''}
+              {render ? (
+                <button data-test="rightbtn" type="button" onClick={(e) => this.handleClick(e, 'right', index)}>
+                  <Icon name="angleRight" />
+                </button>
+              ) : ''}
             </div>
           </section>
         );

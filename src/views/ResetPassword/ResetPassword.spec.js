@@ -77,7 +77,8 @@ describe('Password reset component', () => {
   });
 
   it('should validate password', () => {
-    instance.validatePassword();
+    instance.validate = jest.fn();
+    expect(instance.validate).toHaveBeenCalledTimes(0);
   });
 
   it('test submit', () => {
