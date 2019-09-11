@@ -11,6 +11,7 @@ import categoryReducer from './categoriesReducer';
 import tagReducer from './tagReducer';
 import followReducer from './followReducer';
 import unfollowReducer from './unfollowReducer';
+import commentReducer from './commentReducer';
 
 const reducers = combineReducers({
   ui: uiReducer,
@@ -25,6 +26,7 @@ const reducers = combineReducers({
   tag: tagReducer,
   follow: followReducer,
   unfollow: unfollowReducer,
+  comments: commentReducer,
 });
 
 export default reducers;
