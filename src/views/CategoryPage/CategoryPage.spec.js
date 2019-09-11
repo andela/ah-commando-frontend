@@ -21,7 +21,7 @@ describe('SearchPage component test', () => {
     expect(wrapper.find('.category-page')).toHaveLength(1);
   });
 
-  it('should render a .header', () => {
+  it('should render a .header className', () => {
     expect(wrapper.find('.header')).toHaveLength(1);
   });
 
@@ -30,7 +30,7 @@ describe('SearchPage component test', () => {
   });
 
   it('should render a .footer class', () => {
-    expect(wrapper.find('.header')).toHaveLength(1);
+    expect(wrapper.find('.footer')).toHaveLength(1);
   });
 
   it('should render a body element', () => {

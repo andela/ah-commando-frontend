@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`get articles actions adds new articles to the store 1`] = `
+exports[`get category actions adds new articles to the category reducer 1`] = `
 Array [
   Object {
     "payload": Object {

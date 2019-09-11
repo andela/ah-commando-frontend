@@ -1,7 +1,7 @@
 import React from 'react';
 import Footer from '@Components/Footer';
+import CategoryBody from '@Views/CategoryPage/CategoryBody';
 import SideBar from './SideBar';
-import CategoryBody from './CategoryBody';
 import './CategoryPage.scss';
 
 const CategoryPage = (props) => (

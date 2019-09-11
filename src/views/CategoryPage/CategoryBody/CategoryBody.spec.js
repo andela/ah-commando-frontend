@@ -33,11 +33,11 @@ describe('Article component test', () => {
     shallowRender();
   });
 
-  it('should render Arrow component without crashing', () => {
+  it('should render ArticleDisplay component without crashing', () => {
     shallow(<ArticleDisplay {...props2} />);
   });
 
-  it('should render Arrow component without crashing', () => {
+  it('should render CategoryBody component without crashing', () => {
     shallow(<CategoryBody {...props3} />);
   });
 });

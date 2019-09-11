@@ -47,7 +47,7 @@ export class MainCardSection extends Component {
           <section key={catergory.id} className="featuredsection" data-test="featuredsection">
             <div className="header">
               <p>{name}</p>
-              <NavLink to={{ pathname: '/articles', search: `?category=${name.toLowerCase()}` }}>
+              <NavLink to={{ pathname: '/articles', search: `?category=${name.toLowerCase()}` }} datatest="nav-link">
                 <div className="more-button">
                   <p>more</p>
                   <button type="button">

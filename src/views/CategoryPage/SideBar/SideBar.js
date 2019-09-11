@@ -18,7 +18,6 @@ export class SideBar extends Component {
     this.displayCategories = this.displayCategories.bind(this);
     this.getArticleCategory = this.getArticleCategory.bind(this);
     this.updateSelectedMenu = this.updateSelectedMenu.bind(this);
-    console.log(props);
   }
 
   componentDidMount() {
@@ -26,8 +25,10 @@ export class SideBar extends Component {
     const { location: { search } } = this.props;
     const params = new URLSearchParams(search);
     const category = params.get('category');
+    const index = categories.findIndex((cate) => (cate.name.toLowerCase() === category));
     getCategoryArticles(category);
     updateCategory(category);
+    if (index >= 0) this.updateSelectedMenu(index);
   }
 
   getArticleCategory(category) {

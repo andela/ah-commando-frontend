@@ -30,7 +30,7 @@ describe('Article component test', () => {
     shallowRender();
   });
 
-  it('should render Arrow component without crashing', () => {
+  it('should render Item component without crashing', () => {
     const callBack = jest.fn();
     const div = shallow(
       <Item
@@ -44,7 +44,7 @@ describe('Article component test', () => {
     expect(callBack.mock.calls.length).toEqual(2);
   });
 
-  it('should render Arrow component without crashing', () => {
+  it('should render Item component without crashing', () => {
     const callBack = jest.fn();
     shallow(
       <Item

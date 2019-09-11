@@ -28,7 +28,7 @@ describe('actions', () => {
     expect(updateArticles(payload)).toEqual(expectedAction);
   });
 
-  it('should create an action to add hide / show filters', () => {
+  it('should update the menu item', () => {
     const payload = 1;
 
     const expectedAction = {
@@ -39,7 +39,7 @@ describe('actions', () => {
     expect(updateMenuItem(payload)).toEqual(expectedAction);
   });
 
-  it('should create an action to remove filters', () => {
+  it('should update the category selected', () => {
     const payload = 'technology';
 
     const expectedAction = {
@@ -51,7 +51,7 @@ describe('actions', () => {
   });
 });
 
-describe('get articles actions', () => {
+describe('get category actions', () => {
   let store;
   beforeEach(() => {
     store = mockStore({
@@ -64,10 +64,9 @@ describe('get articles actions', () => {
     nock.cleanAll();
   });
 
-  it('adds new articles to the store', () => {
+  it('adds new articles to the category reducer', () => {
     nock(url)
       .persist()
-      .log(console.log)
       .get('/articles/categories/article?category=technology')
       .reply(200, { Categories: [{}] });
     return store.dispatch(getCategoryArticles('technology'))

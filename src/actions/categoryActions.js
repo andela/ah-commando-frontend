@@ -1,6 +1,5 @@
 import * as types from '@Actions/types';
 import { axiosInstance } from '@Utils/';
-// import { updateSearchQuery } from './searchActions';
 
 export const updateArticles = (payload) => ({
   type: types.UPDATE_CATEGORY_ARTICLES,
