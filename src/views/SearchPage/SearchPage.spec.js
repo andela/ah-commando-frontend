@@ -1,8 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Filter from '@Views/SearchPage/Filter';
-import Pager from '@Views/SearchPage/Pager';
-import Footer from '@Components/Footer';
 import SearchPage from './';
 
 let wrapper;
@@ -38,17 +35,5 @@ describe('SearchPage component test', () => {
 
   it('should render a .footer class', () => {
     expect(wrapper.find('.header')).toHaveLength(1);
-  });
-
-  it('should render a Filter element', () => {
-    expect(wrapper.find(Filter)).toHaveLength(1);
-  });
-
-  it('should render a Filter element', () => {
-    expect(wrapper.find(Pager)).toHaveLength(1);
-  });
-
-  it('should render a Filter element', () => {
-    expect(wrapper.find(Footer)).toHaveLength(1);
   });
 });

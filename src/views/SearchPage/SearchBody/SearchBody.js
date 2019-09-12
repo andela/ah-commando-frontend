@@ -13,8 +13,8 @@ export class SearchBody extends Component {
       return 'No result found for this search';
     }
     const { page } = filters;
-    const start = (page - 1) * 20;
-    const end = start + 20 > articles.length ? (articles.length) : start + 20;
+    const start = (page - 1) * 30;
+    const end = start + 30 > articles.length ? (articles.length) : start + 30;
     const displayResults = articles.slice(start, end);
     const cards = displayResults.map((article, index) => (
       <div className="padding">
@@ -33,19 +33,19 @@ export class SearchBody extends Component {
     const items = this.articleDisplay();
     if (items === 'No result found for this search') {
       return (
-        <div>
+        <div className="no-result">
           <h2> No result found for this search</h2>
         </div>
       );
     } if (!items.length) {
       return (
-        <div>
+        <div className="loading">
           <h2> Loading...</h2>
         </div>
       );
     }
     return (
-      <div>
+      <div className="articles-container">
         {items}
       </div>
     );
