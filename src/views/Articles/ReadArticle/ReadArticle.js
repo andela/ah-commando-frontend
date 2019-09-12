@@ -73,16 +73,14 @@ export class ReadArticle extends Component {
         }));
 
         const { profile: { followings }, username } = this.state;
-        setTimeout(() => {
-          followings.forEach((fellow) => {
-            if (fellow.username === username) {
-              this.setState(prevState => ({
-                ...prevState,
-                isFollowing: true,
-              }));
-            }
-          });
-        }, 2000);
+        followings.forEach((fellow) => {
+          if (fellow.username === username) {
+            this.setState(prevState => ({
+              ...prevState,
+              isFollowing: true,
+            }));
+          }
+        });
       }
     }
   }
