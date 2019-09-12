@@ -98,7 +98,7 @@ export class ReadArticle extends Component {
     const tags = tagList ? tagList.split(' ')
       .filter(tag => tag.length > 0)
       .map((tag, i) => (
-        <li key={i}>
+        <li className="liTag" key={i}>
           <p onClick={() => this.handleTagClick(tag)}>{tag}</p>
         </li>
       )) : null;
