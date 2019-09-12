@@ -26,6 +26,7 @@ import {
   faAngleLeft as angleLeft,
   faAngleUp as angleTop,
   faAngleDown as angleBottom,
+  faEllipsisH as options,
 } from '@fortawesome/free-solid-svg-icons';
 
 const icons = {
@@ -46,6 +47,7 @@ const icons = {
   angleLeft,
   angleTop,
   angleBottom,
+  options,
 };
 const Icon = (props) => {
   const { name, handleClick } = props;
