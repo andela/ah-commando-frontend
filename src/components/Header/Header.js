@@ -124,14 +124,14 @@ export class Header extends Component {
         {history.location.pathname === '/' ? (
           <div className="navigation" data-test="navigationComponent">
             <ul>
-              <Link to="/a">Technology</Link>
-              <Link to="/a">Health</Link>
-              <Link to="/a">Culture</Link>
-              <Link to="/a">Science</Link>
-              <Link to="/a">Fashion</Link>
-              <Link to="/a">Education</Link>
-              <Link to="/a">Lifestyle</Link>
-              <Link to="/a">Nature</Link>
+              <Link to="/articles?category=technology">Technology</Link>
+              <Link to="/articles?category=health">Health</Link>
+              <Link to="/articles?category=culture">Culture</Link>
+              <Link to="/articles?category=science">Science</Link>
+              <Link to="/articles?category=fashion">Fashion</Link>
+              <Link to="/articles?category=education">Education</Link>
+              <Link to="/articles?category=lifestyle">Lifestyle</Link>
+              <Link to="/articles?category=nature">Nature</Link>
             </ul>
           </div>
         ) : null}

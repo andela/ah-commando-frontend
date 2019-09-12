@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ArticleCard from '@Components/ArticleCard';
@@ -12,16 +13,22 @@ export class CategoryBody extends Component {
 
   displayCards(articles) {
     if (articles && articles.length) {
+      const { category, category: { clickedCategory, page } } = this.props;
+      const pageArticles = category[clickedCategory];
+      const start = (page - 1) * 30;
+      const end = start + 30 > pageArticles.length ? (pageArticles.length) : start + 30;
+      const displayResults = pageArticles.slice(start, end);
+
       const result = [];
-      let start = 0;
-      let end = 5;
-      let bigCardArticles = articles.slice(start, end);
+      let start2 = 0;
+      let end2 = 5;
+      let bigCardArticles = displayResults.slice(start2, end2);
       while (bigCardArticles.length) {
-        const articleDisplay = <ArticleDisplay key={start} articles={bigCardArticles} />;
+        const articleDisplay = <ArticleDisplay key={start2} articles={bigCardArticles} />;
         result.push(articleDisplay);
-        start = end;
-        end += 5;
-        bigCardArticles = articles.slice(start, end);
+        start2 = end2;
+        end2 += 5;
+        bigCardArticles = displayResults.slice(start2, end2);
       }
       return result;
     }
@@ -29,6 +36,13 @@ export class CategoryBody extends Component {
 
   render() {
     const { category: { clickedCategory, [`${clickedCategory}`]: articles } } = this.props;
+    if (!articles) {
+      return (
+        <div className="loading">
+          <p>Loading...</p>
+        </div>
+      );
+    }
     const cards = this.displayCards(articles);
     return (
       <div className="articles">

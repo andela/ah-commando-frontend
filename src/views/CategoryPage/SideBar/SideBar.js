@@ -3,7 +3,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import connectComponent from '@Lib/connect-component';
 import { NavLink } from 'react-router-dom';
-import { getCategoryArticles, updateCategory, updateMenuItem } from '@Actions/categoryActions';
+import {
+  getCategoryArticles, updateCategory, updateMenuItem, updateCategoryPageNumber,
+} from '@Actions/categoryActions';
 import './SideBar.scss';
 
 const categories = [
@@ -32,7 +34,8 @@ export class SideBar extends Component {
   }
 
   getArticleCategory(category) {
-    const { getCategoryArticles, updateCategory } = this.props;
+    const { getCategoryArticles, updateCategory, updateCategoryPageNumber } = this.props;
+    updateCategoryPageNumber(1);
     getCategoryArticles(category);
     updateCategory(category);
   }
@@ -105,6 +108,7 @@ SideBar.propTypes = {
   getCategoryArticles: PropTypes.func.isRequired,
   updateCategory: PropTypes.func.isRequired,
   updateMenuItem: PropTypes.func.isRequired,
+  updateCategoryPageNumber: PropTypes.func.isRequired,
   location: PropTypes.shape({
     search: PropTypes.string,
   }).isRequired,
@@ -112,4 +116,6 @@ SideBar.propTypes = {
     selectedIndex: PropTypes.number,
   }).isRequired,
 };
-export default connectComponent(SideBar, { getCategoryArticles, updateCategory, updateMenuItem });
+export default connectComponent(SideBar, {
+  getCategoryArticles, updateCategory, updateMenuItem, updateCategoryPageNumber,
+});

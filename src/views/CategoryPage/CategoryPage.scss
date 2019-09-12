@@ -11,20 +11,16 @@
     top: 56px;
     background-color: white;
   }
-  .filter {
-    grid-area: filter;
+  .sidebar {
+    grid-area: sidebar;
+    margin: 0 0 60px 0;
   }
   .body {
     grid-area: body;
-    margin: 60px 0;
+    margin: 0 0 60px 150px;
   }
   .footer {
     grid-area: footer;
-    position: fixed;
-    padding: 20px;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    background-color: white;
+    margin: 20px;
   }
 }

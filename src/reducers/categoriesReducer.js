@@ -3,6 +3,7 @@ import * as types from '@Actions/types';
 const initialState = {
   clickedCategory: '',
   selectedIndex: 0,
+  page: 1,
 };
 
 const categoryReducer = (state = initialState, action) => {
@@ -28,6 +29,14 @@ const categoryReducer = (state = initialState, action) => {
       return {
         ...state,
         selectedIndex: payload,
+      };
+    }
+
+    case types.UPDATE_CATEGORY_PAGENUMBER: {
+      const { payload } = action;
+      return {
+        ...state,
+        page: payload,
       };
     }
 
