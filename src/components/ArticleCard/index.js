@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import Skeleton from 'react-skeleton-loader';
@@ -23,6 +22,7 @@ class ArticleCard extends Component {
     await this.handleLikesandDislikesManualCountUpdate();
   }
 
+
   handleLoad = () => {
     this.setState({
       loading: 1,
@@ -39,16 +39,17 @@ class ArticleCard extends Component {
   async handleUserLikesForStyleUpdate(id) {
     const { getLikedAResource } = this.props;
     const likes = await getLikedAResource(id, 'article');
-    if (likes === 'not_liked') {
-      this.setState({
-        likeAction: null,
-      });
+    if (typeof likes === 'string'
+      || likes === 'not_liked'
+      || likes === 'not_logged_in') {
+      return false;
     }
     if (likes) {
       this.setState({
         likeAction: 'like',
       });
-    } else {
+    }
+    if (!likes) {
       this.setState({
         likeAction: 'dislike',
       });
@@ -170,7 +171,7 @@ class ArticleCard extends Component {
     }
 
     const {
-      image, title, author, description, comment, readTime, id,
+      image, title, author, description, comment, readTime, id, slug,
     } = data;
 
     const { firstname, lastname } = author;
@@ -256,11 +257,7 @@ ArticleCard.defaultProps = {
     dislikes: 1,
     comment: 1,
     readTime: 1,
-<<<<<<< HEAD
     slug: '',
-=======
-    id: 0,
->>>>>>> Finish first implementation to like
   },
 };
 

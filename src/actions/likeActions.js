@@ -47,7 +47,10 @@ export const likeDislikeAResource = (action, id, type) => async dispatch => {
 
 export const getLikedAResource = (id, type) => async dispatch => {
   const token = localStorage.getItem('haven');
-  if (!token) return dispatch({ type: null });
+  if (!token) {
+    dispatch({ type: null });
+    return 'not_logged_in';
+  }
   const response = await axiosInstance.get(`/likes/${id}?type=${type}`);
   if (response.data.status !== 201) return 'not_liked';
   const { data: { likes } } = response.data;

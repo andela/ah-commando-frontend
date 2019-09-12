@@ -56,7 +56,7 @@ const icons = {
   angleBottom,
   options,
 };
-const Icon = (props, ref) => {
+const Icon = (props) => {
   const { name, handleClick, style } = props;
   /* istanbul ignore next */
   return (
@@ -72,7 +72,7 @@ const Icon = (props, ref) => {
 Icon.propTypes = {
   handleClick: PropTypes.func,
   name: PropTypes.string,
-  style: PropTypes.shape(PropTypes.object),
+  style: PropTypes.shape(),
 };
 
 Icon.defaultProps = {
