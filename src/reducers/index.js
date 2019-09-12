@@ -7,6 +7,7 @@ import homePageArticles from './HomePage';
 import searchReducer from './searchReducer';
 import { articleReducer } from './Articles';
 import categoryReducer from './categoriesReducer';
+import tagReducer from './tagReducer';
 
 const reducers = combineReducers({
   ui: uiReducer,
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   filters: searchReducer,
   article: articleReducer,
   category: categoryReducer,
+  tag: tagReducer,
 });
 
 export default reducers;
