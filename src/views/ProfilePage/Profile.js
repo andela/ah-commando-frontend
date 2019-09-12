@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import Button from '@Components/Button';
 import Footer from '@Components/Footer';
@@ -42,12 +42,15 @@ export class Profile extends Component {
         email: '',
         image: '',
         bio: '',
+        followings: [],
+        followers: [],
         firstname: '',
         lastname: '',
         followerCount: '',
         followingCount: '',
       },
       article: [],
+      username: '',
       userToken: '',
       isFollowing: false,
     };
@@ -56,22 +59,35 @@ export class Profile extends Component {
 
   async componentDidMount() {
     const { fetchProfile, fetchArticle } = this.props;
-    const profileResponse = await fetchProfile();
-    const articleResponse = await fetchArticle();
+    // eslint-disable-next-line react/prop-types
+    const myUsername = this.props.history.location.pathname.split('/')[2];
     const userProfile = jwtDecode(localStorage.getItem('haven')).username;
+    console.log(userProfile, '<<<<<<<>>>>');
+    let profileResponse;
+    let articleResponse;
+    if (myUsername === userProfile) {
+      profileResponse = await fetchProfile();
+      articleResponse = await fetchArticle();
+    } else {
+      profileResponse = await fetchProfile(myUsername);
+      const { id } = profileResponse.payload;
+      articleResponse = await fetchArticle(id);
+    }
+
     this.setState(prevState => ({
       ...prevState,
       profile: {
         ...prevState.profile,
         ...profileResponse.payload,
+        followings: profileResponse.payload.followings,
+        followers: profileResponse.payload.followers,
       },
       article: articleResponse.payload,
       userToken: userProfile,
     }));
-
     const { profile: { followers }, userToken } = this.state;
-    followers.forEach((follower) => {
-      if (follower.username === userToken) {
+    followers.forEach((fellow) => {
+      if (fellow.username === userToken) {
         this.setState(prevState => ({
           ...prevState,
           isFollowing: true,
@@ -192,53 +208,18 @@ export class Profile extends Component {
     return this.dialog.current.close();
   }
 
-
-  // renderButton = () => {
-  //   const { profile: { username }, userToken, isFollowing } = this.state;
-  //   const button = (username === userToken) ? (
-  //     <Button
-  //       handleClick={() => this.handleToggleEditProfileModal('open')}
-  //       datatest="edit-button"
-  //       style={{ padding: '0px 5px', width: '150px' }}
-  //     >
-  //     Edit Profile
-  //     </Button>
-  //   ) : isFollowing ? (
-  //     <Button
-  //       handleClick={this.handleUnFollowUser}
-  //       datatest="edit-button"
-  //       style={{ padding: '0px 5px', width: '150px' }}
-  //       className="follow-btn"
-  //     >
-  //       <span className="unfollow">Following</span>
-  //     </Button>
-  //   ) : (
-  //     <Button
-  //       handleClick={this.handleFollowUser}
-  //       datatest="edit-button"
-  //       style={{ padding: '0px 5px', width: '150px' }}
-  //       className="unfollow-btn"
-  //     >
-  //       <span className="follow">Follow</span>
-  //     </Button>
-  //   );
-
-  //   return button;
-  // }
-
   handleFollowUser = async () => {
-    const { follow } = this.props;
-    await follow();
+    const { follow, profile: { user: { username } } } = this.props;
+    await follow(username);
     this.setState(prevState => ({
       ...prevState,
       isFollowing: true,
     }));
-    // console.log(this.props);
   };
 
   handleUnFollowUser = async () => {
-    const { unfollow } = this.props;
-    await unfollow();
+    const { unfollow, profile: { user: { username } } } = this.props;
+    await unfollow(username);
     this.setState(prevState => ({
       ...prevState,
       isFollowing: false,
@@ -361,7 +342,7 @@ export class Profile extends Component {
                     handleFollowUser={this.handleFollowUser}
                     userToken={this.state && this.state.userToken}
                     isFollowing={this.state && this.state.isFollowing}
-                    profile={this.state.profile && this.state.profile.username}
+                    profile={this.state && this.state.profile}
                   />
                   <span style={{ marginTop: '10px' }}>
                     <p>{`@${username}`}</p>
@@ -422,15 +403,20 @@ Profile.propTypes = {
   }),
   unfollow: PropTypes.func.isRequired,
   follow: PropTypes.func.isRequired,
+  profile: PropTypes.shape({
+    user: PropTypes.shape({
+      username: PropTypes.string,
+    }),
+  }),
 };
 
 export default connectComponent(
-  (Profile), {
-    fetchProfile: getProfile,
+  withRouter(Profile), {
+    fetchProfile: (username = null) => getProfile(username),
     fetchArticle: getArticles,
     updateProfile: editProfile,
     uploadImage: postImage,
-    follow: followUser,
-    unfollow: unFollowUser,
+    follow: (username) => followUser(username),
+    unfollow: (username) => unFollowUser(username),
   },
 );

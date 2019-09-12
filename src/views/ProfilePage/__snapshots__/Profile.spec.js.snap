@@ -188,23 +188,27 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
             <h3>
                
             </h3>
-            <Button
-              className=""
-              datatest="edit-button"
-              disabled={false}
-              handleClick={[Function]}
-              id=""
-              label=""
-              style={
+            <renderButton
+              handleFollowUser={[Function]}
+              handleToggleEditProfileModal={[Function]}
+              handleUnFollowUser={[Function]}
+              isFollowing={false}
+              profile={
                 Object {
-                  "padding": "0px 5px",
-                  "width": "150px",
+                  "bio": "",
+                  "email": "",
+                  "firstname": "",
+                  "followerCount": "",
+                  "followers": Array [],
+                  "followingCount": "",
+                  "followings": Array [],
+                  "image": "",
+                  "lastname": "",
+                  "username": "",
                 }
               }
-              type=""
-            >
-              Edit Profile
-            </Button>
+              userToken=""
+            />
             <span
               style={
                 Object {

@@ -275,7 +275,8 @@ export class SignUp extends Component {
               type="submit"
               style={{
                 height: '45px',
-                width: '315px',
+                width: '90%',
+                marginLeft: '5%',
                 color: '#ffc700',
                 backgroundColor: '#000',
                 borderRadius: '0',

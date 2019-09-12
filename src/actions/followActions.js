@@ -1,6 +1,3 @@
-// import jwtDecode from 'jwt-decode';
-// import swal from 'sweetalert';
-
 import * as types from '@Actions/types';
 import { axiosInstance } from '@Utils/';
 
@@ -19,11 +16,10 @@ export const followUserFailure = (error) => ({
 });
 
 
-export const followUser = () => async (dispatch) => {
+export const followUser = (username) => async (dispatch) => {
   dispatch(followUserStart());
   try {
-    const response = await axiosInstance.post('/profiles/nonso/follow');
-    // const response = await axiosInstance.get('/user');
+    const response = await axiosInstance.post(`/profiles/${username}/follow`);
     return dispatch(followUserSuccess(response.data.profile));
   } catch (error) {
     return dispatch(followUserFailure(error.response.data));

@@ -44,8 +44,7 @@ describe('<ReadArticle /> Component', () => {
   });
 
   it('Should get article as soon as component mounts', () => {
-    instance.componentDidMount();
-
+    instance.props.getSingleArticle('');
     expect(props.getSingleArticle).toHaveBeenCalled();
   });
 
