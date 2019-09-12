@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Profile } from '@Views/ProfilePage/Profile';
+import { ReadArticle } from '@Views/Articles/ReadArticle/ReadArticle';
 import RenderButton from './index';
-import { ReadArticle } from '../../views/Articles/ReadArticle/ReadArticle';
 
 
 const props = {
