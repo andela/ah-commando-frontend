@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -5,12 +6,21 @@ import ReactHtmlParser from 'react-html-parser';
 import { withRouter } from 'react-router-dom';
 import swal from '@sweetalert/with-react';
 import Loader from 'react-loader-spinner';
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+  EmailShareButton,
+  EmailIcon,
+} from 'react-share';
 import { readArticle, deleteAnArticle } from '@Actions/Articles';
 import connectComponent from '@Lib/connect-component';
 import Icon from '@Components/Icon';
 import { convertToHtml, isEmpty } from '@Utils/';
 import './ReadArticle.scss';
 
+const appUrl = 'https://ah-commando-react.herokuapp.com';
 export class ReadArticle extends Component {
   componentDidMount = async () => {
     const {
@@ -70,6 +80,10 @@ export class ReadArticle extends Component {
       });
   }
 
+  handleClick = name => {
+    document.querySelector(`[aria-label="${name}"]`).click();
+  }
+
   render = () => {
     const {
       ui: { loading },
@@ -85,6 +99,7 @@ export class ReadArticle extends Component {
         likesCount,
         dislikesCount,
         comment,
+        slug,
       },
     } = this.props;
     const tags = tagList ? tagList.split(' ')
@@ -177,6 +192,43 @@ export class ReadArticle extends Component {
                   <Icon name="trash" />
                 </button>
                 )}
+                <p>{' '}</p>
+                <div
+                  className="option-icon dropdown"
+                >
+                  <Icon
+                    name="options"
+                  />
+                  <div className="dropdown-content">
+                    <span
+                      role="button"
+                      onClick={() => this.handleClick('twitter')}
+                    >
+                      <TwitterShareButton url={`${appUrl}/articles/${slug}`}>
+                        <TwitterIcon size={32} />
+                      </TwitterShareButton>
+                      <p>share on twitter</p>
+                    </span>
+                    <span
+                      role="button"
+                      onClick={() => this.handleClick('facebook')}
+                    >
+                      <FacebookShareButton url={`${appUrl}/articles/${slug}`}>
+                        <FacebookIcon size={32} />
+                      </FacebookShareButton>
+                      <p>share on facebook</p>
+                    </span>
+                    <span
+                      role="button"
+                      onClick={() => this.handleClick('email')}
+                    >
+                      <EmailShareButton url={`${appUrl}/articles/${slug}`}>
+                        <EmailIcon size={32} />
+                      </EmailShareButton>
+                      <p>share by email</p>
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
