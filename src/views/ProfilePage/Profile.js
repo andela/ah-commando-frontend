@@ -61,10 +61,14 @@ export class Profile extends Component {
     const { fetchProfile, fetchArticle } = this.props;
     // eslint-disable-next-line react/prop-types
     const myUsername = this.props.history.location.pathname.split('/')[2];
-    const userProfile = jwtDecode(localStorage.getItem('haven')).username;
+    const userProfile = () => {
+      const { username, email } = jwtDecode(localStorage.getItem('haven'));
+      if (username === undefined) return email;
+      return username;
+    };
     let profileResponse;
     let articleResponse;
-    if (myUsername === userProfile) {
+    if (myUsername === userProfile()) {
       profileResponse = await fetchProfile();
       articleResponse = await fetchArticle();
     } else {
@@ -82,7 +86,7 @@ export class Profile extends Component {
         followers: profileResponse.payload.followers,
       },
       article: articleResponse.payload,
-      userToken: userProfile,
+      userToken: userProfile(),
     }));
     const { profile: { followers }, userToken } = this.state;
     followers.forEach((fellow) => {
