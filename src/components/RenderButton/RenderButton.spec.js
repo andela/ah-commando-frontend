@@ -84,14 +84,6 @@ const props = {
 
 describe('Render button tests', () => {
   const wrapper = shallow(<Profile {...props} />);
-  const button = wrapper.find('renderButton');
-  it('should render compnents with correct props', () => {
-    expect(button.length).toBe(1);
-  });
-});
-
-describe('Render button tests', () => {
-  const wrapper = shallow(<Profile {...props} />);
   const instance = wrapper.instance();
   it('should render compnents with correct props', () => {
     expect(wrapper.length).toBe(1);

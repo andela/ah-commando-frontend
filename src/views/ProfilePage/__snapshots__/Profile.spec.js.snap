@@ -188,7 +188,7 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
             <h3>
                
             </h3>
-            <renderButton
+            <withRouter(renderButton)
               handleFollowUser={[Function]}
               handleToggleEditProfileModal={[Function]}
               handleUnFollowUser={[Function]}
