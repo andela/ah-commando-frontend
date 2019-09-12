@@ -62,7 +62,6 @@ export class Profile extends Component {
     // eslint-disable-next-line react/prop-types
     const myUsername = this.props.history.location.pathname.split('/')[2];
     const userProfile = jwtDecode(localStorage.getItem('haven')).username;
-    console.log(userProfile, '<<<<<<<>>>>');
     let profileResponse;
     let articleResponse;
     if (myUsername === userProfile) {
