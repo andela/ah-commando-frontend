@@ -180,7 +180,6 @@ export class ReadArticle extends Component {
     return history.push(`/profiles/${username}`);
   };
 
-
   handleClick = name => {
     document.querySelector(`[aria-label="${name}"]`).click();
   }
