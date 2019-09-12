@@ -61,7 +61,6 @@ export class ReadArticle extends Component {
       },
       userToken: userProfile,
     }));
-
     await getSingleArticle(slug);
   }
 
@@ -74,14 +73,16 @@ export class ReadArticle extends Component {
         }));
 
         const { profile: { followings }, username } = this.state;
-        followings.forEach((fellow) => {
-          if (fellow.username === username) {
-            this.setState(prevState => ({
-              ...prevState,
-              isFollowing: true,
-            }));
-          }
-        });
+        setTimeout(() => {
+          followings.forEach((fellow) => {
+            if (fellow.username === username) {
+              this.setState(prevState => ({
+                ...prevState,
+                isFollowing: true,
+              }));
+            }
+          });
+        }, 2000);
       }
     }
   }
@@ -230,6 +231,7 @@ export class ReadArticle extends Component {
                       <p className="created-date">{moment(createdAt).format('MMM DD, YYYY')}</p>
                     </div>
                     <div>
+                      {userToken && (
                       <RenderButton
                         handleUnFollowUser={this.handleUnFollowUser}
                         handleFollowUser={this.handleFollowUser}
@@ -237,6 +239,7 @@ export class ReadArticle extends Component {
                         isFollowing={this.state && isFollowing}
                         profile={profile}
                       />
+                      )}
                     </div>
                     <div className="vertical-center read-time">
                       <p>{`${readTime || 0} min${readTime > 1 ? 's' : ''} read`}</p>

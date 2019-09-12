@@ -1,5 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import Button from '../Button';
 import './RenderButton.scss';
 
@@ -12,14 +13,16 @@ const renderButton = (props) => {
     handleUnFollowUser,
     handleFollowUser,
   } = props;
-  const button = (username === userToken) ? (
+  const button = (username === userToken) ? (props.match.url === '/me' || props.match.url === `profiles/${userToken}`) ? (
     <Button
       handleClick={() => handleToggleEditProfileModal('open')}
       datatest="edit-button"
       style={{ padding: '0px 5px', width: '150px' }}
     >
-      Edit Profile
+    Edit Profile
     </Button>
+  ) : (
+    null
   ) : isFollowing ? (
     <Button
       handleClick={() => handleUnFollowUser()}
@@ -43,4 +46,4 @@ const renderButton = (props) => {
   return button;
 };
 
-export default renderButton;
+export default withRouter(renderButton);
