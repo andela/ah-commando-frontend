@@ -182,7 +182,10 @@ export class ReadArticle extends Component {
         likesCount,
         dislikesCount,
         comment,
+        id: articleId,
       },
+      history,
+      auth: { isAuthenticated },
     } = this.props;
 
     const tags = Tags ? Tags.map((tag, i) => (
@@ -190,10 +193,16 @@ export class ReadArticle extends Component {
         <p onClick={() => this.handleTagClick(tag.name)}>{tag.name}</p>
       </li>
     )) : null;
+
     const { usernameFromToken, isFollowing } = this.state;
     const profile = {
       username: author && author.username,
     };
+
+    const articleComments = () => {
+      history.push(`/articles/comments/${articleId}`);
+    };
+
     const body = this.parseArticleBody(articleBody);
 
     const loader = (
@@ -285,7 +294,14 @@ export class ReadArticle extends Component {
                 <p className="icon-label">{dislikesCount}</p>
               </div>
               <div className="comment-delete">
-                <Icon name="comments" />
+                <button
+                  className="comment-icon"
+                  type="button"
+                  onClick={articleComments}
+                  disabled={!isAuthenticated}
+                >
+                  <Icon name="comments" />
+                </button>
                 <p className="icon-label">{comment ? comment.length : 0}</p>
                 {this.isMyArticle() && (
                   <button

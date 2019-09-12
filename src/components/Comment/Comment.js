@@ -1,34 +1,53 @@
-// import React from 'react';
-// import PropTypes from 'prop-types';
+import React from 'react';
+import PropTypes from 'prop-types';
+import moment from 'moment';
+import Icon from '@Components/Icon';
+import { thousandths } from '@Utils/';
+import './Comment.scss';
 
-// const Comment = ({
-//   avatar, name, alt, body, createdAt,
-// }) => (
-//   <div className="comment-container">
-//     <div>
-//       <img className="comment-owner-img" src={avatar} alt={alt} />
-//       <p className="comment-owner">{name}</p>
-//       <p className="comment-date">{createdAt}</p>
-//       <p className="comment-description">{body}</p>
-//     </div>
-//     <div>
-//       <p>Likes</p>
-//       <p>unlike</p>
-//     </div>
-//   </div>
-// );
+const Comment = (props) => {
+  const {
+    avatar, author, alt, body, createdAt, likesCount, dislikesCount,
+  } = props;
 
-// Comment.propTypes = {
-//   name: PropTypes.string.isRequired,
-//   alt: PropTypes.string,
-//   avatar: PropTypes.string,
-//   body: PropTypes.string.isRequired,
-//   createdAt: PropTypes.number.isRequired,
-// };
+  const likes = thousandths(likesCount);
+  const dislikes = thousandths(dislikesCount);
+  return (
+    <div className="comment-container">
+      <div className="comment-author-info">
+        <img className="comment-author-img" src={avatar} alt={alt} />
+        <div className="comment-p">
+          <p className="comment-author">{author}</p>
+          <p className="comment-date">{moment(createdAt).format('MMM DD')}</p>
+          <p className="comment-body">{body}</p>
+        </div>
+      </div>
+      <div className="icons">
+        <div>
+          <Icon name="likes" className="like" />
+          <label className="icon-label">{likes}</label>
+        </div>
+        <div>
+          <Icon name="dislikes" className="dislike" />
+          <label className="icon-label">{dislikes}</label>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-// Comment.defaultProps = {
-//   avatar: 'https://via.placeholder.com/60',
-//   alt: 'avatar',
-// };
+Comment.propTypes = {
+  author: PropTypes.string.isRequired,
+  alt: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
+  body: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  likesCount: PropTypes.number.isRequired,
+  dislikesCount: PropTypes.number.isRequired,
+};
 
-// export default Comment;
+Comment.defaultProps = {
+  avatar: 'https://via.placeholder.com/50',
+};
+
+export default Comment;
