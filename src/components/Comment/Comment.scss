@@ -1,9 +1,64 @@
 .comment-container {
-position: absolute;
-left: 0%;
-right: 0%;
-top: 0%;
-bottom: 0%;
+  background: rgba(196, 196, 196, 0.1);
+  display: flex;
+  width: 650px;
+  height: 100px;
+  margin: 20px auto;
+  
 
-background: rgba(196, 196, 196, 0.1);
+  .comment-author-info {
+    width: 100%;
+    display: flex;
+
+      .comment-author-img {
+        margin: 10px 5px auto 10px;
+        border: 2px solid #ddd;
+        border-radius: 50%;
+        height: 60px;
+        width: 60px;
+      }
+
+      .comment-p {
+        margin: 10px auto auto 10px;
+
+          .comment-author {
+            font-style: normal;
+            font-weight: 600;
+            font-size: 11px;
+            line-height: 22px;
+            display: flex;
+            color: #000000;
+          }
+
+          .comment-date {
+            font-weight: 600;
+            font-size: 11px;
+            color: #FBC02A !important;
+          }
+
+          .comment-body {
+          width: 100%;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 11px;
+          line-height: 22px;
+          display: block;
+          color: #000000;
+        }
+      }
+  }
+
+  .icons {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-top: 15px;
+      color:rgba(0, 0, 0, 0.8);
+
+      .like, .dislike {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+      }
+  }
 }

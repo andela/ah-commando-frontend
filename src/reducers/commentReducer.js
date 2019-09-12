@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   comments: [],
+  error: null,
 };
 
 export const commentReducer = (state = initialState, action) => {
@@ -15,12 +16,22 @@ export const commentReducer = (state = initialState, action) => {
     case GET_COMMENTS_SUCCESS:
       return {
         ...state,
-        comments: action.payload.reverse(),
+        comments: action.payload,
+      };
+    case GET_COMMENTS_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
     case POST_COMMENTS_SUCCESS:
       return {
         ...state,
-        comments: action.payload.reverse(),
+        comments: action.payload,
+      };
+    case POST_COMMENTS_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
     default: return state;
   }

@@ -36,14 +36,9 @@ const App = () => (
         <Route exact path="/articles/:slug/edit" component={EditArticle} />
         <Route exact path="/articles" component={CategoryPage} />
         <Route exact path="/tags" component={ArticleTags} />
+        <Route exact path="/articles/comments/:articleId" component={Comments} />
         <Route component={NotFound} />
       </Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/profile" component={Profile} />
-      <Route exact path="/reset-password" component={ResetPassword} />
-      <Route exact path="/search" component={Search} />
-      <Route exact path="/comments" component={Comments} />
     </div>
   </BrowserRouter>
 );

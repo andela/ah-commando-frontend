@@ -8,13 +8,13 @@ import {
 } from '@Actions/types';
 import { axiosInstance } from '@Utils/';
 
-export const getComments = (postId) => async (dispatch) => {
+export const getComment = (articleId) => async (dispatch) => {
   dispatch({ type: LOADING });
   try {
-    const response = await axiosInstance.get(`comment/${postId}`);
+    const response = await axiosInstance.get(`comment/${articleId}`);
     dispatch({
       type: GET_COMMENTS_SUCCESS,
-      payload: response.data.payload,
+      payload: response.data.data,
     });
   } catch (err) {
     dispatch({
@@ -24,18 +24,18 @@ export const getComments = (postId) => async (dispatch) => {
   }
 };
 
-export const postComment = (newComment, postId) => async (dispatch) => {
+export const postComment = (newComment, articleId) => async (dispatch) => {
   dispatch({ type: LOADING });
   try {
-    const response = await axiosInstance.post(`comment/${postId}`, newComment);
+    const response = await axiosInstance.post(`comment/${articleId}`, { comment: newComment });
     dispatch({
       type: POST_COMMENTS_SUCCESS,
-      payload: response.data.payload,
+      payload: response.data.data,
     });
   } catch (err) {
     dispatch({
       type: POST_COMMENTS_FAILURE,
-      payload: err.data.data,
+      payload: err.response.data,
     });
   }
 };

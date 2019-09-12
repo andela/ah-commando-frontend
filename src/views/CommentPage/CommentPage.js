@@ -1,24 +1,68 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import TextArea from '@Components/TextArea';
-import Button from '@Components/Button';
+/* eslint-disable max-len */
+/* eslint-disable arrow-body-style */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+// import React, { Component } from 'react';
+// import PropTypes from 'prop-types';
+// import { withRouter } from 'react-router-dom';
+// import Button from '@Components/Button';
 // import Comment from '@Components/Comment';
-import { getComments } from '@Actions/commentActions';
-import connectComponent from '@Lib/connect-component';
-// import Comment from '@Components/Comment';
+// import { getComment, postComment } from '@Actions/commentActions';
+// import connectComponent from '@Lib/connect-component';
 
-class CommentPage extends Component {
+// CommentPage.propTypes = {
+//   postId: PropTypes.func,
+//   postComment: PropTypes.func,
+//   getComment: PropTypes.func,
+// };
+
+// CommentPage.defaultProps = {
+//   postId: PropTypes.func,
+//   postComment: PropTypes.func,
+//   getComment: PropTypes.func,
+// };
+
+// export default connectComponent(
+//   withRouter(CommentPage), {
+//     postComments: postComment,
+//     getComments: getComment,
+//   },
+// );
+
+import React from 'react';
+import Loader from 'react-loader-spinner';
+import { withRouter } from 'react-router-dom';
+import connectComponent from '@Lib/connect-component';
+import { getComment, postComment } from '@Actions/commentActions';
+import Comment from '@Components/Comment';
+import './CommentPage.scss';
+
+class CommentPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: '',
+      comment: '',
+      comments: [],
     };
   }
 
-  componentDidMount() {
-    const { getComment, postId } = this.props;
-    getComment(postId);
+  componentDidMount = async () => {
+    const { fetchComments, match: { params: { articleId } } } = this.props;
+    await fetchComments(articleId);
+    const { comments: { comments: { comments } } } = this.props;
+    this.setState({
+      comments,
+    });
+  }
+
+  componentDidUpdate = async (prevProps) => {
+    if (prevProps.comments === this.props.comments) return;
+    const { fetchComments, match: { params: { articleId } } } = this.props;
+    await fetchComments(articleId);
+    const { comments: { comments: { comments } } } = this.props;
+    this.setState({
+      comments,
+    });
   }
 
   handleChange = (e) => {
@@ -28,12 +72,11 @@ class CommentPage extends Component {
     });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    const { postComment } = this.props;
+    const { createComment, match: { params: { articleId } } } = this.props;
     const { comment } = this.state;
-    const newComment = comment;
-    postComment(newComment);
+    await createComment(comment, articleId);
     this.clearComment();
   }
 
@@ -43,64 +86,89 @@ class CommentPage extends Component {
     });
   }
 
-  // singleComment = (comments) => {
-  //   const data = comments.map(comment => (
-  //     <>
-  //       <Comment
-  //         key={comment.id}
-  //         name={comment.author.username}
-  //         alt={comment.author.username}
-  //         body={comment.body}
-  //       />
-  //     </>
-  //   ));
-  //   return data;
-  // }
+  render = () => {
+    const { ui: { loading } } = this.props;
 
-  render() {
+    const loader = (
+      <div data-test="loader" className="loader">
+        <Loader
+          type="ThreeDots"
+          color="#ffa500"
+          height={150}
+          width={150}
+        />
+      </div>
+    );
+
     const { comments } = this.state;
-    const { comment } = this.state;
+    const {
+      auth: {
+        user: {
+          id,
+        },
+      },
+    } = this.props;
 
-    console.log('commnet in render', comments, comment);
+    const pageheading = comments.map(comment => {
+      return (
+        <div className="comment-article-title">
+          <h2>{comment.article.title}</h2>
+        </div>
+      );
+    });
 
-    const data = this.singleComment(comments);
+    const singleComment = comments ? comments.map(comment => {
+      return (
+        <Comment
+          avatar={comment.author.image}
+          key={comment.id}
+          author={comment.author.username}
+          body={comment.body}
+          alt={comment.author.firstname}
+          createdAt={comment.createdAt}
+          likesCount={comment.likesCount}
+          dislikesCount={comment.dislikesCount}
+        />
+      );
+    })
+      : (
+        <div>
+          {loading && loader}
+        </div>
+      );
+
     return (
-      <div margin="0px auto">
-        <div>{data}</div>
-        <form onSubmit={this.handleSubmit}>
-          <TextArea
-            name="comment"
-            value={comment}
-            type="text"
-            label="Comment"
-            handleChange={this.handleChange}
-            style={{
-              height: '50px',
-              width: '250px',
-            }}
-          />
-          <Button type="submit" onSUbmit={() => this.handleSubmit}>Send</Button>
-        </form>
+      <div className="commentPage">
+        <div className="comment-titles">
+          <h3>Showing comments for:</h3>
+          {pageheading[0]}
+        </div>
+        <div className="new-comment">
+          <form onSubmit={this.handleSubmit} autoComplete="off">
+            <input
+              id={id}
+              className="comment-input"
+              name="comment"
+              value={this.state.comment}
+              placeholder="Leave a comment..."
+              type="text"
+              onChange={this.handleChange}
+            />
+          </form>
+        </div>
+        {singleComment}
       </div>
     );
   }
 }
 
-CommentPage.propTypes = {
-  postId: PropTypes.number,
-  postComment: PropTypes.func,
-  getComment: PropTypes.func,
-};
+// CommentPage.propTypes = {
 
-CommentPage.defaultProps = {
-  postId: PropTypes.number,
-  postComment: PropTypes.func,
-  getComment: PropTypes.func,
-};
+// };
 
 export default connectComponent(
   withRouter(CommentPage), {
-    // post: postComment,
-    getComment: getComments,
+    fetchComments: articleId => getComment(articleId),
+    createComment: (newComment, articleId) => postComment(newComment, articleId),
   },
 );
