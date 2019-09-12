@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable camelcase */
@@ -27,9 +28,15 @@ import {
   faAngleUp as angleTop,
   faAngleDown as angleBottom,
   faEllipsisH as options,
+  faThumbsUp as boldLikes,
+  faThumbsDown as boldDislikes,
 } from '@fortawesome/free-solid-svg-icons';
 
+import './Icon.scss';
+
 const icons = {
+  boldLikes,
+  boldDislikes,
   likes,
   dislikes,
   comments,
@@ -49,12 +56,15 @@ const icons = {
   angleBottom,
   options,
 };
-const Icon = (props) => {
-  const { name, handleClick } = props;
+const Icon = (props, ref) => {
+  const { name, handleClick, style } = props;
   /* istanbul ignore next */
   return (
-    <div onClick={() => handleClick()} className="icon-container">
-      <FontAwesomeIcon className="icon" icon={icons[name]} />
+    <div onClick={() => handleClick()} className="icon-container" style={style} name={name}>
+      <FontAwesomeIcon
+        className="icon"
+        icon={icons[name]}
+      />
     </div>
   );
 };
@@ -62,11 +72,13 @@ const Icon = (props) => {
 Icon.propTypes = {
   handleClick: PropTypes.func,
   name: PropTypes.string,
+  style: PropTypes.shape(PropTypes.object),
 };
 
 Icon.defaultProps = {
   handleClick: () => { },
   name: '',
+  style: {},
 };
 
 export default Icon;

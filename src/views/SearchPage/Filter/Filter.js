@@ -74,7 +74,7 @@ export class Filter extends Component {
             <h3> Categories </h3>
           </div>
           <div className={`input-fields ${categories}`}>
-            { catFields }
+            {catFields}
           </div>
         </div>
         <FilterContainer

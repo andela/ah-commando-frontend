@@ -1,5 +1,6 @@
 import React from 'react';
 import Footer from '@Components/Footer';
+// eslint-disable-next-line import/no-cycle
 import Filter from './Filter';
 import SearchBody from './SearchBody';
 import Pager from './Pager';

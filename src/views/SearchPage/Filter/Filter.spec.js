@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Filter } from './Filter';
-import FilterComponents from './FilterComponents';
+import FilterComponents from './';
 
 const {
   CategorySelection, FilterContainer, Selection, DropMenu,
