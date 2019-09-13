@@ -1,10 +1,10 @@
-/* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable react/prop-types */
+/* eslint-disable no-new */
+/* eslint-disable jsx-a11y/no-autofocus */
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import { setPusherClient } from 'react-pusher';
 import Pusher from 'pusher-js';
 import Button from '@Components/Button';
 import AuthStore from '@Lib/AuthStore';
@@ -12,6 +12,8 @@ import Icon from '@Components/Icon';
 import connectComponent from '@App/lib/connect-component';
 import { openModal } from '@Actions/uiActions';
 import { updateSearchQuery, getFilteredArticles, updatePageNumber } from '@Actions/searchActions';
+import { getNotifications } from '@Actions/notifications';
+import { getProfile } from '@Actions/profileAction';
 import DropDown from '../DropDown';
 import logo from '../../../public/logo.png';
 import './Header.scss';
@@ -25,14 +27,41 @@ export class Header extends Component {
   state = {
     search: false,
     searchContent: '',
+    showDropDown: false,
+    type: '',
+    prevType: '',
+    currentLocation: '',
+    showDot: false,
   }
 
   componentDidMount() {
-    const pusher = new Pusher('1b7ecbe2a67c3c20ae67', { cluster: 'eu' });
-    const channel = pusher.subscribe('notify-cvjude');
-    channel.bind('push-notifications', (data) => {
-      alert(`An event was triggered with message: ${data.message}`);
+    this.state.currentLocation = this.props.history.location;
+    this.props.getNotifications();
+    this.props.getProfile();
+    this.pusher = new Pusher('5348b046f75caaacd965', { cluster: 'eu' });
+    this.channel = this.pusher.subscribe('push-notifications');
+    this.channel.bind('notify-cvjude1_', (data) => {
+      this.props.getNotifications();
+      Notification.requestPermission();
+      new Notification(data.message);
     });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { history: { location } } = this.props;
+    const { currentLocation } = this.state;
+    if (currentLocation !== location) {
+      this.setState({
+        showDropDown: false, currentLocation: location,
+      });
+    }
+    const { notifications: { notifications } } = this.props;
+    if (prevProps.notifications.notifications.length !== notifications.length) {
+      const show = (notifications.length > 0);
+      this.setState({
+        showDot: show,
+      });
+    }
   }
 
   openSearch = () => {
@@ -63,9 +92,29 @@ export class Header extends Component {
     });
   }
 
+  handleDrop = (type) => {
+    const { prevType } = this.state;
+    if (prevType === type) {
+      this.setState((prevState) => ({
+        showDropDown: !prevState.showDropDown, type, prevType: type,
+      }));
+    } else {
+      this.setState(() => ({
+        type,
+        prevType: type,
+        showDropDown: true,
+      }));
+    }
+  }
+
   render() {
-    const { search, searchContent } = this.state;
-    const { signIn, signUp, history } = this.props;
+    const {
+      search, searchContent, type, showDropDown, showDot,
+    } = this.state;
+    const {
+      signIn, signUp, history, profile: { user },
+    } = this.props;
+    if (user) { this.userImg = user.image; }
 
     return (
       <>
@@ -103,22 +152,36 @@ export class Header extends Component {
           {AuthStore.getToken()
             ? (
               <div className="action">
-                <button className="notification" type="button" style={buttonStyle} onClick={this.handleClick}>
+                <button
+                  className="notification"
+                  type="button"
+                  onClick={() => this.handleDrop('notification')}
+                  style={buttonStyle}
+                >
+                  {showDot ? <div className="showDot">{' '}</div> : ''}
                   <Icon name="notification" />
                 </button>
-                <DropDown type="profile" />
+                <DropDown type={type} show={showDropDown} />
                 <Button style={buttonStyle} handleClick={this.handleClick}>Upgrade</Button>
-                <img
-                  src="https://res.cloudinary.com/drdje1skj/image/upload/v1567427029/profile-placeholder_gvxkia.gif"
-                  alt=""
-                  style={{
-                    height: '45px',
-                    width: '45px',
-                    borderRadius: '50%',
-                    margin: '0 50px',
-                    objectFit: 'cover',
-                  }}
-                />
+                <button
+                  className="notification"
+                  type="button"
+                  onClick={() => this.handleDrop('')}
+                >
+                  <img
+                    data-test="userImage"
+                    src={this.userImg ? this.userImg : 'https://res.cloudinary.com/drdje1skj/image/upload/v1567427029/profile-placeholder_gvxkia.gif'}
+                    alt="profile"
+                    style={{
+                      height: '45px',
+                      width: '45px',
+                      borderRadius: '50%',
+                      margin: '0 50px',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </button>
+
               </div>
             )
             : (
@@ -166,13 +229,25 @@ export class Header extends Component {
 Header.propTypes = {
   signIn: PropTypes.func.isRequired,
   signUp: PropTypes.func.isRequired,
-  //   auth: prototype.shape({
-  //     isAuthenticated: prototype.bool.isRequired
-  //       user: {
-
-  //     }
-  //   }).isRequired,
-  // };
+  updateSearchQuery: PropTypes.func.isRequired,
+  getFilteredArticles: PropTypes.func.isRequired,
+  updatePageNumber: PropTypes.func.isRequired,
+  getNotifications: PropTypes.func.isRequired,
+  getProfile: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      pathname: PropTypes.string,
+    }),
+    push: PropTypes.func,
+  }).isRequired,
+  profile: PropTypes.shape({
+    user: PropTypes.shape({
+      image: PropTypes.string,
+    }),
+  }).isRequired,
+  notifications: PropTypes.shape({
+    notifications: PropTypes.array,
+  }).isRequired,
 };
 
 export default connectComponent(withRouter(Header), {
@@ -181,4 +256,6 @@ export default connectComponent(withRouter(Header), {
   updateSearchQuery,
   getFilteredArticles,
   updatePageNumber,
+  getNotifications,
+  getProfile,
 });

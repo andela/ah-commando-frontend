@@ -22,7 +22,7 @@ export default class AuthStore {
   }
 
   static getToken() {
-    // return localStorage.getItem(this.TOKEN_NAME);
-    return true;
+    return localStorage.getItem(this.TOKEN_NAME);
+    // return true;
   }
 }

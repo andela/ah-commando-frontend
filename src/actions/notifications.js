@@ -1,31 +1,26 @@
-import axois from 'axios';
+/* eslint-disable import/prefer-default-export */
 import * as types from './types';
+import { axiosInstance } from '@Utils/';
 
-const APP_URL = 'https://a-haven-staging.herokuapp.com';
-// const APP_URL = 'http://localhost:5001';
 
-export const getHomePageArticles = () => async dispatch => {
+export const getNotifications = () => async dispatch => {
   try {
-    const response = await axois.get(
-      `${APP_URL}/api/v1/articles/categories/article`,
-    );
-    dispatch({
-      type: 'GET_HOME_ARTICLES_FROM_DATABASE',
-      payload: response.data,
-    });
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    // console.log(err);
-  }
-};
-
-export const getArticle = () => async dispatch => {
-  try {
-    const response = await axois.get(
-      `${APP_URL}/api/v1/articles/categories/article/featured`,
-    );
+    const response = await axiosInstance.get('notifications/');
     dispatch({
       type: types.FETCH_NOTIFICATIONS,
+      payload: response.data.notifications,
+    });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    // console.log(err);
+  }
+};
+
+export const markAsRead = (id) => async dispatch => {
+  try {
+    const response = await axiosInstance.patch(`notifications/${id}/read`);
+    dispatch({
+      type: types.UPDATE_NOTIFICATIONS,
       payload: response.data,
     });
   } catch (err) {
@@ -34,13 +29,25 @@ export const getArticle = () => async dispatch => {
   }
 };
 
-export const getEditorsChoice = () => async dispatch => {
+export const markAllRead = () => async dispatch => {
   try {
-    const response = await axois.get(
-      `${APP_URL}/api/v1/articles?limit=5`,
-    );
+    const response = await axiosInstance.patch('notifications/read');
     dispatch({
-      type: 'GET_EDITORS_CHOICE',
+      type: types.MARK_READ,
+      payload: response.data,
+    });
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    // console.log(err);
+  }
+};
+
+export const updateSubscription = (type) => async dispatch => {
+  try {
+    const response = (type) ? await axiosInstance.patch('notifications/email/subscribe')
+      : await axiosInstance.delete('notifications/email/subscribe');
+    dispatch({
+      type: types.UPDATE_SUB,
       payload: response.data,
     });
   } catch (err) {

@@ -1,4 +1,9 @@
 $background: rgb(233, 233, 233);
+$color_checkbox_success:#FFC700;
+$color_checkbox_default:#8E8E93;
+$transition: .3s ease;
+$width: 3em;
+$height: $width/2;
 
 .dropdownSection{
   position: absolute;
@@ -6,7 +11,9 @@ $background: rgb(233, 233, 233);
   display: flex;
   align-items: flex-end;
   top: 40px;
-
+  transform: scaleY(0);
+  transform-origin: 0;
+  transition: all .5s ease;
 
   .dropDown{
     position: relative;
@@ -15,7 +22,7 @@ $background: rgb(233, 233, 233);
     display: flex;
     height: 500px;
 
-    img, .watermark{
+    .backDrop, .watermark{
       position: absolute;
       top: 0;
       left: 0;
@@ -33,65 +40,187 @@ $background: rgb(233, 233, 233);
       max-height: 500px;
       width: 335px;
 
-     a{
-      width: 300px;
-      font-size: 16px;
-      margin-bottom: 10px;
-      color: #FFC700;
-      border: none;
-      background: transparent;
+      .header{
+        width: 300px;
+        margin-bottom: 10px;
 
-      :hover{
-        cursor: pointer;
-      }
-
-      h2{
-          width: 100%;
+        h2, h3{
+          display: inline;
+          text-align: left;
           font-size: 16px;
           color: #FFC700;
-          text-align: left;
+          border: none;
+          background: transparent;
         }
+
+        button {
+          background: transparent;
+          border: none;
+          float: right;
+          display: flex;
+          height: 19px;
+          align-items: center;
+          margin-right: 3px;
+
+          p{
+            font-size: 14px;
+            color: #FFC700;
+          }
+        }
+        clear: both;
       }
 
       .dropDowncontent {
         overflow: scroll;
+
+        .noNotifications {
+          width: 300px;
+          margin-right: 3px;
+          font-size: 12px;
+          padding: 7px 5px;
+          margin-bottom: 10px;
+          z-index: 20;
+          display: block;
+          text-align: center;
+          border: 0;
+
+          img{
+            margin-top: 35%;
+            width: 50%;
+            height: 50%;
+          }
+
+          p {
+            font-size: 14px;
+            color: #FFC700;
+          }
+        }
+
+        .notify {
+          width: 300px;
+          margin-right: 3px;
+          background: rgba(196, 196, 196, 0.2);
+          font-size: 12px;
+          padding: 7px 5px;
+          margin-bottom: 10px;
+          z-index: 20;
+          display: block;
+          text-align: left;
+          border: 0;
+
+          h3 {
+            margin-bottom: 10px;
+            font-weight: 400;
+          }
+
+          .content {
+            display: flex;
+            justify-content: space-between;
+
+            .description{
+              width: 75%;
+              display: -webkit-box;
+              -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical;
+              overflow-y: hidden;
+              text-overflow: ellipsis;
+              font-weight: 200;
+            }
+
+            .date {
+              display: flex;
+              flex-direction: column;
+              align-items: flex-end;
+              color: #FFC700;
+            }
+          }
+        }
       }
     }
   }
 }
 
-.notify {
-  width: 300px;
+.userProfileDropdown{
+  max-height: 500px;
+  width: 250px;
   margin-right: 3px;
-  background: rgba(196, 196, 196, 0.2);
   font-size: 12px;
-  padding: 7px 5px;
+  padding: 7px 10px;
   margin-bottom: 10px;
   z-index: 20;
+  display: block;
+  text-align: left;
+  border: 0;
 
-  h3 {
-    margin-bottom: 10px;
-    font-weight: 400;
+  p {
+    padding-bottom: 5px;
+    border-bottom: 1px solid #FFC700;
+    text-transform: capitalize;
+    font-size: 18px;
   }
 
-  .content {
+  .dropList {
+    margin-top: 20px;
+    margin-bottom: 7px;
+    border-bottom: 1px solid #FFC700;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
 
-    .description{
-      width: 75%;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow-y: hidden;
-      text-overflow: ellipsis;
-      font-weight: 200;
+    .email {
+      background: transparent;
+      border: none;
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 5px;
     }
 
-    .date {
-      display: flex;
-      align-items: flex-end;
-      color: #FFC700;
+    .emailHeader {
+      font-size: 14px;
+      border: none;
+    }
+
+    .dropLinks {
+      margin-bottom: 14px;
+      font-size: 14px;
     }
   }
+}
+
+.toggle{
+
+  .toggle-control{
+    transition: $transition;
+     width: $width;
+     height: $height;
+     display: block;
+    border: 2px solid $color_checkbox_default;
+    border-radius: $height;
+    background-color: rgba(black,.06);
+    position: relative;
+    &:after{
+      transition: $transition;
+      content: "";
+      width: $width/2;
+      height: $height;
+      display: block;
+      background-color: #fff;
+      border-radius: 50%;
+      box-shadow: 0 1px 2px rgba(black, .4),0 3px 2px rgba(black,.4);
+      position: absolute;
+      top: -3px;
+      left: 0;
+    }
+  }
+
+ input{
+   display: none;
+   &:checked + .toggle-control{
+     border-color: $color_checkbox_success;
+     background-color: $color_checkbox_success;
+     &:after{
+       left: $width/2;
+     }
+   }
+ }
+
 }

@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Page Articles Actions Should Mark a notification as read 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "data": Array [
+        Object {
+          "body": "Some test",
+          "title": "Example title 1",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 2",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 3",
+        },
+      ],
+    },
+    "type": "UPDATE_NOTIFICATIONS",
+  },
+]
+`;
+
+exports[`Home Page Articles Actions Should get all user Notifications 1`] = `
+Array [
+  Object {
+    "payload": undefined,
+    "type": "FETCH_NOTIFICATIONS",
+  },
+]
+`;
+
+exports[`Home Page Articles Actions Should mark All notifications as read 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "data": Array [
+        Object {
+          "body": "Some test",
+          "title": "Example title 1",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 2",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 3",
+        },
+      ],
+    },
+    "type": "MARK_READ",
+  },
+]
+`;
+
+exports[`Home Page Articles Actions Should subcribe to email notifications 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "data": Array [
+        Object {
+          "body": "Some test",
+          "title": "Example title 1",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 2",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 3",
+        },
+      ],
+    },
+    "type": "UPDATE_SUB",
+  },
+]
+`;
+
+exports[`Home Page Articles Actions Should unsubscribe from email notifications 1`] = `
+Array [
+  Object {
+    "payload": Object {
+      "data": Array [
+        Object {
+          "body": "Some test",
+          "title": "Example title 1",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 2",
+        },
+        Object {
+          "body": "Some test",
+          "title": "Example title 3",
+        },
+      ],
+    },
+    "type": "UPDATE_SUB",
+  },
+]
+`;
