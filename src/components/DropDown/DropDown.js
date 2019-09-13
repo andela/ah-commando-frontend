@@ -42,7 +42,7 @@ export class DropDown extends Component {
       return (
         <div className="noNotifications">
           <img src={checkMark} alt="" />
-          <p>All done no More Notifications</p>
+          <p>All done no more notifications</p>
         </div>
       );
     }
@@ -157,7 +157,7 @@ export class DropDown extends Component {
           <div className="dropDowncontainer" style={{ width }}>
             {type === 'notification' ? (
               <header className="header">
-                <h3>NOTIFICATIONS</h3>
+                <h3>Notifications</h3>
                 {notifications[0]
                   ? (
                     <button type="button" onClick={this.markAllAsRead} btn-test="markAllRead">
