@@ -36,7 +36,7 @@ const App = () => (
         <Route exact path="/articles/:slug/edit" component={EditArticle} />
         <Route exact path="/articles" component={CategoryPage} />
         <Route exact path="/tags" component={ArticleTags} />
-        <Route exact path="/articles/comments/:articleI" component={Comments} />
+        <Route exact path="/articles/comments/:articleId" component={Comments} />
         <Route component={NotFound} />
       </Switch>
     </div>
