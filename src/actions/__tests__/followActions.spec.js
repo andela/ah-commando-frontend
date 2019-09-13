@@ -10,7 +10,7 @@ import {
 const store = makeMockStore({});
 
 
-describe('testing redux action', () => {
+describe('testing redux actions', () => {
   beforeEach(() => {
     moxios.install();
   });
