@@ -56,10 +56,15 @@
       margin-top: 15px;
       color:rgba(0, 0, 0, 0.8);
 
-      .like, .dislike {
+      .singleIcon {
         display: flex;
-        align-items: center;
-        font-size: 10px;
+        margin-right: 10px;
+
+        .like, .dislike {
+          display: flex;
+          align-items: center;
+          font-size: 10px;
+        }
       }
   }
 }

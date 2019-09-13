@@ -23,11 +23,11 @@ const Comment = (props) => {
         </div>
       </div>
       <div className="icons">
-        <div>
+        <div className="singleIcon">
           <Icon name="likes" className="like" />
           <label className="icon-label">{likes}</label>
         </div>
-        <div>
+        <div className="singleIcon">
           <Icon name="dislikes" className="dislike" />
           <label className="icon-label">{dislikes}</label>
         </div>

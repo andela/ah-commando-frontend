@@ -47,7 +47,7 @@ class ArticleCard extends Component {
     const comments = thousandths(comment.length);
     const { loading, error } = this.state;
     return (
-      <div className={`${type}`}>
+      <div className={`${type}`} data-test="articleCard-home">
         <Link to={`/articles/${slug}`}>
           <div className="image-container">
             {loading === 0 ? <Skeleton width="100%" height="100%" /> : ''}
