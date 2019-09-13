@@ -21,6 +21,10 @@ export class DropDown extends Component {
     updated: false,
   };
 
+  componentDidMount() {
+    getProfile();
+  }
+
   componentDidUpdate(prevProps) {
     if (!prevProps.profile.user) return 1;
 

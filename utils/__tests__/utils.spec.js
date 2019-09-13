@@ -25,7 +25,6 @@ describe('Test utility functions', () => {
       expect(date.month).toBe('Sep');
       expect(date.year).toBe(2019);
       expect(date.minutes).toBe(59);
-      expect(date.hours).toBe(9);
     });
   });
 });

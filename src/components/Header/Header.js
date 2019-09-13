@@ -36,8 +36,6 @@ export class Header extends Component {
 
   componentDidMount() {
     this.state.currentLocation = this.props.history.location;
-    this.props.getNotifications();
-    this.props.getProfile();
     this.pusher = new Pusher('5348b046f75caaacd965', { cluster: 'eu' });
     this.channel = this.pusher.subscribe('push-notifications');
     this.channel.bind('notify-cvjude1_', (data) => {
@@ -48,8 +46,12 @@ export class Header extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { history: { location } } = this.props;
+    const { history: { location }, auth: { isAuthenticated } } = this.props;
     const { currentLocation } = this.state;
+    if (prevProps.auth.isAuthenticated !== isAuthenticated) {
+      this.props.getNotifications();
+      this.props.getProfile();
+    }
     if (currentLocation !== location) {
       this.setState({
         showDropDown: false, currentLocation: location,
@@ -155,6 +157,7 @@ export class Header extends Component {
                 <button
                   className="notification"
                   type="button"
+                  datatest="notifyButton"
                   onClick={() => this.handleDrop('notification')}
                   style={buttonStyle}
                 >
@@ -167,6 +170,7 @@ export class Header extends Component {
                   className="notification"
                   type="button"
                   onClick={() => this.handleDrop('')}
+                  datatest="profileButton"
                 >
                   <img
                     data-test="userImage"
