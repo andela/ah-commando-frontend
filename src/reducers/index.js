@@ -11,7 +11,7 @@ import categoryReducer from './categoriesReducer';
 import tagReducer from './tagReducer';
 import followReducer from './followReducer';
 import unfollowReducer from './unfollowReducer';
-import { commentReducer } from './commentReducer';
+import commentReducer from './commentReducer';
 
 const reducers = combineReducers({
   ui: uiReducer,

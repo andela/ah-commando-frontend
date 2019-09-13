@@ -152,7 +152,7 @@ export class CommentPage extends React.Component {
           <form onSubmit={this.handleSubmit} autoComplete="off">
             <input
               minLength="2"
-              maxLength="100"
+              maxLength="150"
               id={id}
               className="comment-input"
               name="comment"
