@@ -159,6 +159,7 @@ export const logout = () => async (dispatch) => {
     localStorage.removeItem('haven');
   }
 };
+
 export const loginViaSocial = (brand) => async dispatch => {
   dispatch({ type: null });
   window.location = `https://a-haven-staging.herokuapp.com/api/v1/users/${brand}`;
