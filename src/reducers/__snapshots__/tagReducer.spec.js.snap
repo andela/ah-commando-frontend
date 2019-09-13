@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tag reducer test should return new state 1`] = `
+Object {
+  "articles": Array [
+    Object {},
+  ],
+  "suppliedTag": undefined,
+}
+`;

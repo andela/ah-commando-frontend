@@ -1,7 +1,9 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import ArticleCard from '@Components/ArticleCard';
 import PropTypes from 'prop-types';
 import Icon from '@Components/Icon';
+import { NavLink } from 'react-router-dom';
 import connect from '@Lib/connect-component';
 import './MainCardSection.scss';
 
@@ -24,20 +26,7 @@ export class MainCardSection extends Component {
       );
     }
 
-    articleCategories.shuffle = (array) => {
-      let currentIndex = array.length, temporaryValue, randomIndex;
-      while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-      return array;
-    };
-
-    const articles = articleCategories.shuffle(articleCategories).map((catergory, index) => {
+    const articles = articleCategories.map((catergory, index) => {
       const { name, Articles } = catergory;
       let ArticleIndex = -1;
       if (Articles.length > 0) {
@@ -46,9 +35,14 @@ export class MainCardSection extends Component {
           <section key={catergory.id} className="featuredsection" data-test="featuredsection">
             <div className="header">
               <p>{name}</p>
-              <button type="button">
-                <p>{'more  >'}</p>
-              </button>
+              <NavLink to={{ pathname: '/articles', search: `?category=${name.toLowerCase()}` }} datatest="nav-link">
+                <div className="more-button">
+                  <p>more</p>
+                  <button type="button">
+                    <Icon name="right_arrow" />
+                  </button>
+                </div>
+              </NavLink>
             </div>
             <ArticleCard
               type="horizontal"

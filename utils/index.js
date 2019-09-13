@@ -40,10 +40,37 @@ export const thousandths = (number) => {
   if (number < 1000) { return number; }
   if (number > 1000 && number < 1000000) {
     thousands = Math.round(number / 1000);
-    return `${thousands}k`;
+    return `${thousands}K`;
   }
   thousands = Math.round(number / 1000000);
   return `${thousands}M`;
+};
+
+const months = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+
+export const formatDate = (thedate) => {
+  const date = new Date(thedate);
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  return {
+    day, month, year, hours, minutes,
+  };
 };
 
 export const convertToHtml = jsonToHtml;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tag action tag action test tagAction should return expected value 1`] = `[Function]`;
+
+exports[`tag action test view articles with tag action should display articles with tag 1`] = `
+Array [
+  Object {
+    "payload": Array [],
+    "tag": Object {},
+    "type": "GET_ARTICLES_WITH_TAG",
+  },
+]
+`;

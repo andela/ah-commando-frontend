@@ -1,4 +1,6 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -15,6 +17,7 @@ import {
   EmailIcon,
 } from 'react-share';
 import { readArticle, deleteAnArticle } from '@Actions/Articles';
+import { getArticlesWithTagFromDb } from '@Actions/tagAction';
 import connectComponent from '@Lib/connect-component';
 import Icon from '@Components/Icon';
 import { convertToHtml, isEmpty } from '@Utils/';
@@ -82,6 +85,9 @@ export class ReadArticle extends Component {
 
   handleClick = name => {
     document.querySelector(`[aria-label="${name}"]`).click();
+  handleTagClick = async (tag) => {
+    const { getArticlesTag, history } = this.props;
+    await getArticlesTag(tag, history);
   }
 
   render = () => {
@@ -95,16 +101,19 @@ export class ReadArticle extends Component {
         readTime,
         image,
         articleBody,
-        tagList,
+        Tags,
         likesCount,
         dislikesCount,
         comment,
         slug,
       },
     } = this.props;
-    const tags = tagList ? tagList.split(' ')
-      .filter(tag => tag.length > 0)
-      .map((tag, i) => (<li key={i}><p>{tag}</p></li>)) : null;
+
+    const tags = Tags ? Tags.map((tag, i) => (
+      <li className="liTag" key={i}>
+        <p onClick={() => this.handleTagClick(tag.name)}>{tag.name}</p>
+      </li>
+    )) : null;
     const body = this.parseArticleBody(articleBody);
 
     const loader = (
@@ -144,13 +153,13 @@ export class ReadArticle extends Component {
                     <div className="vertical-center read-time">
                       <p>{`${readTime || 0} min${readTime > 1 ? 's' : ''} read`}</p>
                       {this.isMyArticle() && (
-                      <button
-                        data-test="edit-article"
-                        type="button"
-                        onClick={this.editArticle}
-                      >
-                        Edit Article
-                      </button>
+                        <button
+                          data-test="edit-article"
+                          type="button"
+                          onClick={this.editArticle}
+                        >
+                          Edit Article
+                        </button>
                       )}
                     </div>
                   </div>
@@ -184,13 +193,13 @@ export class ReadArticle extends Component {
                 <Icon name="comments" />
                 <p className="icon-label">{comment ? comment.length : 0}</p>
                 {this.isMyArticle() && (
-                <button
-                  className="delete-icon"
-                  type="button"
-                  onClick={this.deleteArticle}
-                >
-                  <Icon name="trash" />
-                </button>
+                  <button
+                    className="delete-icon"
+                    type="button"
+                    onClick={this.deleteArticle}
+                  >
+                    <Icon name="trash" />
+                  </button>
                 )}
                 <p>{' '}</p>
                 <div
@@ -246,11 +255,13 @@ ReadArticle.propTypes = {
   history: PropTypes.shape().isRequired,
   auth: PropTypes.shape().isRequired,
   ui: PropTypes.shape().isRequired,
+  getArticlesTag: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
   withRouter(ReadArticle), {
     getSingleArticle: slug => readArticle(slug),
     deleteArticle: (slug, history) => deleteAnArticle(slug, history),
+    getArticlesTag: getArticlesWithTagFromDb,
   },
 );
