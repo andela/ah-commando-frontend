@@ -6,13 +6,18 @@
   'footer  footer  footer  footer';
 
   .header {
-    grid-area: header
+    grid-area: header;
+    position: sticky;
+    top: 56px;
+    background-color: white;
   }
   .filter {
-    grid-area: filter
+    grid-area: filter;
+    margin: 0 0 60px 0;
   }
   .body {
-    grid-area: body
+    grid-area: body;
+    margin: 0 0 60px 150px;
   }
   .footer {
     grid-area: footer;

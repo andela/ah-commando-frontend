@@ -11,6 +11,11 @@ export const updateCategory = (payload) => ({
   payload,
 });
 
+export const updateCategoryPageNumber = (payload) => ({
+  type: types.UPDATE_CATEGORY_PAGENUMBER,
+  payload,
+});
+
 export const updateMenuItem = (payload) => ({
   type: types.UPDATE_MENU_ITEM,
   payload,

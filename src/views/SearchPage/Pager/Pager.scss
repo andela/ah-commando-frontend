@@ -40,6 +40,9 @@
   &:hover {
     background-color: rgba(255, 200, 0, 0.5)
   }
+  &.active {
+    background-color: rgb(255, 200, 0)
+  }
   p {
     padding-top: 2px;
     text-align: center;

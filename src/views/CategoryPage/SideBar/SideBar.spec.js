@@ -7,6 +7,7 @@ const props = {
   getCategoryArticles: jest.fn(),
   updateCategory: jest.fn(),
   updateMenuItem: jest.fn(),
+  updateCategoryPageNumber: jest.fn(),
   location: {
     search: 'https://',
   },

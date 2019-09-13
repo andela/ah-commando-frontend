@@ -3,6 +3,7 @@ import categoryReducer from './categoriesReducer';
 
 const initialState = {
   clickedCategory: '',
+  page: 1,
   selectedIndex: 0,
 };
 
@@ -14,6 +15,7 @@ describe('Search Reducer', () => {
   it('should return new state', () => {
     const payload = {
       category: 'technology',
+      page: 1,
       Articles: [{}],
     };
     const action = {
@@ -23,6 +25,7 @@ describe('Search Reducer', () => {
 
     const newState = {
       clickedCategory: '',
+      page: 1,
       selectedIndex: 0,
       technology: [{}],
     };
@@ -39,6 +42,7 @@ describe('Search Reducer', () => {
 
     const newState = {
       clickedCategory: 'technology',
+      page: 1,
       selectedIndex: 0,
     };
 
@@ -54,6 +58,7 @@ describe('Search Reducer', () => {
 
     const nextState = {
       clickedCategory: '',
+      page: 1,
       selectedIndex: 1,
     };
 

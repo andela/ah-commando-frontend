@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
 import Icon from '@Components/Icon';
 import connectComponent from '@Lib/connect-component';
-import { updatePageNumber } from '@Actions/searchActions';
+import { updateCategoryPageNumber } from '@Actions/categoryActions';
 import './Pager.scss';
 
 export class Pager extends Component {
@@ -15,25 +15,22 @@ export class Pager extends Component {
   }
 
   updatePageNumber(number) {
-    const { updatePageNumber } = this.props;
-    updatePageNumber(number);
+    const { updateCategoryPageNumber } = this.props;
+    updateCategoryPageNumber(number);
   }
 
   previousPage() {
-    const { filters } = this.props;
-
-    const { page } = filters;
+    const { category: { page } } = this.props;
     if (page > 1) {
       this.updatePageNumber(page - 1);
     }
   }
 
   nextPage() {
-    const { filters } = this.props;
-    const { page } = filters;
-    const articles = filters.searchResults;
+    const { category, category: { clickedCategory, page } } = this.props;
+    const articles = category[clickedCategory];
     const totalArticles = articles.length;
-    const pages = Math.ceil(totalArticles / 20);
+    const pages = Math.ceil(totalArticles / 30);
     if (page < pages) {
       this.updatePageNumber(page + 1);
     }
@@ -41,24 +38,33 @@ export class Pager extends Component {
 
   displayPages(pages) {
     const result = [];
+    const { category: { page } } = this.props;
     for (let i = 1; i <= pages; i += 1) {
-      const page = <Page key={i} handleChange={this.updatePageNumber}>{i}</Page>;
-      result.push(page);
+      const pages = (
+        <Page
+          key={i}
+          handleChange={this.updatePageNumber}
+          index={i}
+          selected={i === page}
+        >
+          {i}
+        </Page>
+      );
+      result.push(pages);
     }
     return result;
   }
 
   render() {
-    const { filters } = this.props;
-    const articles = filters.searchResults;
-    const totalArticles = articles.length;
-    const pages = Math.ceil(totalArticles / 20);
-    const { searchQuery } = filters;
+    const { category, category: { clickedCategory } } = this.props;
+    const articles = category[clickedCategory];
+    const totalArticles = articles && articles.length;
+    const pages = Math.ceil(totalArticles / 30);
 
     return (
       <div className="pager_container">
         <div className="title">
-          <h3>{`Search result for "${searchQuery}"`}</h3>
+          <h3>{`Articles in "${clickedCategory.charAt(0).toUpperCase() + clickedCategory.slice(1)}"`}</h3>
         </div>
         <div className="page_number">
           <Arrows direction="left_arrow" handleClick={this.previousPage} />
@@ -71,22 +77,11 @@ export class Pager extends Component {
 }
 
 Pager.propTypes = {
-  updatePageNumber: PropTypes.func.isRequired,
-  filters: PropTypes.shape({
+  category: PropTypes.shape({
+    clickedCategory: PropTypes.string,
     page: PropTypes.number,
-    searchResults: PropTypes.arrayOf(PropTypes.strinng),
-    searchQuery: PropTypes.string,
-    displayFields: PropTypes.shape({
-      categories: PropTypes.string,
-      tags: PropTypes.string,
-      authors: PropTypes.string,
-    }),
-    updateFields: PropTypes.shape({
-      categories: PropTypes.array,
-      tags: PropTypes.array,
-      authors: PropTypes.array,
-    }),
   }).isRequired,
+  updateCategoryPageNumber: PropTypes.func.isRequired,
 };
 
 export const Arrows = (props) => {
@@ -104,9 +99,9 @@ Arrows.propTypes = {
 };
 
 export const Page = (props) => {
-  const { children, handleChange } = props;
+  const { children, handleChange, selected } = props;
   return (
-    <div className="page-container" onClick={() => { handleChange(children); }}>
+    <div className={`page-container ${selected ? 'active' : ''}`} onClick={() => { handleChange(children); }}>
       <p>{ children }</p>
     </div>
   );
@@ -115,6 +110,7 @@ export const Page = (props) => {
 Page.propTypes = {
   children: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
 };
 
-export default connectComponent(Pager, { updatePageNumber });
+export default connectComponent(Pager, { updateCategoryPageNumber });
