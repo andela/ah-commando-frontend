@@ -31,7 +31,8 @@ textarea {
   margin: 0;
   padding: 8px;
   font-size: 14px;
-  
+  resize: none;
+
     &::placeholder {
       color: rgba(128, 128, 128, 0.287);
     }

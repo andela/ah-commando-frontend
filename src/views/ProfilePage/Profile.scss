@@ -95,9 +95,11 @@
   padding: 20px;
 }
 .profile-footer{
-  position: relative;
+  position: fixed;
+  z-index:100;
+  background-color: white;
   width: 100%;
-  bottom: 10px;
+  bottom: 0px;
 }
 
 dialog {
@@ -174,7 +176,7 @@ dialog {
           transform: translate(-50%, -50%);
           color: rgba(0,0,0,0.7);
           margin:0;
-          font-size: 20px;
+          font-size: 35px;
         }
       }
     }
@@ -184,3 +186,4 @@ dialog {
 ::backdrop {
   background: rgba(255, 255, 255, 0.9)
 }
+

@@ -1,9 +1,10 @@
-/* eslint-disable react/require-default-props */
+/* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
+import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import Button from '@Components/Button';
 import Footer from '@Components/Footer';
@@ -12,8 +13,12 @@ import TextArea from '@App/components/TextArea/';
 import ArticleCard from '@Components/ArticleCard/';
 import connectComponent from '@Lib/connect-component';
 import { getProfile, editProfile, getArticles } from '@Actions/profileAction';
+import { followUser } from '@Actions/followActions';
+import { unFollowUser } from '@Actions/unfollowActions';
 import { postImage } from '@Actions/imageAction';
 import Icon from '@Components/Icon';
+import RenderButton from '@Components/RenderButton';
+
 import {
   validate,
   emailSchema,
@@ -35,28 +40,61 @@ export class Profile extends Component {
         email: '',
         image: '',
         bio: '',
+        followings: [],
+        followers: [],
         firstname: '',
         lastname: '',
         followerCount: '',
         followingCount: '',
       },
       article: [],
+      username: '',
+      usernameFromToken: '',
+      isFollowing: false,
     };
     this.dialog = React.createRef();
   }
 
   async componentDidMount() {
     const { fetchProfile, fetchArticle } = this.props;
-    const profileResponse = await fetchProfile();
-    const articleResponse = await fetchArticle();
+    const { history } = this.props;
+    const myUsername = history.location.pathname.split('/')[2];
+    const userProfile = () => {
+      const { username, email } = jwtDecode(localStorage.getItem('haven'));
+      if (username === undefined) return email;
+      return username;
+    };
+    let profileResponse;
+    let articleResponse;
+    if (myUsername === userProfile()) {
+      profileResponse = await fetchProfile();
+      articleResponse = await fetchArticle();
+    } else {
+      profileResponse = await fetchProfile(myUsername);
+      const { id } = profileResponse.payload;
+      articleResponse = await fetchArticle(id);
+    }
+
     this.setState(prevState => ({
       ...prevState,
       profile: {
         ...prevState.profile,
         ...profileResponse.payload,
+        followings: profileResponse.payload.followings,
+        followers: profileResponse.payload.followers,
       },
       article: articleResponse.payload,
+      usernameFromToken: userProfile(),
     }));
+    const { profile: { followers }, usernameFromToken } = this.state;
+    followers.forEach((fellow) => {
+      if (fellow.username === usernameFromToken) {
+        this.setState(prevState => ({
+          ...prevState,
+          isFollowing: true,
+        }));
+      }
+    });
   }
 
   handleToggleEditProfileModal = (status = 'open') => {
@@ -74,7 +112,6 @@ export class Profile extends Component {
     const errors = {};
     const [errorValue] = validate({
       [name]: value,
-      // eslint-disable-next-line no-nested-ternary
     }, name === 'username' ? usernameSchema : name === 'bio' ? bioSchema : emailSchema);
     errors[name] = errorValue || '';
     this.setFormValidity(errors);
@@ -172,6 +209,24 @@ export class Profile extends Component {
     return this.dialog.current.close();
   }
 
+  handleFollowUser = async () => {
+    const { follow, profile: { user: { username } } } = this.props;
+    await follow(username);
+    this.setState(prevState => ({
+      ...prevState,
+      isFollowing: true,
+    }));
+  };
+
+  handleUnFollowUser = async () => {
+    const { unfollow, profile: { user: { username } } } = this.props;
+    await unfollow(username);
+    this.setState(prevState => ({
+      ...prevState,
+      isFollowing: false,
+    }));
+  };
+
   render() {
     const {
       errors,
@@ -188,12 +243,15 @@ export class Profile extends Component {
         email,
       },
       article,
+      isFollowing,
+      usernameFromToken,
     } = this.state;
     const { image: { loading } } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
     const noArticle = () => (
-      <h1 className="no-article">You have no articles yet</h1>
+      <h1 className="no-article">{loading && loader}</h1>
     );
+    const { profile } = this.state;
     return (
       <div data-test="profileComponent">
         <dialog ref={this.dialog}>
@@ -232,7 +290,7 @@ export class Profile extends Component {
 
               <TextArea
                 style={{
-                  width: '100%',
+                  width: '101%',
                 }}
                 name="bio"
                 value={bio || ''}
@@ -282,15 +340,14 @@ export class Profile extends Component {
                 <div className="name-button">
                   <h3>{`${firstname} ${lastname}`}</h3>
 
-                  <span>
-                    <Button
-                      handleClick={() => this.handleToggleEditProfileModal('open')}
-                      datatest="edit-button"
-                      style={{ padding: '0px 5px', width: '150px' }}
-                    >
-                      Edit Profile
-                    </Button>
-                  </span>
+                  <RenderButton
+                    handleToggleEditProfileModal={this.handleToggleEditProfileModal}
+                    handleUnFollowUser={this.handleUnFollowUser}
+                    handleFollowUser={this.handleFollowUser}
+                    usernameFromToken={this.state && usernameFromToken}
+                    isFollowing={this.state && isFollowing}
+                    profile={this.state && profile}
+                  />
                   <span style={{ marginTop: '10px' }}>
                     <p>{`@${username}`}</p>
                   </span>
@@ -347,14 +404,24 @@ Profile.propTypes = {
   updateProfile: PropTypes.func.isRequired,
   image: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
-  }),
+  }).isRequired,
+  unfollow: PropTypes.func.isRequired,
+  follow: PropTypes.func.isRequired,
+  profile: PropTypes.shape({
+    user: PropTypes.shape({
+      username: PropTypes.string,
+    }),
+  }).isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 export default connectComponent(
-  (Profile), {
-    fetchProfile: getProfile,
+  withRouter(Profile), {
+    fetchProfile: (username = null) => getProfile(username),
     fetchArticle: getArticles,
     updateProfile: editProfile,
     uploadImage: postImage,
+    follow: (username) => followUser(username),
+    unfollow: (username) => unFollowUser(username),
   },
 );

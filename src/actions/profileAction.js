@@ -46,11 +46,14 @@ export const getArticlesFailure = (error) => ({
   error,
 });
 
-export const getProfile = () => async (dispatch) => {
+export const getProfile = (username) => async (dispatch) => {
   dispatch(getProfileStart());
   try {
-    const token = jwtDecode(localStorage.getItem('haven'));
-    const response = await axiosInstance.get(`/profiles/${token.username}`);
+    if (username) {
+      const response = await axiosInstance.get(`/profiles/${username}/`);
+      return dispatch(getProfileSuccess(response.data.profile));
+    }
+    const response = await axiosInstance.get('/user');
     return dispatch(getProfileSuccess(response.data.profile));
   } catch (error) {
     return dispatch(getProfileFailure(error.response.data));
@@ -63,9 +66,9 @@ export const editProfile = (payload) => async (dispatch) => {
     const response = await axiosInstance.put('/user', payload);
     localStorage.setItem('haven', response.data.profile.token);
     swal({
-      title: 'Edit User Profile',
       text: 'Your Profile has been successfully Edited',
       icon: 'success',
+      timer: 3000,
     });
     return dispatch(editProfileSuccess(response.data.profile));
   } catch (error) {
@@ -73,9 +76,15 @@ export const editProfile = (payload) => async (dispatch) => {
   }
 };
 
-export const getArticles = () => async (dispatch) => {
+export const getArticles = (authorId) => async (dispatch) => {
+  let id;
   dispatch(getArticlesStart());
   try {
+    if (authorId) {
+      id = authorId;
+      const response = await axiosInstance.get(`/articles/?authorId=${id}`);
+      return dispatch(getArticlesSuccess(response.data.articles));
+    }
     const token = jwtDecode(localStorage.getItem('haven'));
     const response = await axiosInstance.get(`/articles/?authorId=${token.id}`);
     return dispatch(getArticlesSuccess(response.data.articles));

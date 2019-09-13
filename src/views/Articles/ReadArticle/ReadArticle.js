@@ -1,20 +1,45 @@
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Component } from 'react';
+import jwtDecode from 'jwt-decode';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import ReactHtmlParser from 'react-html-parser';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import swal from '@sweetalert/with-react';
 import Loader from 'react-loader-spinner';
 import { readArticle, deleteAnArticle } from '@Actions/Articles';
 import { getArticlesWithTagFromDb } from '@Actions/tagAction';
+import { getProfile } from '@Actions/profileAction';
+import RenderButton from '@Components/RenderButton';
 import connectComponent from '@Lib/connect-component';
 import Icon from '@Components/Icon';
+import { followUser } from '@Actions/followActions';
+import { unFollowUser } from '@Actions/unfollowActions';
 import { convertToHtml, isEmpty } from '@Utils/';
 import './ReadArticle.scss';
 
 export class ReadArticle extends Component {
+  state = {
+    errors: {},
+    isFormValid: true,
+    dialogOpen: false,
+    profile: {
+      email: '',
+      image: '',
+      bio: '',
+      firstname: '',
+      lastname: '',
+      followings: [],
+      followerCount: '',
+      followingCount: '',
+    },
+    usernameFromToken: '',
+    username: '',
+    isFollowing: false,
+  }
+
   componentDidMount = async () => {
     const {
       getSingleArticle,
@@ -23,8 +48,49 @@ export class ReadArticle extends Component {
           slug,
         },
       },
+
+      fetchProfile,
     } = this.props;
+    const { auth: { isAuthenticated } } = this.props;
+    if (isAuthenticated) {
+      const { username } = jwtDecode(localStorage.getItem('haven'));
+      const user = await fetchProfile();
+      this.setState(prevState => ({
+        ...prevState,
+        profile: {
+          ...prevState.profile,
+          followings: user.payload.followings,
+        },
+        usernameFromToken: username,
+      }));
+    }
     await getSingleArticle(slug);
+    this.iAmFollowing();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.article && prevProps.article.author) {
+      if (prevProps.article.author.username !== prevState.username) {
+        this.setState(prevState => ({
+          ...prevState,
+          username: prevProps.article.author.username,
+        }));
+      }
+    }
+  }
+
+  iAmFollowing = () => {
+    let response = false;
+    const { profile: { followings }, username } = this.state;
+    followings.forEach((fellow) => {
+      if (fellow.username === username) {
+        response = true;
+      }
+    });
+    this.setState({
+      isFollowing: response,
+    });
+    return response;
   }
 
   parseArticleBody = article => {
@@ -78,6 +144,29 @@ export class ReadArticle extends Component {
     await getArticlesTag(tag, history);
   }
 
+  handleFollowUser = async () => {
+    const { follow, article: { author: { username } } } = this.props;
+    await follow(username);
+    this.setState({
+      isFollowing: true,
+    });
+  };
+
+  handleUnFollowUser = async () => {
+    const { unfollow, article: { author: { username } } } = this.props;
+    await unfollow(username);
+    this.setState({
+      isFollowing: false,
+    });
+  };
+
+  handleProfile = () => {
+    const { article: { author: { username } } } = this.props;
+    const { history } = this.props;
+    return history.push(`/profiles/${username}`);
+  };
+
+
   render = () => {
     const {
       ui: { loading },
@@ -101,6 +190,10 @@ export class ReadArticle extends Component {
         <p onClick={() => this.handleTagClick(tag.name)}>{tag.name}</p>
       </li>
     )) : null;
+    const { usernameFromToken, isFollowing } = this.state;
+    const profile = {
+      username: author && author.username,
+    };
     const body = this.parseArticleBody(articleBody);
 
     const loader = (
@@ -134,8 +227,23 @@ export class ReadArticle extends Component {
                   </div>
                   <div className="article-details-div center">
                     <div className="vertical-center name-date">
-                      <p className="author-name">{author ? author.username : 'Loading...'}</p>
+                      <p className="author-name">
+                        <Link onClick={this.handleProfile} to="#">
+                          {author ? author.username : 'Loading...'}
+                        </Link>
+                      </p>
                       <p className="created-date">{moment(createdAt).format('MMM DD, YYYY')}</p>
+                    </div>
+                    <div>
+                      {usernameFromToken && (
+                      <RenderButton
+                        handleUnFollowUser={this.handleUnFollowUser}
+                        handleFollowUser={this.handleFollowUser}
+                        usernameFromToken={usernameFromToken}
+                        isFollowing={isFollowing}
+                        profile={profile}
+                      />
+                      )}
                     </div>
                     <div className="vertical-center read-time">
                       <p>{`${readTime || 0} min${readTime > 1 ? 's' : ''} read`}</p>
@@ -206,6 +314,9 @@ ReadArticle.propTypes = {
   auth: PropTypes.shape().isRequired,
   ui: PropTypes.shape().isRequired,
   getArticlesTag: PropTypes.func.isRequired,
+  unfollow: PropTypes.func.isRequired,
+  follow: PropTypes.func.isRequired,
+  fetchProfile: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
@@ -213,5 +324,8 @@ export default connectComponent(
     getSingleArticle: slug => readArticle(slug),
     deleteArticle: (slug, history) => deleteAnArticle(slug, history),
     getArticlesTag: getArticlesWithTagFromDb,
+    follow: (username) => followUser(username),
+    unfollow: (username) => unFollowUser(username),
+    fetchProfile: getProfile,
   },
 );

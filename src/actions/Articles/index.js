@@ -43,7 +43,6 @@ export const getArticle = () => async dispatch => {
     });
   } catch (err) {
     // eslint-disable-next-line no-console
-    // console.log(err);
   }
 };
 
@@ -56,7 +55,6 @@ export const getEditorsChoice = () => async dispatch => {
     });
   } catch (err) {
     // eslint-disable-next-line no-console
-    // console.log(err);
   }
 };
 

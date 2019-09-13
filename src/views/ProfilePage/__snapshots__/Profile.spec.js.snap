@@ -87,7 +87,7 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
           name="bio"
           style={
             Object {
-              "width": "100%",
+              "width": "101%",
             }
           }
           type="text"
@@ -188,25 +188,27 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
             <h3>
                
             </h3>
-            <span>
-              <Button
-                className=""
-                datatest="edit-button"
-                disabled={false}
-                handleClick={[Function]}
-                id=""
-                label=""
-                style={
-                  Object {
-                    "padding": "0px 5px",
-                    "width": "150px",
-                  }
+            <withRouter(renderButton)
+              handleFollowUser={[Function]}
+              handleToggleEditProfileModal={[Function]}
+              handleUnFollowUser={[Function]}
+              isFollowing={false}
+              profile={
+                Object {
+                  "bio": "",
+                  "email": "",
+                  "firstname": "",
+                  "followerCount": "",
+                  "followers": Array [],
+                  "followingCount": "",
+                  "followings": Array [],
+                  "image": "",
+                  "lastname": "",
+                  "username": "",
                 }
-                type=""
-              >
-                Edit Profile
-              </Button>
-            </span>
+              }
+              usernameFromToken=""
+            />
             <span
               style={
                 Object {
@@ -286,9 +288,7 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
     <div />
     <h1
       className="no-article"
-    >
-      You have no articles yet
-    </h1>
+    />
   </div>
   <div
     className="profile-footer"

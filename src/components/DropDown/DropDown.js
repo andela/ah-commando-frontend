@@ -86,7 +86,7 @@ export class DropDown extends Component {
         <ul className="dropList">
           <Link to="/create-article" className="dropLinks">New Article</Link>
           <Link to="/" className="dropLinks">Bookmarks</Link>
-          <Link to="/profile" className="dropLinks">Profile</Link>
+          <Link to="/me" className="dropLinks">Profile</Link>
           <Link to="/" className="dropLinks">Stats</Link>
           <Link to="/" className="dropLinks">Help</Link>
           <div className="email">
@@ -131,7 +131,7 @@ export class DropDown extends Component {
       case 'article':
         return history.push(`/articles/${resourceId}`);
       case 'follow':
-        return history.push(`/profiles/${resourceId}`);
+        return history.push(`/me/${resourceId}`);
       default:
         return history.push(`/profiles/${resourceId}`);
     }
