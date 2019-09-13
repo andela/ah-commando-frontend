@@ -46,7 +46,7 @@ export const getArticlesFailure = (error) => ({
   error,
 });
 
-export const getProfile = (username = null) => async (dispatch) => {
+export const getProfile = (username) => async (dispatch) => {
   dispatch(getProfileStart());
   try {
     if (username) {
@@ -76,7 +76,7 @@ export const editProfile = (payload) => async (dispatch) => {
   }
 };
 
-export const getArticles = (authorId = null) => async (dispatch) => {
+export const getArticles = (authorId) => async (dispatch) => {
   let id;
   dispatch(getArticlesStart());
   try {

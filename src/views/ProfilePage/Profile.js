@@ -1,6 +1,4 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable no-nested-ternary */
-/* eslint-disable react/require-default-props */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
@@ -60,7 +58,8 @@ export class Profile extends Component {
   async componentDidMount() {
     const { fetchProfile, fetchArticle } = this.props;
     // eslint-disable-next-line react/prop-types
-    const myUsername = this.props.history.location.pathname.split('/')[2];
+    const { history } = this.props;
+    const myUsername = history.location.pathname.split('/')[2];
     const userProfile = () => {
       const { username, email } = jwtDecode(localStorage.getItem('haven'));
       if (username === undefined) return email;
@@ -245,12 +244,15 @@ export class Profile extends Component {
         email,
       },
       article,
+      isFollowing,
+      userToken,
     } = this.state;
     const { image: { loading } } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
     const noArticle = () => (
       <h1 className="no-article">{loading && loader}</h1>
     );
+    const { profile } = this.state;
     return (
       <div data-test="profileComponent">
         <dialog ref={this.dialog}>
@@ -343,9 +345,9 @@ export class Profile extends Component {
                     handleToggleEditProfileModal={this.handleToggleEditProfileModal}
                     handleUnFollowUser={this.handleUnFollowUser}
                     handleFollowUser={this.handleFollowUser}
-                    userToken={this.state && this.state.userToken}
-                    isFollowing={this.state && this.state.isFollowing}
-                    profile={this.state && this.state.profile}
+                    userToken={this.state && userToken}
+                    isFollowing={this.state && isFollowing}
+                    profile={this.state && profile}
                   />
                   <span style={{ marginTop: '10px' }}>
                     <p>{`@${username}`}</p>
@@ -403,14 +405,15 @@ Profile.propTypes = {
   updateProfile: PropTypes.func.isRequired,
   image: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
-  }),
+  }).isRequired,
   unfollow: PropTypes.func.isRequired,
   follow: PropTypes.func.isRequired,
   profile: PropTypes.shape({
     user: PropTypes.shape({
       username: PropTypes.string,
     }),
-  }),
+  }).isRequired,
+  history: PropTypes.shape().isRequired,
 };
 
 export default connectComponent(

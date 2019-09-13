@@ -156,8 +156,8 @@ export class ReadArticle extends Component {
 
   handleProfile = () => {
     const { article: { author: { username } } } = this.props;
-    // eslint-disable-next-line react/destructuring-assignment
-    return this.props.history.push(`/profiles/${username}`);
+    const { history } = this.props;
+    return history.push(`/profiles/${username}`);
   };
 
 
