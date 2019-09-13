@@ -116,6 +116,7 @@ SideBar.propTypes = {
     selectedIndex: PropTypes.number,
   }).isRequired,
 };
+
 export default connectComponent(SideBar, {
   getCategoryArticles, updateCategory, updateMenuItem, updateCategoryPageNumber,
 });
