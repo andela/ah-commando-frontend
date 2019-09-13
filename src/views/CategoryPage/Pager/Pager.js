@@ -100,7 +100,6 @@ Arrows.propTypes = {
 
 export const Page = (props) => {
   const { children, handleChange, selected } = props;
-  console.log(selected);
   return (
     <div className={`page-container ${selected ? 'active' : ''}`} onClick={() => { handleChange(children); }}>
       <p>{ children }</p>
