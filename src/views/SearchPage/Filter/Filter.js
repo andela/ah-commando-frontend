@@ -5,10 +5,9 @@ import connectComponent from '@Lib/connect-component';
 import {
   updateFilters, displayFilters, removeFilters, getFilteredArticles,
 } from '@Actions/searchActions';
-import FilterComponents from './FilterComponents';
+import { CategorySelection, FilterContainer, DropMenu } from './FilterComponents';
 
 const catego = ['Technology', 'Health', 'Travel', 'Science', 'Education', 'Culture', 'Lifestyle', 'Nature', 'Fashion'];
-const { CategorySelection, FilterContainer, DropMenu } = FilterComponents;
 
 export class Filter extends Component {
   constructor(props) {

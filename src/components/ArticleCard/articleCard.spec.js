@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { checkProps, findByTestAttribute } from '@Utils/';
-import ArticleCard from './';
+import { ArticleCard } from './';
 
 let wrapper;
 const shallowRender = (props) => {
@@ -26,6 +26,9 @@ describe('Article component test', () => {
         }],
         readTime: 3,
       },
+      type: '',
+      likeDislikeAResource: jest.fn(),
+      getLikedAResource: jest.fn(),
     };
     beforeEach(() => {
       wrapper = shallowRender(props);
@@ -86,6 +89,119 @@ describe('Article component test', () => {
       const appInstance = wrapper.instance();
       const { state: { loading } } = appInstance;
       expect(loading).toBe(1);
+    });
+  });
+  describe('test like or dislike and article', () => {
+    let instance;
+    const props = {
+      data: {
+        image: 'image.com',
+        title: 'title',
+        author: {
+          firstname: 'author',
+          lastname: 'test',
+        },
+        likes: 12,
+        dislikes: 3,
+        comment: [{
+          elelemt: 1,
+        }],
+        readTime: 3,
+      },
+      type: '',
+      likeDislikeAResource: jest.fn().mockReturnValueOnce(false),
+      getLikedAResource: jest.fn(),
+    };
+    beforeEach(() => {
+      wrapper = shallowRender(props);
+      instance = wrapper.instance();
+    });
+    it('should like an article', async () => {
+      const likeBtn = wrapper.find('.like-icon');
+      const e = {
+        stopPropagation: jest.fn(),
+        currentTarget: {
+          attributes: [0, {
+            value: '',
+          }],
+        },
+      };
+      const id = 21;
+      const type = 'article';
+      likeBtn.simulate('click', e);
+      await instance.likeOrDislike(e, id);
+      const action = e.currentTarget.attributes[1].value;
+      instance.checkLikeAction(action);
+      await props.likeDislikeAResource(action, id, type);
+      expect(props.likeDislikeAResource).toMatchSnapshot();
+    });
+    it('should generate name by like action', () => {
+      const likeBtn = wrapper.find('.like-icon');
+      instance.state = {
+        likeAction: 'like',
+      };
+      const e = {
+        currentTarget: {
+          attributes: [{}, {
+            value: 'like',
+          }],
+        },
+      };
+      likeBtn.simulate('click', e);
+      expect(instance.state.likeAction).toBe('like');
+      instance.generateNameByLikeAction();
+      expect(instance.generateNameByLikeAction()).toBe('boldLikes');
+    });
+    it('should generate name by like action should return likes', () => {
+      const likeBtn = wrapper.find('.like-icon');
+      instance.state = {
+        likeAction: 'dislikes',
+      };
+      const e = {
+        currentTarget: {
+          attributes: [{}, {
+            value: 'dislikes',
+          }],
+        },
+      };
+      likeBtn.simulate('click', e);
+      expect(instance.state.likeAction).toBe('dislikes');
+      instance.generateNameByLikeAction();
+      expect(instance.generateNameByLikeAction()).toBe('likes');
+    });
+    it('should generate name by dislike action', () => {
+      const dislikeBtn = wrapper.find('.dislike-icon');
+      instance.state = {
+        likeAction: 'dislike',
+      };
+      const e = {
+        currentTarget: {
+          attributes: [{}, {
+            value: 'dislike',
+          }],
+        },
+      };
+      dislikeBtn.simulate('click', e);
+      expect(instance.state.likeAction).toBe('dislike');
+      instance.generateNameByDisLikeAction();
+      expect(instance.generateNameByDisLikeAction()).toBe('boldDislikes');
+    });
+    it('should generate name by dislike action should return dislikes', () => {
+      const dislikeBtn = wrapper.find('.dislike-icon');
+      instance.state = {
+        likeAction: 'like',
+      };
+      const e = {
+        currentTarget: {
+          attributes: [{}, {
+            value: 'like',
+          }],
+        },
+      };
+      dislikeBtn.simulate('click', e);
+      expect(instance.state.likeAction).toBe('like');
+      instance.generateNameByDisLikeAction();
+      expect(instance.generateNameByDisLikeAction()).toBe('dislikes');
     });
   });
 });

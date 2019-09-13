@@ -1,11 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Filter } from './Filter';
-import FilterComponents from './';
-
-const {
+import {
   CategorySelection, FilterContainer, Selection, DropMenu,
-} = FilterComponents;
+} from './FilterComponents';
+
 let wrapper, instance;
 const props = {
   filters: {

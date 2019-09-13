@@ -8,7 +8,7 @@ import connect from '@Lib/connect-component';
 import { thousandths } from '@Utils/';
 import Icon from '../Icon';
 
-class ArticleCard extends Component {
+export class ArticleCard extends Component {
   state = {
     loading: 0,
     error: false,
@@ -20,6 +20,32 @@ class ArticleCard extends Component {
 
   async componentDidMount() {
     await this.handleLikesandDislikesManualCountUpdate();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { lc, dlc } = this.state;
+    if (prevState.lc !== lc) {
+      this.handleLikesUpdate();
+      this.handleDisLikesUpdate();
+    }
+    if (prevState.dlc !== dlc) {
+      this.handleLikesUpdate();
+      this.handleDisLikesUpdate();
+    }
+  }
+
+  handleLikesUpdate = () => {
+    const { lc } = this.state;
+    this.setState({
+      lc,
+    });
+  }
+
+  handleDisLikesUpdate = () => {
+    const { dlc } = this.state;
+    this.setState({
+      dlc,
+    });
   }
 
 
@@ -204,11 +230,11 @@ class ArticleCard extends Component {
           </div>
           <div className="icons">
             <div className="like" onClick={(e) => this.likeOrDislike(e, id)} name="like">
-              <Icon name={this.generateNameByLikeAction()} className="like" style={{ color: 'black' }} />
+              <Icon name={this.generateNameByLikeAction()} className="like-icon" style={{ color: 'black' }} />
               <label className="icon-label">{thousandths(lc)}</label>
             </div>
             <div className="dislike" onClick={(e) => this.likeOrDislike(e, id)} name="dislike">
-              <Icon name={this.generateNameByDisLikeAction()} className="dislike" style={{ color: 'black' }} />
+              <Icon name={this.generateNameByDisLikeAction()} className="dislike-icon" style={{ color: 'black' }} />
               <label className="icon-label">{thousandths(dlc)}</label>
             </div>
             <div className="comment">
