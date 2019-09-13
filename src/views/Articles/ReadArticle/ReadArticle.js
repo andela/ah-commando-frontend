@@ -83,6 +83,13 @@ export class ReadArticle extends Component {
       });
   }
 
+<<<<<<< HEAD
+=======
+  handleClick = name => {
+    document.querySelector(`[aria-label="${name}"]`).click();
+  }
+
+>>>>>>> feat(articles): implement share articles feature
   handleTagClick = async (tag) => {
     const { getArticlesTag, history } = this.props;
     await getArticlesTag(tag, history);
