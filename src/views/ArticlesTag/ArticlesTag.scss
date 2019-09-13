@@ -1,0 +1,25 @@
+.articlesList {
+  padding-left: 50px;
+  margin-left: 50px;
+  width: 70%;
+  margin: auto;
+  overflow: hidden;
+}
+
+.verticalSection {
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontalSection {
+  display: flex;
+  flex-direction: row;
+}
+
+.card {
+  margin: 30px 30px 30px 0;
+}
+
+h3 {
+  padding: 0px 15px 15px 0px;
+}

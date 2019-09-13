@@ -8,6 +8,7 @@ import searchReducer from './searchReducer';
 import notifications from './notifications';
 import { articleReducer } from './Articles';
 import categoryReducer from './categoriesReducer';
+import tagReducer from './tagReducer';
 
 const reducers = combineReducers({
   ui: uiReducer,
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   article: articleReducer,
   notifications,
   category: categoryReducer,
+  tag: tagReducer,
 });
 
 export default reducers;
