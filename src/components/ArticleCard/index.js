@@ -93,7 +93,6 @@ export class ArticleCard extends Component {
     e.stopPropagation();
     const { likeDislikeAResource } = this.props;
     const action = e.currentTarget.attributes[1].value;
-    this.checkLikeAction(action);
     const type = 'article';
     const data = await likeDislikeAResource(action, id, type);
     if (!data) {
@@ -102,6 +101,7 @@ export class ArticleCard extends Component {
       }));
       return false;
     }
+    this.checkLikeAction(action);
     const setState = this.setState.bind(this);
     if (action === 'dislike') {
       activateDislikeAction(setState, this.state, data);
