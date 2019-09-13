@@ -104,9 +104,9 @@ describe('get articles actions', () => {
           tags: 'show',
         },
         updateFields: {
-          categories: [],
-          authors: [],
-          tags: [],
+          categories: ['technology', 'lifstyle'],
+          authors: ['monday', 'tuesday'],
+          tags: ['javascript', 'react'],
         },
         searchResults: [],
       },
@@ -120,7 +120,7 @@ describe('get articles actions', () => {
   it('adds new articles to the store', () => {
     nock(url)
       .post('/articles/search/filter?searchQuery=on&limit=2000')
-      .reply(200, [{ a: 'b' }, { c: 'd' }]);
+      .reply(200, { data: { articles: [{}, {}] } });
     return store.dispatch(getFilteredArticles())
       .then(() => {
         expect(store.getActions()).toMatchSnapshot();

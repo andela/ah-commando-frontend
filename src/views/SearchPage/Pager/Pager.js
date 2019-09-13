@@ -33,7 +33,7 @@ export class Pager extends Component {
     const { page } = filters;
     const articles = filters.searchResults;
     const totalArticles = articles.length;
-    const pages = Math.ceil(totalArticles / 20);
+    const pages = Math.ceil(totalArticles / 30);
     if (page < pages) {
       this.updatePageNumber(page + 1);
     }
@@ -41,9 +41,19 @@ export class Pager extends Component {
 
   displayPages(pages) {
     const result = [];
+    const { filters: { page } } = this.props;
     for (let i = 1; i <= pages; i += 1) {
-      const page = <Page key={i} handleChange={this.updatePageNumber}>{i}</Page>;
-      result.push(page);
+      const pagenumber = (
+        <Page
+          key={i}
+          handleChange={this.updatePageNumber}
+          index={i}
+          selected={i === page}
+        >
+          {i}
+        </Page>
+      );
+      result.push(pagenumber);
     }
     return result;
   }
@@ -52,7 +62,7 @@ export class Pager extends Component {
     const { filters } = this.props;
     const articles = filters.searchResults;
     const totalArticles = articles.length;
-    const pages = Math.ceil(totalArticles / 20);
+    const pages = Math.ceil(totalArticles / 30);
     const { searchQuery } = filters;
 
     return (
@@ -104,9 +114,9 @@ Arrows.propTypes = {
 };
 
 export const Page = (props) => {
-  const { children, handleChange } = props;
+  const { children, handleChange, selected } = props;
   return (
-    <div className="page-container" onClick={() => { handleChange(children); }}>
+    <div className={`page-container ${selected ? 'active' : ''}`} onClick={() => { handleChange(children); }}>
       <p>{ children }</p>
     </div>
   );
@@ -115,6 +125,7 @@ export const Page = (props) => {
 Page.propTypes = {
   children: PropTypes.number.isRequired,
   handleChange: PropTypes.func.isRequired,
+  selected: PropTypes.bool.isRequired,
 };
 
 export default connectComponent(Pager, { updatePageNumber });

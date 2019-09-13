@@ -36,7 +36,7 @@ export class Header extends Component {
 
   handleKeyUp = (e) => {
     if (e.keyCode === 13) {
-      if (e.target.value.length) {
+      if (e.target.value.length && e.target.value.length > 1) {
         this.props.updateSearchQuery(e.target.value);
         this.props.getFilteredArticles(e.target.value);
         this.props.updatePageNumber(1);
