@@ -1,4 +1,3 @@
-import axois from 'axios';
 import swal from '@sweetalert/with-react';
 import {
   LOADING,
@@ -7,28 +6,37 @@ import {
 } from '@Actions/types';
 import { axiosInstance } from '@Utils/';
 
-const APP_URL = 'https://a-haven-staging.herokuapp.com';
+const shuffle = (array) => {
+  let currentIndex = array.length, temporaryValue, randomIndex;
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+};
 
 export const getHomePageArticles = () => async dispatch => {
   try {
-    const response = await axois.get(
-      `${APP_URL}/api/v1/articles/categories/article`,
-    );
+    const response = await axiosInstance.get('articles/categories/article');
+    const shuffledResponse = {};
+    shuffledResponse.Categories = shuffle(response.data.Categories);
     dispatch({
       type: 'GET_HOME_ARTICLES_FROM_DATABASE',
-      payload: response.data,
+      payload: shuffledResponse,
     });
   } catch (err) {
     // eslint-disable-next-line no-console
-    // console.log(err);
+    console.log(err);
   }
 };
 
 export const getArticle = () => async dispatch => {
   try {
-    const response = await axois.get(
-      `${APP_URL}/api/v1/articles/categories/article/featured`,
-    );
+    const response = await axiosInstance.get('articles/categories/article/featured');
     dispatch({
       type: 'GET_FEATURED',
       payload: response.data,
@@ -41,9 +49,7 @@ export const getArticle = () => async dispatch => {
 
 export const getEditorsChoice = () => async dispatch => {
   try {
-    const response = await axois.get(
-      `${APP_URL}/api/v1/articles?limit=5`,
-    );
+    const response = await axiosInstance.get('articles?limit=5');
     dispatch({
       type: 'GET_EDITORS_CHOICE',
       payload: response.data,

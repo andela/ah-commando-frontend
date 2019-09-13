@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import ArticleCard from '@Components/ArticleCard';
 import PropTypes from 'prop-types';
@@ -25,20 +26,7 @@ export class MainCardSection extends Component {
       );
     }
 
-    articleCategories.shuffle = (array) => {
-      let currentIndex = array.length, temporaryValue, randomIndex;
-      while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-      return array;
-    };
-
-    const articles = articleCategories.shuffle(articleCategories).map((catergory, index) => {
+    const articles = articleCategories.map((catergory, index) => {
       const { name, Articles } = catergory;
       let ArticleIndex = -1;
       if (Articles.length > 0) {
