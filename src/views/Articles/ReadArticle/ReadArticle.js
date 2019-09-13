@@ -149,6 +149,10 @@ export class ReadArticle extends Component {
       });
   }
 
+  handleClick = name => {
+    document.querySelector(`[aria-label="${name}"]`).click();
+  }
+
   handleTagClick = async (tag) => {
     const { getArticlesTag, history } = this.props;
     await getArticlesTag(tag, history);
