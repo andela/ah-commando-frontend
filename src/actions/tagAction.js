@@ -12,7 +12,6 @@ export const getArticlesWithTag = (payload, tag) => ({
 export const getArticlesWithTagFromDb = (tag, history) => async dispatch => {
   try {
     const response = await axiosInstance.post('/articles/tag/get-article', { tag: { articleTag: tag } });
-    // console.log('response', response.data.articles);
 
     if (response.status === 200) {
       dispatch(getArticlesWithTag(response.data.articles, tag));
