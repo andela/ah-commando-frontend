@@ -51,17 +51,21 @@ export class ReadArticle extends Component {
 
       fetchProfile,
     } = this.props;
-    const userProfile = jwtDecode(localStorage.getItem('haven')).username;
-    const user = await fetchProfile();
-    this.setState(prevState => ({
-      ...prevState,
-      profile: {
-        ...prevState.profile,
-        followings: user.payload.followings,
-      },
-      usernameFromToken: userProfile,
-    }));
+    const { auth: { isAuthenticated } } = this.props;
+    if (isAuthenticated) {
+      const { username } = jwtDecode(localStorage.getItem('haven'));
+      const user = await fetchProfile();
+      this.setState(prevState => ({
+        ...prevState,
+        profile: {
+          ...prevState.profile,
+          followings: user.payload.followings,
+        },
+        usernameFromToken: username,
+      }));
+    }
     await getSingleArticle(slug);
+    this.iAmFollowing();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -71,18 +75,22 @@ export class ReadArticle extends Component {
           ...prevState,
           username: prevProps.article.author.username,
         }));
-
-        const { profile: { followings }, username } = this.state;
-        followings.forEach((fellow) => {
-          if (fellow.username === username) {
-            this.setState(prevState => ({
-              ...prevState,
-              isFollowing: true,
-            }));
-          }
-        });
       }
     }
+  }
+
+  iAmFollowing = () => {
+    let response = false;
+    const { profile: { followings }, username } = this.state;
+    followings.forEach((fellow) => {
+      if (fellow.username === username) {
+        response = true;
+      }
+    });
+    this.setState({
+      isFollowing: response,
+    });
+    return response;
   }
 
   parseArticleBody = article => {
@@ -139,19 +147,17 @@ export class ReadArticle extends Component {
   handleFollowUser = async () => {
     const { follow, article: { author: { username } } } = this.props;
     await follow(username);
-    this.setState(prevState => ({
-      ...prevState,
+    this.setState({
       isFollowing: true,
-    }));
+    });
   };
 
   handleUnFollowUser = async () => {
     const { unfollow, article: { author: { username } } } = this.props;
     await unfollow(username);
-    this.setState(prevState => ({
-      ...prevState,
+    this.setState({
       isFollowing: false,
-    }));
+    });
   };
 
   handleProfile = () => {
@@ -233,8 +239,8 @@ export class ReadArticle extends Component {
                       <RenderButton
                         handleUnFollowUser={this.handleUnFollowUser}
                         handleFollowUser={this.handleFollowUser}
-                        usernameFromToken={this.state && usernameFromToken}
-                        isFollowing={this.state && isFollowing}
+                        usernameFromToken={usernameFromToken}
+                        isFollowing={isFollowing}
                         profile={profile}
                       />
                       )}
