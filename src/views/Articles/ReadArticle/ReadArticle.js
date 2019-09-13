@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
@@ -83,13 +84,10 @@ export class ReadArticle extends Component {
       });
   }
 
-<<<<<<< HEAD
-=======
   handleClick = name => {
     document.querySelector(`[aria-label="${name}"]`).click();
   }
 
->>>>>>> feat(articles): implement share articles feature
   handleTagClick = async (tag) => {
     const { getArticlesTag, history } = this.props;
     await getArticlesTag(tag, history);
