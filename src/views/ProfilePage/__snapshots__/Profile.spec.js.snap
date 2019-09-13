@@ -207,7 +207,7 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
                   "username": "",
                 }
               }
-              userToken=""
+              usernameFromToken=""
             />
             <span
               style={

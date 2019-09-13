@@ -4,7 +4,7 @@ import { POST_IMAGE_FAILURE, POST_IMAGE_START } from '../types';
 jest.mock('../imageFunc');
 
 describe('Async action creators', () => {
-  it('Should create SIGN_IN_USER_SUCCEEDED when signIn user has been done', async () => {
+  it('should dispatch post image action', async () => {
     const image = {
       image: 'image.png',
     };
@@ -13,7 +13,7 @@ describe('Async action creators', () => {
     expect(dispatch).toHaveBeenCalledTimes(2);
   });
 
-  it('Should create SIGN_IN_USER_SUCCEEDED when signIn user has been done', async () => {
+  it('should dispatch start action on image post', async () => {
     const image = null;
     const dispatch = jest.fn();
     await actions.postImage(image)(dispatch);

@@ -108,7 +108,7 @@ describe('Profile component test', () => {
       expect(component.length).toBe(1);
     });
 
-    it('set profile to state', () => {
+    it('should call component did mount and set username on state', () => {
       instance.componentDidMount();
       setTimeout(() => {
         expect(instance.state.profile.username).toBe('test');
@@ -138,7 +138,7 @@ describe('Profile component test', () => {
       expect(instance.setFormValidity(state.errors)).toBe(true);
     });
 
-    it('set profile to state', () => {
+    it('should check for errors on form submit', () => {
       wrapper.setState({
         profile: {
           email: 'non@gmail.com',
@@ -152,7 +152,7 @@ describe('Profile component test', () => {
       }, 2000);
     });
 
-    it('set profile to state', () => {
+    it('should throw an error if no username is supplied', () => {
       wrapper.setState({
         profile: {
           email: 'non@gmail.com',
@@ -168,7 +168,7 @@ describe('Profile component test', () => {
       }, 2000);
     });
 
-    it('set profile to state', () => {
+    it('should mock image upload', () => {
       instance.handleImageChange();
       const fileContents = 'file contents';
       const file = new Blob([fileContents], { type: 'text/plain' });
@@ -193,7 +193,7 @@ describe('Profile component test', () => {
       expect(erp).toMatchSnapshot();
     });
 
-    it('shallow render with snapshot', () => {
+    it('should check that ArticleCard exists', () => {
       const erp = shallow(<Profile {...props} />);
       setTimeout(() => {
         expect(erp.find('ArticleCard').length).toBe(1);

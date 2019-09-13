@@ -49,7 +49,7 @@ export class Profile extends Component {
       },
       article: [],
       username: '',
-      userToken: '',
+      usernameFromToken: '',
       isFollowing: false,
     };
     this.dialog = React.createRef();
@@ -57,7 +57,6 @@ export class Profile extends Component {
 
   async componentDidMount() {
     const { fetchProfile, fetchArticle } = this.props;
-    // eslint-disable-next-line react/prop-types
     const { history } = this.props;
     const myUsername = history.location.pathname.split('/')[2];
     const userProfile = () => {
@@ -85,11 +84,11 @@ export class Profile extends Component {
         followers: profileResponse.payload.followers,
       },
       article: articleResponse.payload,
-      userToken: userProfile(),
+      usernameFromToken: userProfile(),
     }));
-    const { profile: { followers }, userToken } = this.state;
+    const { profile: { followers }, usernameFromToken } = this.state;
     followers.forEach((fellow) => {
-      if (fellow.username === userToken) {
+      if (fellow.username === usernameFromToken) {
         this.setState(prevState => ({
           ...prevState,
           isFollowing: true,
@@ -245,7 +244,7 @@ export class Profile extends Component {
       },
       article,
       isFollowing,
-      userToken,
+      usernameFromToken,
     } = this.state;
     const { image: { loading } } = this.props;
     const loader = <Loader type="BallTriangle" color="#fff" height={18} width={79} />;
@@ -345,7 +344,7 @@ export class Profile extends Component {
                     handleToggleEditProfileModal={this.handleToggleEditProfileModal}
                     handleUnFollowUser={this.handleUnFollowUser}
                     handleFollowUser={this.handleFollowUser}
-                    userToken={this.state && userToken}
+                    usernameFromToken={this.state && usernameFromToken}
                     isFollowing={this.state && isFollowing}
                     profile={this.state && profile}
                   />

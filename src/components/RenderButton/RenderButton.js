@@ -7,13 +7,13 @@ import './RenderButton.scss';
 const renderButton = (props) => {
   const {
     profile: { username },
-    userToken,
+    usernameFromToken,
     isFollowing,
     handleToggleEditProfileModal,
     handleUnFollowUser,
     handleFollowUser,
   } = props;
-  const button = (username === userToken) ? (props.match.url === '/me' || props.match.url === `profiles/${userToken}`) ? (
+  const button = (username === usernameFromToken) ? (props.match.url === '/me' || props.match.url === `profiles/${usernameFromToken}`) ? (
     <Button
       handleClick={() => handleToggleEditProfileModal('open')}
       datatest="edit-button"

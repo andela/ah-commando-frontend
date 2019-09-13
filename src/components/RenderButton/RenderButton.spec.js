@@ -76,7 +76,7 @@ const props = {
   })),
   history: [],
   profile: { user: { username: 'test username' } },
-  userToken: 'test userToken',
+  usernameFromToken: 'test usernameFromToken',
   isFollowing: false,
   handleUnFollowUser: jest.fn(),
   handleFollowUser: jest.fn(),
@@ -89,14 +89,14 @@ describe('Render button tests', () => {
     expect(wrapper.length).toBe(1);
   });
 
-  it('should render compnents with correct props', () => {
+  it('should test for handlefollow method', () => {
     instance.handleFollowUser('usernmae');
     setTimeout(() => {
       expect(instance.state.isFollowing).toBe(true);
     });
   });
 
-  it('should render compnents with correct props', () => {
+  it('should test for handleunfollow method', () => {
     instance.handleUnFollowUser('usernmae');
     setTimeout(() => {
       expect(instance.state.isFollowing).toBe(false);
@@ -104,28 +104,28 @@ describe('Render button tests', () => {
   });
 });
 
-describe('Render button tests', () => {
+describe('ReadArticle tests', () => {
   const wrapper = shallow(<ReadArticle {...props} />);
   const instance = wrapper.instance();
-  it('should render compnents with correct props', () => {
+  it('should check that read article component exists', () => {
     expect(wrapper.length).toBe(1);
   });
 
-  it('should render compnents with correct props', () => {
+  it('should run handleFollowUser function', () => {
     instance.handleFollowUser('usernmae');
     setTimeout(() => {
       expect(instance.state.isFollowing).toBe(true);
     });
   });
 
-  it('should render compnents with correct props', () => {
+  it('should run handleunFollowUser function', () => {
     instance.handleUnFollowUser('usernmae');
     setTimeout(() => {
       expect(instance.state.isFollowing).toBe(false);
     });
   });
 
-  it('should render compnents with correct props', () => {
+  it('should test handleProfile function', () => {
     instance.handleProfile();
     setTimeout(() => {
       expect(instance.handleProfile).toHaveBeenCalled();
@@ -146,7 +146,7 @@ describe('Render button tests', () => {
     });
   });
 
-  it('should render compnents with correct props', () => {
+  it('should set state in componentDidUpdate lifecycle methods', () => {
     const prevProps = {
       article: { author: { username: 'my username' } },
     };

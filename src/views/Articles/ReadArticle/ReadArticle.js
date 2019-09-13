@@ -35,7 +35,7 @@ export class ReadArticle extends Component {
       followerCount: '',
       followingCount: '',
     },
-    userToken: '',
+    usernameFromToken: '',
     username: '',
     isFollowing: false,
   }
@@ -59,7 +59,7 @@ export class ReadArticle extends Component {
         ...prevState.profile,
         followings: user.payload.followings,
       },
-      userToken: userProfile,
+      usernameFromToken: userProfile,
     }));
     await getSingleArticle(slug);
   }
@@ -184,7 +184,7 @@ export class ReadArticle extends Component {
         <p onClick={() => this.handleTagClick(tag.name)}>{tag.name}</p>
       </li>
     )) : null;
-    const { userToken, isFollowing } = this.state;
+    const { usernameFromToken, isFollowing } = this.state;
     const profile = {
       username: author && author.username,
     };
@@ -229,11 +229,11 @@ export class ReadArticle extends Component {
                       <p className="created-date">{moment(createdAt).format('MMM DD, YYYY')}</p>
                     </div>
                     <div>
-                      {userToken && (
+                      {usernameFromToken && (
                       <RenderButton
                         handleUnFollowUser={this.handleUnFollowUser}
                         handleFollowUser={this.handleFollowUser}
-                        userToken={this.state && userToken}
+                        usernameFromToken={this.state && usernameFromToken}
                         isFollowing={this.state && isFollowing}
                         profile={profile}
                       />

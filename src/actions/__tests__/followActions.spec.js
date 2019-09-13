@@ -17,26 +17,26 @@ describe('testing redux actions', () => {
   afterEach(() => {
     moxios.uninstall();
   });
-  it('should follow a user', async () => {
+  it('should dispatch start action', async () => {
     const res = await store.dispatch(followUserStart());
     expect(res.type).toEqual('FOLLOW_USER_START');
   });
 
-  it('should follow a user', async () => {
+  it('should dispatch success action', async () => {
     const res = await store.dispatch(followUserSuccess());
     expect(res.type).toEqual('FOLLOW_USER_SUCCESS');
   });
 
-  it('should follow a user', async () => {
+  it('should dispatch failure action', async () => {
     const res = await store.dispatch(followUserFailure());
     expect(res.type).toEqual('FOLLOW_USER_FAILURE');
   });
 
-  it('should follow a user', async () => {
+  it('should dispatch failure action', async () => {
     const res = await store.dispatch(followUser());
     expect(res.type).toEqual('FOLLOW_USER_FAILURE');
   });
-  it('should follow a user', async () => {
+  it('should dispatch success action', async () => {
     const res = await store.getActions();
     expect(res[1].type).toEqual('FOLLOW_USER_SUCCESS');
     expect(res[1].payload).toEqual(undefined);
