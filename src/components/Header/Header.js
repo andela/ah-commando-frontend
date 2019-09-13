@@ -52,11 +52,13 @@ export class Header extends Component {
         new Notification(data.message);
       });
     }
+
     if (currentLocation !== location) {
       this.setState({
         showDropDown: false, currentLocation: location,
       });
     }
+
     const { notifications: { notifications } } = this.props;
     if (prevProps.notifications.notifications.length !== notifications.length) {
       const show = (notifications.length > 0);
