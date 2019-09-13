@@ -9,7 +9,7 @@ import { getComment, postComment } from '@Actions/commentActions';
 import Comment from '@Components/Comment';
 import './CommentPage.scss';
 
-class CommentPage extends React.Component {
+export class CommentPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
