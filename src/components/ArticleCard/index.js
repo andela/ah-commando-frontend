@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import './ArticleCard.scss';
 import { likeDislikeAResource, getLikedAResource } from '@Actions/likeActions';
 import connect from '@Lib/connect-component';
-import { thousandths } from '@Utils/';
+import { thousandths, activateLikeAction, activateDislikeAction } from '@Utils/';
 import Icon from '../Icon';
 
 export class ArticleCard extends Component {
@@ -21,33 +21,6 @@ export class ArticleCard extends Component {
   async componentDidMount() {
     await this.handleLikesandDislikesManualCountUpdate();
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { lc, dlc } = this.state;
-    if (prevState.lc !== lc) {
-      this.handleLikesUpdate();
-      this.handleDisLikesUpdate();
-    }
-    if (prevState.dlc !== dlc) {
-      this.handleLikesUpdate();
-      this.handleDisLikesUpdate();
-    }
-  }
-
-  handleLikesUpdate = () => {
-    const { lc } = this.state;
-    this.setState({
-      lc,
-    });
-  }
-
-  handleDisLikesUpdate = () => {
-    const { dlc } = this.state;
-    this.setState({
-      dlc,
-    });
-  }
-
 
   handleLoad = () => {
     this.setState({
@@ -68,17 +41,26 @@ export class ArticleCard extends Component {
     if (typeof likes === 'string'
       || likes === 'not_liked'
       || likes === 'not_logged_in') {
+      this.setState(prevState => ({
+        ...prevState,
+        hasLiked: false,
+        likeAction: null,
+      }));
       return false;
     }
     if (likes) {
-      this.setState({
+      this.setState(prevState => ({
+        ...prevState,
         likeAction: 'like',
-      });
+        hasLiked: true,
+      }));
     }
     if (!likes) {
-      this.setState({
+      this.setState(prevState => ({
+        ...prevState,
         likeAction: 'dislike',
-      });
+        hasLiked: true,
+      }));
     }
   }
 
@@ -115,55 +97,17 @@ export class ArticleCard extends Component {
     const type = 'article';
     const data = await likeDislikeAResource(action, id, type);
     if (!data) {
-      this.setState({
-        likeAction: null,
-      });
+      this.setState(prevState => ({
+        ...prevState,
+      }));
       return false;
     }
-    const { likes, dislikes } = data;
-    const { hasLiked, likeAction } = this.state;
-    if (action === 'dislike' && !hasLiked && dislikes > 0) {
-      this.setState(prevState => ({
-        dlc: prevState.dlc + 1,
-        hasLiked: true,
-      }));
-    } else if (action === 'dislike' && hasLiked && dislikes < 1) {
-      this.setState(prevState => ({
-        dlc: prevState.dlc - 1,
-        hasLiked: false,
-      }));
-    } else if (action === 'dislike' && hasLiked && dislikes > 0) {
-      this.setState(prevState => ({
-        lc: prevState.lc - 1,
-        dlc: prevState.dlc + 1,
-        hasLiked: true,
-      }));
-    } else if (action === 'like' && !hasLiked && likes > 0) {
-      this.setState(prevState => ({
-        lc: prevState.lc + 1,
-        hasLiked: true,
-      }));
-    } else if (action === 'like' && hasLiked && likes < 1) {
-      this.setState(prevState => ({
-        lc: prevState.lc - 1,
-        hasLiked: false,
-      }));
-    } else if (action === 'like' && hasLiked && likes > 0) {
-      this.setState(prevState => ({
-        dlc: prevState.dlc - 1,
-        lc: prevState.lc + 1,
-        hasLiked: true,
-      }));
-    } else if (action === 'like' && !likeAction) {
-      this.setState(prevState => ({
-        lc: prevState.lc - 1,
-        hasLiked: false,
-      }));
-    } else if (action === 'dislike' && !likeAction) {
-      this.setState(prevState => ({
-        dlc: prevState.dlc - 1,
-        hasLiked: false,
-      }));
+    const setState = this.setState.bind(this);
+    if (action === 'dislike') {
+      activateDislikeAction(setState, this.state, data);
+    }
+    if (action === 'like') {
+      activateLikeAction(setState, this.state, data);
     }
   }
 

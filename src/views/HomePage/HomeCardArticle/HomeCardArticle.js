@@ -1,10 +1,13 @@
+/* eslint-disable camelcase */
+/* eslint-disable no-unneeded-ternary */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Skeleton from 'react-skeleton-loader';
+import { Link } from 'react-router-dom';
 import connect from '@Lib/connect-component';
 import Icon from '@Components/Icon';
 import { likeDislikeAResource, getLikedAResource } from '@Actions/likeActions';
-import { thousandths } from '@Utils/';
+import { thousandths, activateLikeAction, activateDislikeAction } from '@Utils/';
 import './homeCardArticle.scss';
 
 export class HomePageArticles extends Component {
@@ -40,17 +43,26 @@ export class HomePageArticles extends Component {
     if (typeof likes === 'string'
       || likes === 'not_liked'
       || likes === 'not_logged_in') {
+      this.setState(prevState => ({
+        ...prevState,
+        hasLiked: false,
+        likeAction: null,
+      }));
       return false;
     }
     if (likes) {
-      this.setState({
+      this.setState(prevState => ({
+        ...prevState,
         likeAction: 'like',
-      });
+        hasLiked: true,
+      }));
     }
     if (!likes) {
-      this.setState({
+      this.setState(prevState => ({
+        ...prevState,
         likeAction: 'dislike',
-      });
+        hasLiked: true,
+      }));
     }
   }
 
@@ -59,8 +71,8 @@ export class HomePageArticles extends Component {
     const { likesCount, dislikesCount, id } = featuredArticle;
     this.setState(prevState => ({
       ...prevState,
-      lc: prevState.lc + likesCount,
-      dlc: prevState.dlc + dislikesCount,
+      lc: likesCount,
+      dlc: dislikesCount,
     }));
     await this.handleUserLikesForStyleUpdate(id);
   }
@@ -80,6 +92,7 @@ export class HomePageArticles extends Component {
     }
   }
 
+
   async likeOrDislike(e, id) {
     e.stopPropagation();
     const { likeDislikeAResource } = this.props;
@@ -88,55 +101,17 @@ export class HomePageArticles extends Component {
     const type = 'article';
     const data = await likeDislikeAResource(action, id, type);
     if (!data) {
-      this.setState({
-        likeAction: null,
-      });
+      this.setState(prevState => ({
+        ...prevState,
+      }));
       return false;
     }
-    const { likes, dislikes } = data;
-    const { hasLiked, likeAction } = this.state;
-    if (action === 'dislike' && !hasLiked && dislikes > 0) {
-      this.setState(prevState => ({
-        dlc: prevState.dlc + 1,
-        hasLiked: true,
-      }));
-    } else if (action === 'dislike' && hasLiked && dislikes < 1) {
-      this.setState(prevState => ({
-        dlc: prevState.dlc - 1,
-        hasLiked: false,
-      }));
-    } else if (action === 'dislike' && hasLiked && dislikes > 0) {
-      this.setState(prevState => ({
-        lc: prevState.lc - 1,
-        dlc: prevState.dlc + 1,
-        hasLiked: true,
-      }));
-    } else if (action === 'like' && !hasLiked && likes > 0) {
-      this.setState(prevState => ({
-        lc: prevState.lc + 1,
-        hasLiked: true,
-      }));
-    } else if (action === 'like' && hasLiked && likes < 1) {
-      this.setState(prevState => ({
-        lc: prevState.lc - 1,
-        hasLiked: false,
-      }));
-    } else if (action === 'like' && hasLiked && likes > 0) {
-      this.setState(prevState => ({
-        dlc: prevState.dlc - 1,
-        lc: prevState.lc + 1,
-        hasLiked: true,
-      }));
-    } else if (action === 'like' && !likeAction) {
-      this.setState(prevState => ({
-        lc: prevState.lc - 1,
-        hasLiked: false,
-      }));
-    } else if (action === 'dislike' && !likeAction) {
-      this.setState(prevState => ({
-        dlc: prevState.dlc - 1,
-        hasLiked: false,
-      }));
+    const setState = this.setState.bind(this);
+    if (action === 'like') {
+      activateLikeAction(setState, this.state, data);
+    }
+    if (action === 'dislike') {
+      activateDislikeAction(setState, this.state, data);
     }
   }
 
@@ -170,7 +145,7 @@ export class HomePageArticles extends Component {
     }
 
     const {
-      id, image, title, author, description, comment, readTime,
+      id, image, title, author, description, comment, readTime, slug,
     } = featuredArticle;
 
     const { firstname, lastname } = author;
@@ -181,22 +156,26 @@ export class HomePageArticles extends Component {
       loading, error, lc, dlc,
     } = this.state;
 
-
     return (
       <article className="homepageArticle" data-test="homearticleComponent">
-        <div className="img">
-          {loading === 0 ? <Skeleton width="100%" height="100%" /> : ''}
-          <img
-            test="imgtest"
-            alt=""
-            src={error
-              ? 'https://res.cloudinary.com/drdje1skj/image/upload/v1567527717/placeholder-image4_s2xbim.jpg'
-              : image}
-            onLoad={this.handleLoad}
-            style={{ opacity: loading }}
-            onError={this.handleError}
-          />
-        </div>
+        <Link
+          to={`/articles/${slug}`}
+          className="img"
+        >
+          <div className="img">
+            {loading === 0 ? <Skeleton width="100%" height="100%" /> : ''}
+            <img
+              test="imgtest"
+              alt=""
+              src={error
+                ? 'https://res.cloudinary.com/drdje1skj/image/upload/v1567527717/placeholder-image4_s2xbim.jpg'
+                : image}
+              onLoad={this.handleLoad}
+              style={{ opacity: loading }}
+              onError={this.handleError}
+            />
+          </div>
+        </Link>
         <div className="articleInfo">
           <div className="container">
             <h2>{title}</h2>
@@ -238,6 +217,7 @@ HomePageArticles.propTypes = {
     featuredArticle:
       PropTypes.shape({
         id: PropTypes.number,
+        slug: PropTypes.string,
         image: PropTypes.string,
         title: PropTypes.string,
         description: PropTypes.string,
