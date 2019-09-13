@@ -64,7 +64,7 @@ export class DropDown extends Component {
             </p>
             <div className="date">
               <p>{`${date.day} ${date.month}`}</p>
-              <p>{`${(date.hours) - 12}:${date.minutes < 10 ? `0${date.minutes}` : date.minutes} ${(date.hours - 12) < 12 ? 'PM' : 'AM'}`}</p>
+              <p>{`${date.hours}:${date.minutes < 10 ? `0${date.minutes}` : date.minutes} ${(date.hours) < 12 ? 'AM' : 'PM'}`}</p>
             </div>
           </div>
         </button>
