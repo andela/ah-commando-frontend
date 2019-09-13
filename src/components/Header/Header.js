@@ -41,12 +41,12 @@ export class Header extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { history: { location }, auth: { isAuthenticated } } = this.props;
+    const { history: { location }, auth: { isAuthenticated, user: { username } } } = this.props;
     const { currentLocation } = this.state;
     if (prevProps.auth.isAuthenticated !== isAuthenticated) {
       this.props.getNotifications();
       this.props.getProfile();
-      this.channel.bind(`notify-${this.props.auth.user.username}`, (data) => {
+      this.channel.bind(`notify-${username}`, (data) => {
         this.props.getNotifications();
         Notification.requestPermission();
         new Notification(data.message);
