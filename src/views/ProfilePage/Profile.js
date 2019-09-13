@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 /* eslint-disable no-nested-ternary */
+=======
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable react/require-default-props */
+>>>>>>> user logout
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
@@ -16,6 +21,7 @@ import { getProfile, editProfile, getArticles } from '@Actions/profileAction';
 import { followUser } from '@Actions/followActions';
 import { unFollowUser } from '@Actions/unfollowActions';
 import { postImage } from '@Actions/imageAction';
+import { logout } from '@Actions/authActions';
 import Icon from '@Components/Icon';
 import RenderButton from '@Components/RenderButton';
 
@@ -53,6 +59,7 @@ export class Profile extends Component {
       isFollowing: false,
     };
     this.dialog = React.createRef();
+    this.handleSignout = this.handleSignout.bind(this);
   }
 
   async componentDidMount() {
@@ -226,6 +233,11 @@ export class Profile extends Component {
       isFollowing: false,
     }));
   };
+  
+  handleSignout() {
+    const { logout } = this.props;
+    logout();
+  }
 
   render() {
     const {
@@ -331,7 +343,7 @@ export class Profile extends Component {
               <li><Link to="/">Stats</Link></li>
               <li><Link to="/">Notification</Link></li>
               <li><Link to="/">Help</Link></li>
-              <li><Link to="/">Log Out</Link></li>
+              <li onClick={() => { this.handleSignout(); }}><Link to="/signout">Log Out</Link></li>
             </ul>
           </div>
           <div className="main">
@@ -413,6 +425,7 @@ Profile.propTypes = {
     }),
   }).isRequired,
   history: PropTypes.shape().isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
@@ -423,5 +436,6 @@ export default connectComponent(
     uploadImage: postImage,
     follow: (username) => followUser(username),
     unfollow: (username) => unFollowUser(username),
+    logout,
   },
 );
