@@ -78,3 +78,9 @@ $desktop: 375px;
     scroll-behavior: smooth;
   }
 }
+
+.more-button {
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+}
