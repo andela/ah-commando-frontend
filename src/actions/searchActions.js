@@ -50,7 +50,7 @@ export const getFilteredArticles = () => (dispatch, getState) => {
     }
   });
 
-  return axios.post(`http://a-haven-staging.herokuapp.com/api/v1/articles/search/filter?searchQuery=${searchQuery}&limit=2000`, object)
+  return axios.post(`https://a-haven-staging.herokuapp.com/api/v1/articles/search/filter?searchQuery=${searchQuery}&limit=2000`, object)
     .then((response) => {
       const { articles } = response.data;
       const { data } = articles;
