@@ -1,37 +1,9 @@
-/* eslint-disable max-len */
-/* eslint-disable arrow-body-style */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/prop-types */
-// import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
-// import { withRouter } from 'react-router-dom';
-// import Button from '@Components/Button';
-// import Comment from '@Components/Comment';
-// import { getComment, postComment } from '@Actions/commentActions';
-// import connectComponent from '@Lib/connect-component';
-
-// CommentPage.propTypes = {
-//   postId: PropTypes.func,
-//   postComment: PropTypes.func,
-//   getComment: PropTypes.func,
-// };
-
-// CommentPage.defaultProps = {
-//   postId: PropTypes.func,
-//   postComment: PropTypes.func,
-//   getComment: PropTypes.func,
-// };
-
-// export default connectComponent(
-//   withRouter(CommentPage), {
-//     postComments: postComment,
-//     getComments: getComment,
-//   },
-// );
-
+/* eslint-disable arrow-body-style */
 import React from 'react';
 import Loader from 'react-loader-spinner';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import connectComponent from '@Lib/connect-component';
 import { getComment, postComment } from '@Actions/commentActions';
 import Comment from '@Components/Comment';
@@ -47,9 +19,22 @@ class CommentPage extends React.Component {
   }
 
   componentDidMount = async () => {
-    const { fetchComments, match: { params: { articleId } } } = this.props;
+    const {
+      fetchComments,
+      match: {
+        params: {
+          articleId,
+        },
+      },
+    } = this.props;
     await fetchComments(articleId);
-    const { comments: { comments: { comments } } } = this.props;
+    const {
+      comments: {
+        comments: {
+          comments,
+        },
+      },
+    } = this.props;
     this.setState({
       comments,
     });
@@ -57,9 +42,22 @@ class CommentPage extends React.Component {
 
   componentDidUpdate = async (prevProps) => {
     if (prevProps.comments === this.props.comments) return;
-    const { fetchComments, match: { params: { articleId } } } = this.props;
+    const {
+      fetchComments,
+      match: {
+        params: {
+          articleId,
+        },
+      },
+    } = this.props;
     await fetchComments(articleId);
-    const { comments: { comments: { comments } } } = this.props;
+    const {
+      comments: {
+        comments: {
+          comments,
+        },
+      },
+    } = this.props;
     this.setState({
       comments,
     });
@@ -74,7 +72,14 @@ class CommentPage extends React.Component {
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    const { createComment, match: { params: { articleId } } } = this.props;
+    const {
+      createComment,
+      match: {
+        params: {
+          articleId,
+        },
+      },
+    } = this.props;
     const { comment } = this.state;
     await createComment(comment, articleId);
     this.clearComment();
@@ -162,9 +167,14 @@ class CommentPage extends React.Component {
   }
 }
 
-// CommentPage.propTypes = {
-
-// };
+CommentPage.propTypes = {
+  createComment: PropTypes.func.isRequired,
+  fetchComments: PropTypes.func.isRequired,
+  comments: PropTypes.shape().isRequired,
+  auth: PropTypes.shape().isRequired,
+  ui: PropTypes.shape().isRequired,
+  match: PropTypes.shape().isRequired,
+};
 
 export default connectComponent(
   withRouter(CommentPage), {
