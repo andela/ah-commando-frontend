@@ -154,24 +154,9 @@ export const setNewPassword = (data, history) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
   dispatch({ type: LOADING });
-  try {
-    const response = await axiosInstance.post('users/logout', {});
-    if (response.status === 204) {
-      localStorage.removeItem('haven');
-    }
-    dispatch({
-      type: NOT_LOADING,
-    });
-    return dispatch({
-      type: MODAL_CLOSE,
-    });
-  } catch (err) {
-    const { error } = err.response.data;
-    toast.dismiss();
-    toast.error(error, { autoClose: 10000 });
-    return dispatch({
-      type: NOT_LOADING,
-    });
+  const response = await axiosInstance.post('users/logout', {});
+  if (response.status === 204) {
+    localStorage.removeItem('haven');
   }
 };
 export const loginViaSocial = (brand) => async dispatch => {

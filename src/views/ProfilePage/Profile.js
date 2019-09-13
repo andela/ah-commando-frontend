@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 /* eslint-disable no-nested-ternary */
-=======
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable react/require-default-props */
->>>>>>> user logout
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
@@ -233,7 +230,7 @@ export class Profile extends Component {
       isFollowing: false,
     }));
   };
-  
+
   handleSignout() {
     const { logout } = this.props;
     logout();

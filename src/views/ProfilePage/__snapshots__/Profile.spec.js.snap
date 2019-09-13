@@ -164,9 +164,11 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
             Help
           </Link>
         </li>
-        <li>
+        <li
+          onClick={[Function]}
+        >
           <Link
-            to="/"
+            to="/signout"
           >
             Log Out
           </Link>
