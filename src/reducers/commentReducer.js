@@ -11,7 +11,7 @@ const initialState = {
   error: null,
 };
 
-export const commentReducer = (state = initialState, action) => {
+const commentReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_COMMENTS_SUCCESS:
       return {
@@ -36,3 +36,5 @@ export const commentReducer = (state = initialState, action) => {
     default: return state;
   }
 };
+
+export default commentReducer;
