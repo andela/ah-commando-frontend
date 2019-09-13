@@ -40,7 +40,7 @@ export class ArticleTags extends Component {
     const cards = this.displayCards(articles);
     return (
       <div className="articlesList">
-        <div>
+        <div datatest="h3Div">
           <h3>
             Articles with tag
             {' '}

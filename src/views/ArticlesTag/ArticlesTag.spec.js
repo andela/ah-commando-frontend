@@ -5,6 +5,7 @@ import { ArticleTags, ArticlewithTags } from './ArticlesTag';
 
 const props = {
   articles: [{}, {}],
+  getVerticalCards: jest.fn(),
 };
 
 const tagProps = {
@@ -14,6 +15,8 @@ const tagProps = {
   },
 };
 
+let wrapper, instance;
+
 
 const shallowRender = () => {
   const component = shallow(<ArticleTags {...tagProps} />);
@@ -22,7 +25,8 @@ const shallowRender = () => {
 
 describe('Article component test', () => {
   beforeEach(() => {
-    shallowRender();
+    wrapper = shallowRender();
+    instance = wrapper.instance();
   });
 
   it('should render without crashing', () => {
@@ -31,5 +35,6 @@ describe('Article component test', () => {
 
   it('should render ArticleDisplay component without crashing', () => {
     shallow(<ArticlewithTags {...props} />);
+    instance.getVerticalCards = jest.fn();
   });
 });

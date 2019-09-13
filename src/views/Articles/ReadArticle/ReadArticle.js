@@ -89,19 +89,18 @@ export class ReadArticle extends Component {
         readTime,
         image,
         articleBody,
-        tagList,
+        Tags,
         likesCount,
         dislikesCount,
         comment,
       },
     } = this.props;
-    const tags = tagList ? tagList.split(' ')
-      .filter(tag => tag.length > 0)
-      .map((tag, i) => (
-        <li className="liTag" key={i}>
-          <p onClick={() => this.handleTagClick(tag)}>{tag}</p>
-        </li>
-      )) : null;
+
+    const tags = Tags ? Tags.map((tag, i) => (
+      <li className="liTag" key={i}>
+        <p onClick={() => this.handleTagClick(tag.name)}>{tag.name}</p>
+      </li>
+    )) : null;
     const body = this.parseArticleBody(articleBody);
 
     const loader = (
