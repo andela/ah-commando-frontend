@@ -1,13 +1,6 @@
-// import { combineReducers } from 'redux';
-// import { authReducer } from './authReducer';
-// import uiReducer from './uiReducer';
-// import profileReducer from './profileReducer';
-// import imageReducer from './imageReducer';
 import * as types from '@Actions/types';
 import homePageArticles from '../HomePage';
-// import searchReducer from './searchReducer';
 import notifications from '../notifications';
-// import { articleReducer } from './Articles';
 
 const homepageInitial = {
   articleCategories: [],
