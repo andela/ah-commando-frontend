@@ -1,0 +1,30 @@
+.category-page {
+  display: grid;
+  grid-template-areas:
+  'header  header  header  header'
+  'sidebar   body    body    body'
+  'footer  footer  footer  footer';
+
+  .header {
+    grid-area: header;
+    position: sticky;
+    top: 56px;
+    background-color: white;
+  }
+  .filter {
+    grid-area: filter;
+  }
+  .body {
+    grid-area: body;
+    margin: 60px 0;
+  }
+  .footer {
+    grid-area: footer;
+    position: fixed;
+    padding: 20px;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
+  }
+}

@@ -5,6 +5,7 @@ import Search from '@Views/SearchPage/SearchPage';
 import Home from '@Views/HomePage';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import SignUp from '@Components/Forms/SignUp';
+import CategoryPage from '@Views/CategoryPage';
 import SignIn from '@Components/Forms/SignIn';
 import Header from '@Components/Header';
 import ResetPassword from '@Views/ResetPassword';
@@ -30,6 +31,7 @@ const App = () => (
         <Route exact path="/create-article" component={CreateArticle} />
         <Route exact path="/articles/:slug" component={ReadArticle} />
         <Route exact path="/articles/:slug/edit" component={EditArticle} />
+        <Route exact path="/articles" component={CategoryPage} />
         <Route component={NotFound} />
       </Switch>
     </div>
