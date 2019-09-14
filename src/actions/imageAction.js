@@ -21,7 +21,6 @@ export const postImage = (payload) => async (dispatch) => {
     const response = await axiosInstance.post('/image', payload);
     return dispatch(postImageSuccess(response.data.image));
   } catch (error) {
-    console.log('follow actions', error.response);
     return dispatch(postImageFailure(error.response.data));
   }
 };
