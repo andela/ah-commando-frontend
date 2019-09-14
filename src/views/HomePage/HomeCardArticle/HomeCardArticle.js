@@ -20,8 +20,8 @@ export class HomePageArticles extends Component {
     hasLiked: false,
   }
 
-  async componentDidMount() {
-    await this.handleLikesandDislikesManualCountUpdate();
+  componentDidMount() {
+    this.handleLikesandDislikesManualCountUpdate();
   }
 
   handleLoad = () => {
@@ -74,6 +74,7 @@ export class HomePageArticles extends Component {
       lc: likesCount,
       dlc: dislikesCount,
     }));
+    if (!id) return false;
     await this.handleUserLikesForStyleUpdate(id);
   }
 
