@@ -41,6 +41,22 @@ Array [
 ]
 `;
 
+exports[`Auth action tests Async password reset action test should throw error as expected 2`] = `
+Array [
+  Object {
+    "type": "LOADING",
+  },
+]
+`;
+
+exports[`Auth action tests Async password reset action test should throw error as expected 3`] = `
+Array [
+  Object {
+    "type": "LOADING",
+  },
+]
+`;
+
 exports[`Auth action tests Auth Action tests return values request-password-link should return expected values 1`] = `[Function]`;
 
 exports[`Auth action tests Auth Action tests return values setNewPassword should return expected values 1`] = `[Function]`;

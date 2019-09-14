@@ -7,6 +7,7 @@ import RenderButton from './index';
 
 const props = {
   ui: { loading: true },
+  auth: { isAuthenticated: true },
   article: {
     title: 'title',
     description: 'desc',
