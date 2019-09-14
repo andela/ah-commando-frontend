@@ -202,7 +202,6 @@ export class ReadArticle extends Component {
         comment,
         id: articleId,
         slug,
-        id: articleId,
       },
       history,
       auth: { isAuthenticated },
