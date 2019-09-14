@@ -168,7 +168,6 @@ describe('ReadArticle tests', () => {
       username: 'testusername',
     });
 
-
     instance.componentDidUpdate(prevProps, prevState);
     setTimeout(() => {
       expect(instance.state.followings[0].username).toBe('followingUser1');
