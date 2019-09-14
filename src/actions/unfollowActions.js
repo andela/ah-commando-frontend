@@ -21,6 +21,7 @@ export const unFollowUser = (username) => async (dispatch) => {
     const response = await axiosInstance.delete(`/profiles/${username}/follow`);
     return dispatch(unfollowUserSuccess(response.data.profile));
   } catch (error) {
+    console.log('follow actions', error.response);
     return dispatch(unfollowUserFailure(error.response.data));
   }
 };
