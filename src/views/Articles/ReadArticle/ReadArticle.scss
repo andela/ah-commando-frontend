@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 100px;
 
   main {
     width: 100%;
@@ -164,6 +164,7 @@
     .comment-delete {
       display: flex;
       justify-content: flex-end;
+      align-items: space-around;
       flex: 10;
 
       .delete-icon {
@@ -178,6 +179,17 @@
           color: rgba(255, 0, 0, 0.726);
           transform: scale(1.2);
           cursor: pointer;
+        }
+      }
+
+      .option-icon {
+        padding: 0;
+        font-size: 25px ;
+        cursor: pointer;
+        height: auto !important;
+        transition: ease-in-out .3s;
+        &:hover{
+          // transform: scale(1.2);
         }
       }
     }
@@ -199,6 +211,30 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    padding: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+    span {
+      display: flex;
+      align-items: center;
+      margin-bottom: 2px;
+      font-size: 14px;
+      transition: ease-in-out .3s;
+      &:hover {
+        transform: scale(1.02);
+        background-color: #f0f0f0d0;
+      }
+    }
   }
 }
 
