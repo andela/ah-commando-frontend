@@ -22,6 +22,7 @@ export const followUser = (username) => async (dispatch) => {
     const response = await axiosInstance.post(`/profiles/${username}/follow`);
     return dispatch(followUserSuccess(response.data.profile));
   } catch (error) {
+    console.log('follow actions', error.response);
     return dispatch(followUserFailure(error.response.data));
   }
 };
