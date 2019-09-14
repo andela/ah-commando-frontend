@@ -84,6 +84,5 @@ describe('<CommentPage /> Component', () => {
     };
     instance.handleSubmit(event);
     instance.clearComment();
-    // expect(props.createComments).toHaveBeenCalled();
   });
 });
