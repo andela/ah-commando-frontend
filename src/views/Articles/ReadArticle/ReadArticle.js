@@ -200,6 +200,7 @@ export class ReadArticle extends Component {
         likesCount,
         dislikesCount,
         comment,
+        id: articleId,
         slug,
         id: articleId,
       },
