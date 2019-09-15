@@ -7,8 +7,9 @@ Array [
   },
   Object {
     "error": Object {
-      "error": "Authorization error",
-      "status": 401,
+      "response": Object {
+        "data": Object {},
+      },
     },
     "type": "UNFOLLOW_USER_FAILURE",
   },

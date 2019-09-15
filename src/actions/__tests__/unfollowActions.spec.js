@@ -44,13 +44,11 @@ describe('testing redux actions', () => {
 
   it('Should error as expected', async () => {
     const username = 'martins';
+    nock(url)
+      .delete(`/profiles/${username}/follow`)
+      .reply(400, error);
 
     return store.dispatch(unFollowUser(username))
-      .then(() => {
-        nock(url)
-          .delete(`/profiles/${username}/follow`)
-          .reply(400, error);
-      })
       .then(() => {
         expect(store.getActions()).toMatchSnapshot();
       });

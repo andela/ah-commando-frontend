@@ -44,13 +44,11 @@ describe('testing redux actions', () => {
 
   it('Should error as expected', async () => {
     const username = 'martins';
+    nock(url)
+      .post(`/profiles/${username}/follow`)
+      .reply(400, error);
 
     return store.dispatch(followUser(username))
-      .then(() => {
-        nock(url)
-          .post(`/profiles/${username}/follow`)
-          .reply(400, error);
-      })
       .then(() => {
         expect(store.getActions()).toMatchSnapshot();
       });
