@@ -16,11 +16,16 @@ export class ArticleCard extends Component {
     lc: 0,
     dlc: 0,
     hasLiked: false,
+    action: null,
   }
 
+
   async componentDidMount() {
-    await this.handleLikesandDislikesManualCountUpdate();
+    const { data } = this.props;
+    const { dislikesCount, likesCount, id } = data;
+    await this.handleLikesandDislikesManualCountUpdate(dislikesCount, likesCount, id);
   }
+
 
   handleLoad = () => {
     this.setState({
@@ -34,6 +39,53 @@ export class ArticleCard extends Component {
       loading: 1,
     });
   }
+
+  likeOrDislike = async (e, id) => {
+    e.stopPropagation();
+    const { likeDislikeAResource } = this.props;
+    const action = e.currentTarget.attributes[1].value;
+    const type = 'article';
+    const data = await likeDislikeAResource(action, id, type);
+    if (!data) {
+      this.setState(prevState => ({
+        ...prevState,
+      }));
+      return false;
+    }
+    this.checkLikeAction(action);
+    const setState = this.setState.bind(this);
+    if (action === 'dislike') {
+      activateDislikeAction(setState, this.state, data);
+    }
+    if (action === 'like') {
+      activateLikeAction(setState, this.state, data);
+    }
+  }
+
+
+  checkLikeAction(action) {
+    const { likeAction } = this.state;
+    if (action === 'like') {
+      this.setState({
+        likeAction: likeAction === 'like' ? null : 'like',
+      });
+    }
+    if (action === 'dislike') {
+      this.setState({
+        likeAction: likeAction === 'dislike' ? null : 'dislike',
+      });
+    }
+  }
+
+
+  async handleLikesandDislikesManualCountUpdate(dislikesCount, likesCount, id) {
+    this.setState({
+      dlc: dislikesCount,
+      lc: likesCount,
+    });
+    await this.handleUserLikesForStyleUpdate(id);
+  }
+
 
   async handleUserLikesForStyleUpdate(id) {
     const { getLikedAResource } = this.props;
@@ -64,52 +116,6 @@ export class ArticleCard extends Component {
     }
   }
 
-  async handleLikesandDislikesManualCountUpdate() {
-    const { data } = this.props;
-    const { likesCount, dislikesCount, id } = data;
-    this.setState({
-      lc: likesCount,
-      dlc: dislikesCount,
-    });
-    await this.handleUserLikesForStyleUpdate(id);
-  }
-
-  checkLikeAction(action) {
-    if (action === 'like') {
-      const { likeAction } = this.state;
-      this.setState({
-        likeAction: likeAction === 'like' ? null : 'like',
-      });
-    }
-    if (action === 'dislike') {
-      const { likeAction } = this.state;
-      this.setState({
-        likeAction: likeAction === 'dislike' ? null : 'dislike',
-      });
-    }
-  }
-
-  async likeOrDislike(e, id) {
-    e.stopPropagation();
-    const { likeDislikeAResource } = this.props;
-    const action = e.currentTarget.attributes[1].value;
-    const type = 'article';
-    const data = await likeDislikeAResource(action, id, type);
-    if (!data) {
-      this.setState(prevState => ({
-        ...prevState,
-      }));
-      return false;
-    }
-    this.checkLikeAction(action);
-    const setState = this.setState.bind(this);
-    if (action === 'dislike') {
-      activateDislikeAction(setState, this.state, data);
-    }
-    if (action === 'like') {
-      activateLikeAction(setState, this.state, data);
-    }
-  }
 
   generateNameByLikeAction() {
     const { likeAction } = this.state;

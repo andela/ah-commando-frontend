@@ -18,10 +18,19 @@ export class HomePageArticles extends Component {
     lc: 0,
     dlc: 0,
     hasLiked: false,
+    id: 0,
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.handleLikesandDislikesManualCountUpdate();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { homePageArticles: { featuredArticle } } = prevProps;
+    const { dislikesCount, likesCount } = featuredArticle;
+    if (dislikesCount !== prevState.dlc || likesCount !== prevState.lc) {
+      this.handleLikesandDislikesManualCountUpdate();
+    }
   }
 
   handleLoad = () => {
@@ -68,13 +77,13 @@ export class HomePageArticles extends Component {
 
   async handleLikesandDislikesManualCountUpdate() {
     const { homePageArticles: { featuredArticle } } = this.props;
-    const { likesCount, dislikesCount, id } = featuredArticle;
+    const { dislikesCount, likesCount, id } = featuredArticle;
     this.setState(prevState => ({
       ...prevState,
       lc: likesCount,
       dlc: dislikesCount,
+      id,
     }));
-    if (!id) return false;
     await this.handleUserLikesForStyleUpdate(id);
   }
 
@@ -98,7 +107,6 @@ export class HomePageArticles extends Component {
     e.stopPropagation();
     const { likeDislikeAResource } = this.props;
     const action = e.currentTarget.attributes[1].value;
-    this.checkLikeAction(action);
     const type = 'article';
     const data = await likeDislikeAResource(action, id, type);
     if (!data) {
@@ -107,6 +115,7 @@ export class HomePageArticles extends Component {
       }));
       return false;
     }
+    this.checkLikeAction(action);
     const setState = this.setState.bind(this);
     if (action === 'like') {
       activateLikeAction(setState, this.state, data);
