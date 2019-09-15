@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Async action creators Should error as expected 1`] = `
+Array [
+  Object {
+    "type": "POST_IMAGE_START",
+  },
+  Object {
+    "error": Object {
+      "response": Object {
+        "data": Object {},
+      },
+    },
+    "type": "POST_IMAGE_FAILURE",
+  },
+]
+`;
+
+exports[`Async action creators Should successfully upload an image 1`] = `
+Array [
+  Object {
+    "type": "POST_IMAGE_START",
+  },
+  Object {
+    "payload": undefined,
+    "type": "POST_IMAGE_SUCCESS",
+  },
+]
+`;

@@ -1,44 +1,60 @@
-import moxios from 'moxios';
-import { makeMockStore } from '@Utils/index';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import nock from 'nock';
 import {
   unFollowUser,
-  unfollowUserSuccess,
-  unfollowUserFailure,
-  unfollowUserStart,
-} from '../unfollowActions';
+} from '@Actions/unfollowActions';
 
-const store = makeMockStore({});
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+const url = 'https://a-haven-staging.herokuapp.com/api/v1';
 
+describe('testing redux actions', () => {
+  let store;
+  const response = {
+    data: {
+      profile: {},
+    },
+  };
 
-describe('testing redux actions for unfollow user', () => {
+  const error = {
+    response: {
+      data: {},
+    },
+  };
   beforeEach(() => {
-    moxios.install();
+    store = mockStore({});
   });
+
   afterEach(() => {
-    moxios.uninstall();
-  });
-  it('should dispatch unfollow user start action', async () => {
-    const res = await store.dispatch(unfollowUserStart());
-    expect(res.type).toEqual('UNFOLLOW_USER_START');
+    nock.cleanAll();
   });
 
-  it('should dispatch unfollow user success action', async () => {
-    const res = await store.dispatch(unfollowUserSuccess());
-    expect(res.type).toEqual('UNFOLLOW_USER_SUCCESS');
+  it('Should follow a user successfully', async () => {
+    const username = 'martins';
+
+    return store.dispatch(unFollowUser(username))
+      .then(() => {
+        nock(url)
+          .delete(`/profiles/${username}/follow`)
+          .reply(200, response);
+      })
+      .then(() => {
+        expect(store.getActions()).toMatchSnapshot();
+      });
   });
 
-  it('should dispatch unfollow user failure action', async () => {
-    const res = await store.dispatch(unfollowUserFailure());
-    expect(res.type).toEqual('UNFOLLOW_USER_FAILURE');
-  });
+  it('Should error as expected', async () => {
+    const username = 'martins';
 
-  it('should check for types on unfollow user failure', async () => {
-    const res = await store.dispatch(unFollowUser());
-    expect(res.type).toEqual('UNFOLLOW_USER_FAILURE');
-  });
-  it('should check for types on unfollow user success', async () => {
-    const res = await store.getActions();
-    expect(res[1].type).toEqual('UNFOLLOW_USER_SUCCESS');
-    expect(res[1].payload).toEqual(undefined);
+    return store.dispatch(unFollowUser(username))
+      .then(() => {
+        nock(url)
+          .delete(`/profiles/${username}/follow`)
+          .reply(400, error);
+      })
+      .then(() => {
+        expect(store.getActions()).toMatchSnapshot();
+      });
   });
 });
