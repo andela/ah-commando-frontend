@@ -21,11 +21,8 @@ Array [
     "type": "UNFOLLOW_USER_START",
   },
   Object {
-    "error": Object {
-      "error": "Authorization error",
-      "status": 401,
-    },
-    "type": "UNFOLLOW_USER_FAILURE",
+    "payload": undefined,
+    "type": "UNFOLLOW_USER_SUCCESS",
   },
 ]
 `;

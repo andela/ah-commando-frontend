@@ -32,13 +32,11 @@ describe('testing redux actions', () => {
 
   it('Should follow a user successfully', async () => {
     const username = 'martins';
+    nock(url)
+      .post(`/profiles/${username}/follow`)
+      .reply(200, response);
 
     return store.dispatch(followUser(username))
-      .then(() => {
-        nock(url)
-          .post(`/profiles/${username}/follow`)
-          .reply(200, response);
-      })
       .then(() => {
         expect(store.getActions()).toMatchSnapshot();
       });
