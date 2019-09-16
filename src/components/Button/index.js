@@ -35,7 +35,7 @@ const Button = (props) => {
 
 Button.propTypes = {
   label: PropTypes.string,
-  handleClick: PropTypes.func.isRequired,
+  handleClick: PropTypes.func,
   children: PropTypes.node,
   id: PropTypes.string,
   style: PropTypes.shape({
@@ -59,6 +59,7 @@ Button.defaultProps = {
   disabled: false,
   id: '',
   className: '',
+  handleClick: () => {},
 };
 
 export default Button;

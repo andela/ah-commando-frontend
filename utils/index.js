@@ -5,6 +5,7 @@ import empty from './isEmpty';
 import Editor from './editor';
 import jsonToHtml from './editorConverter';
 import { createMockStore } from './mockStore';
+import { activateLike, activateDislikes } from './likesFunc';
 
 export const axiosInstance = instance;
 export const setToken = setAuthToken;
@@ -76,3 +77,6 @@ export const formatDate = (thedate) => {
 };
 
 export const convertToHtml = jsonToHtml;
+
+export const activateLikeAction = activateLike;
+export const activateDislikeAction = activateDislikes;

@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter, Route, Switch, Redirect,
+} from 'react-router-dom';
 import Login from '@Views/LoginPage';
 import Search from '@Views/SearchPage/SearchPage';
 import Home from '@Views/HomePage';
@@ -37,6 +39,7 @@ const App = () => (
         <Route exact path="/articles" component={CategoryPage} />
         <Route exact path="/tags" component={ArticleTags} />
         <Route exact path="/articles/comments/:articleId" component={Comments} />
+        <Redirect from="/logout" to="/" />
         <Route component={NotFound} />
       </Switch>
     </div>

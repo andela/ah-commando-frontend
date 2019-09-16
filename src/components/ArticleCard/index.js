@@ -3,14 +3,29 @@ import { PropTypes } from 'prop-types';
 import Skeleton from 'react-skeleton-loader';
 import { Link } from 'react-router-dom';
 import './ArticleCard.scss';
-import { thousandths } from '@Utils/';
+import { likeDislikeAResource, getLikedAResource } from '@Actions/likeActions';
+import connect from '@Lib/connect-component';
+import { thousandths, activateLikeAction, activateDislikeAction } from '@Utils/';
 import Icon from '../Icon';
 
-class ArticleCard extends Component {
+export class ArticleCard extends Component {
   state = {
     loading: 0,
     error: false,
+    likeAction: null,
+    lc: 0,
+    dlc: 0,
+    hasLiked: false,
+    action: null,
   }
+
+
+  async componentDidMount() {
+    const { data } = this.props;
+    const { dislikesCount, likesCount, id } = data;
+    await this.handleLikesandDislikesManualCountUpdate(dislikesCount, likesCount, id);
+  }
+
 
   handleLoad = () => {
     this.setState({
@@ -25,6 +40,100 @@ class ArticleCard extends Component {
     });
   }
 
+  likeOrDislike = async (e, id) => {
+    e.stopPropagation();
+    const { likeDislikeAResource } = this.props;
+    const action = e.currentTarget.attributes[1].value;
+    const type = 'article';
+    const data = await likeDislikeAResource(action, id, type);
+    if (!data) {
+      this.setState(prevState => ({
+        ...prevState,
+      }));
+      return false;
+    }
+    this.checkLikeAction(action);
+    const setState = this.setState.bind(this);
+    if (action === 'dislike') {
+      activateDislikeAction(setState, this.state, data);
+    }
+    if (action === 'like') {
+      activateLikeAction(setState, this.state, data);
+    }
+  }
+
+
+  checkLikeAction(action) {
+    const { likeAction } = this.state;
+    if (action === 'like') {
+      this.setState({
+        likeAction: likeAction === 'like' ? null : 'like',
+      });
+    }
+    if (action === 'dislike') {
+      this.setState({
+        likeAction: likeAction === 'dislike' ? null : 'dislike',
+      });
+    }
+  }
+
+
+  async handleLikesandDislikesManualCountUpdate(dislikesCount, likesCount, id) {
+    this.setState({
+      dlc: dislikesCount,
+      lc: likesCount,
+    });
+    await this.handleUserLikesForStyleUpdate(id);
+  }
+
+
+  async handleUserLikesForStyleUpdate(id) {
+    const { getLikedAResource } = this.props;
+    const likes = await getLikedAResource(id, 'article');
+    if (typeof likes === 'string'
+      || likes === 'not_liked'
+      || likes === 'not_logged_in') {
+      this.setState(prevState => ({
+        ...prevState,
+        hasLiked: false,
+        likeAction: null,
+      }));
+      return false;
+    }
+    if (likes) {
+      this.setState(prevState => ({
+        ...prevState,
+        likeAction: 'like',
+        hasLiked: true,
+      }));
+    }
+    if (!likes) {
+      this.setState(prevState => ({
+        ...prevState,
+        likeAction: 'dislike',
+        hasLiked: true,
+      }));
+    }
+  }
+
+
+  generateNameByLikeAction() {
+    const { likeAction } = this.state;
+    if (!likeAction) return 'likes';
+    if (likeAction === 'like') {
+      return 'boldLikes';
+    }
+    return 'likes';
+  }
+
+  generateNameByDisLikeAction() {
+    const { likeAction } = this.state;
+    if (!likeAction) return 'dislikes';
+    if (likeAction === 'dislike') {
+      return 'boldDislikes';
+    }
+    return 'dislikes';
+  }
 
   render() {
     const { type, data } = this.props;
@@ -38,14 +147,14 @@ class ArticleCard extends Component {
     }
 
     const {
-      image, title, author, description, likesCount, dislikesCount, comment, readTime, slug,
+      image, title, author, description, comment, readTime, id, slug,
     } = data;
 
     const { firstname, lastname } = author;
-    const likes = thousandths(likesCount);
-    const dislikes = thousandths(dislikesCount);
     const comments = thousandths(comment.length);
-    const { loading, error } = this.state;
+    const {
+      loading, error, lc, dlc,
+    } = this.state;
     return (
       <div className={`${type}`} data-test="articleCard-home">
         <Link to={`/articles/${slug}`}>
@@ -70,13 +179,13 @@ class ArticleCard extends Component {
             <label className="description">{description}</label>
           </div>
           <div className="icons">
-            <div className="like">
-              <Icon name="likes" className="like" />
-              <label className="icon-label">{likes}</label>
+            <div className="like" onClick={(e) => this.likeOrDislike(e, id)} name="like">
+              <Icon name={this.generateNameByLikeAction()} className="like-icon" style={{ color: 'black' }} />
+              <label className="icon-label">{thousandths(lc)}</label>
             </div>
-            <div className="dislike">
-              <Icon name="dislikes" />
-              <label className="icon-label">{dislikes}</label>
+            <div className="dislike" onClick={(e) => this.likeOrDislike(e, id)} name="dislike">
+              <Icon name={this.generateNameByDisLikeAction()} className="dislike-icon" style={{ color: 'black' }} />
+              <label className="icon-label">{thousandths(dlc)}</label>
             </div>
             <div className="comment">
               <Icon name="comments" />
@@ -94,6 +203,7 @@ class ArticleCard extends Component {
 ArticleCard.propTypes = {
   type: PropTypes.string,
   data: PropTypes.shape({
+    id: PropTypes.number,
     image: PropTypes.string,
     title: PropTypes.string,
     authorName: PropTypes.string,
@@ -108,6 +218,8 @@ ArticleCard.propTypes = {
       lastname: PropTypes.string,
     }),
   }),
+  likeDislikeAResource: PropTypes.func.isRequired,
+  getLikedAResource: PropTypes.func.isRequired,
 };
 
 ArticleCard.defaultProps = {
@@ -125,4 +237,7 @@ ArticleCard.defaultProps = {
   },
 };
 
-export default ArticleCard;
+export default connect(ArticleCard, {
+  likeDislikeAResource,
+  getLikedAResource,
+});

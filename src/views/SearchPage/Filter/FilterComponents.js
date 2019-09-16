@@ -19,7 +19,7 @@ const CategorySelection = (props) => {
   return (
     <div className="input-checkbox">
       <input type="checkbox" name={name} value={name} onChange={(e) => { handleChange(e, 'categories'); }} />
-      <p>{ name }</p>
+      <p>{name}</p>
     </div>
   );
 };
@@ -42,7 +42,7 @@ const FilterContainer = (props) => {
         />
         <h3>
           {
-          filtername.charAt(0).toUpperCase() + filtername.slice(1)
+            filtername.charAt(0).toUpperCase() + filtername.slice(1)
           }
         </h3>
       </div>
@@ -114,7 +114,7 @@ DropMenu.propTypes = {
   header: PropTypes.string.isRequired,
 };
 
-export default {
+export {
   CategorySelection,
   FilterContainer,
   DropMenu,

@@ -38,6 +38,7 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
           <Icon
             handleClick={[Function]}
             name="camera"
+            style={Object {}}
           />
           <img
             alt=""
@@ -164,9 +165,11 @@ exports[`Profile component test have props shallow render with snapshot 1`] = `
             Help
           </Link>
         </li>
-        <li>
+        <li
+          onClick={[Function]}
+        >
           <Link
-            to="/"
+            to="/logout"
           >
             Log Out
           </Link>
