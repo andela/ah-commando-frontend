@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { checkProps, findByTestAttribute } from '@Utils/';
-import { ArticleCard } from './';
+import { ArticleCard } from './ArticleCard';
 
 let wrapper;
 const shallowRender = (props) => {
@@ -26,6 +26,7 @@ describe('Article component test', () => {
         }],
         readTime: 3,
       },
+      bookmark: 2,
       type: '',
       likeDislikeAResource: jest.fn(),
       getLikedAResource: jest.fn(),
@@ -108,6 +109,7 @@ describe('Article component test', () => {
         }],
         readTime: 3,
       },
+      bookmark: 2,
       type: '',
       likeDislikeAResource: jest.fn().mockReturnValueOnce(false),
       getLikedAResource: jest.fn(),
