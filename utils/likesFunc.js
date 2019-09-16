@@ -9,7 +9,7 @@ export const activateLike = (setState, state, data) => {
       hasLiked: true,
     });
   }
-  if (!likeAction && likes < 1 && hasLiked) {
+  if (!likeAction && hasLiked) {
     setState(prevState => ({
       ...prevState,
       lc: (prevState.lc < 1 ? 0 : lc - 1),
@@ -37,7 +37,7 @@ export const activateDislikes = (setState, state, data) => {
       hasLiked: true,
     });
   }
-  if (!likeAction && dislikes < 1 && hasLiked) {
+  if (!likeAction && hasLiked) {
     setState(prevState => ({
       ...prevState,
       dlc: (prevState.dlc < 1 ? 0 : dlc - 1),
