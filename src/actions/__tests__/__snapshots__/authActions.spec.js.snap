@@ -130,5 +130,8 @@ Array [
   Object {
     "type": "LOADING",
   },
+  Object {
+    "type": "NOT_LOADING",
+  },
 ]
 `;

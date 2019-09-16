@@ -158,6 +158,7 @@ export const logout = () => async (dispatch) => {
   if (response.status === 204) {
     localStorage.removeItem('haven');
   }
+  dispatch({ type: NOT_LOADING });
 };
 
 export const loginViaSocial = (brand) => async dispatch => {
