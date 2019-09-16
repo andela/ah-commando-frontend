@@ -151,6 +151,16 @@ export const setNewPassword = (data, history) => async (dispatch) => {
     });
   }
 };
+
+export const logout = () => async (dispatch) => {
+  dispatch({ type: LOADING });
+  const response = await axiosInstance.post('users/logout', {});
+  if (response.status === 204) {
+    localStorage.removeItem('haven');
+  }
+  dispatch({ type: NOT_LOADING });
+};
+
 export const loginViaSocial = (brand) => async dispatch => {
   dispatch({ type: null });
   window.location = `https://a-haven-staging.herokuapp.com/api/v1/users/${brand}`;

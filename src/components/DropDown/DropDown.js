@@ -8,6 +8,7 @@ import './DropDown.style.scss';
 import {
   markAsRead, getNotifications, markAllRead, updateSubscription,
 } from '@Actions/notifications';
+import { logout } from '@Actions/authActions';
 import { getProfile } from '@Actions/profileAction';
 import back from '../../../public/Rectangle.png';
 import checkMark from '../../../public/check-mark.png';
@@ -102,7 +103,9 @@ export class DropDown extends Component {
               <div className="toggle-control" />
             </label>
           </div>
-          <Link to="/" className="dropLinks">Logout</Link>
+          <div onClick={() => { this.handleSignout(); }}>
+            <Link data-test="drop-down" to="/logout" className="dropLinks">Logout</Link>
+          </div>
         </ul>
       </div>
     );
@@ -135,6 +138,11 @@ export class DropDown extends Component {
       default:
         return history.push(`/profiles/${resourceId}`);
     }
+  }
+
+  handleSignout() {
+    const { logout } = this.props;
+    logout();
   }
 
   render() {
@@ -197,6 +205,7 @@ DropDown.propTypes = {
   notifications: PropTypes.shape({
     notifications: PropTypes.array,
   }).isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
 DropDown.defaultProps = {
@@ -205,5 +214,5 @@ DropDown.defaultProps = {
 
 export default connectComponent(withRouter(DropDown),
   {
-    markAsRead, getNotifications, markAllRead, updateSubscription, getProfile,
+    markAsRead, getNotifications, markAllRead, updateSubscription, getProfile, logout,
   });

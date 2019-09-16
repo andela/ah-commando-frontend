@@ -124,3 +124,14 @@ Array [
   },
 ]
 `;
+
+exports[`Auth action tests user should be able to logout adds new articles to the store 1`] = `
+Array [
+  Object {
+    "type": "LOADING",
+  },
+  Object {
+    "type": "NOT_LOADING",
+  },
+]
+`;

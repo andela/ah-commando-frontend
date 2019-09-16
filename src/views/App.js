@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter, Route, Switch, Redirect,
+} from 'react-router-dom';
 import Login from '@Views/LoginPage';
 import Search from '@Views/SearchPage/SearchPage';
 import Home from '@Views/HomePage';
@@ -35,6 +37,7 @@ const App = () => (
         <Route exact path="/articles/:slug/edit" component={EditArticle} />
         <Route exact path="/articles" component={CategoryPage} />
         <Route exact path="/tags" component={ArticleTags} />
+        <Redirect from="/logout" to="/" />
         <Route component={NotFound} />
       </Switch>
     </div>
