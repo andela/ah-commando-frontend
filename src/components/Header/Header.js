@@ -148,7 +148,7 @@ export class Header extends Component {
                 onClick={this.openSearch}
                 datatest="search-icon"
               >
-                <Icon name="search" />
+                <Icon name="search" style={{ color: 'inherit' }} />
               </button>
             </div>
             <span style={search ? { transform: 'scaleX(1)' } : { transform: 'scaleX(0)' }}>{' '}</span>

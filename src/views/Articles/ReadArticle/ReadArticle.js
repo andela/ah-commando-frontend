@@ -27,7 +27,10 @@ import connectComponent from '@Lib/connect-component';
 import Icon from '@Components/Icon';
 import { followUser } from '@Actions/followActions';
 import { unFollowUser } from '@Actions/unfollowActions';
-import { convertToHtml, isEmpty } from '@Utils/';
+import { likeDislikeAResource, getLikedAResource } from '@Actions/likeActions';
+import {
+  convertToHtml, isEmpty, activateLikeAction, activateDislikeAction, thousandths,
+} from '@Utils/';
 import './ReadArticle.scss';
 
 const appUrl = 'https://ah-commando-react.herokuapp.com';
@@ -49,6 +52,10 @@ export class ReadArticle extends Component {
     usernameFromToken: '',
     username: '',
     isFollowing: false,
+    likeAction: null,
+    lc: 0,
+    dlc: 0,
+    hasLiked: false,
   }
 
   componentDidMount = async () => {
@@ -77,6 +84,7 @@ export class ReadArticle extends Component {
     }
     await getSingleArticle(slug);
     this.iAmFollowing();
+    await this.handleLikesandDislikesManualCountUpdate();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -185,6 +193,100 @@ export class ReadArticle extends Component {
     document.querySelector(`[aria-label="${name}"]`).click();
   }
 
+ handleUserLikesForStyleUpdate = async (id) => {
+   const { getLikedAResource } = this.props;
+   const likes = await getLikedAResource(id, 'article');
+   if (typeof likes === 'string'
+      || likes === 'not_liked'
+      || likes === 'not_logged_in') {
+     this.setState(prevState => ({
+       ...prevState,
+       hasLiked: false,
+       likeAction: null,
+     }));
+     return false;
+   }
+   if (likes) {
+     this.setState(prevState => ({
+       ...prevState,
+       likeAction: 'like',
+       hasLiked: true,
+     }));
+   }
+   if (!likes) {
+     this.setState(prevState => ({
+       ...prevState,
+       likeAction: 'dislike',
+       hasLiked: true,
+     }));
+   }
+ }
+
+  handleLikesandDislikesManualCountUpdate = async () => {
+    const { article } = this.props;
+    const { likesCount, dislikesCount, id } = article;
+    this.setState({
+      lc: likesCount,
+      dlc: dislikesCount,
+    });
+    await this.handleUserLikesForStyleUpdate(id);
+  }
+
+  checkLikeAction = (action) => {
+    if (action === 'like') {
+      const { likeAction } = this.state;
+      this.setState({
+        likeAction: likeAction === 'like' ? null : 'like',
+      });
+    }
+    if (action === 'dislike') {
+      const { likeAction } = this.state;
+      this.setState({
+        likeAction: likeAction === 'dislike' ? null : 'dislike',
+      });
+    }
+  }
+
+  likeOrDislike = async (e, id) => {
+    e.stopPropagation();
+    const { likeDislikeAResource } = this.props;
+    const action = e.currentTarget.attributes[1].value;
+    const type = 'article';
+    const data = await likeDislikeAResource(action, id, type);
+    if (!data) {
+      this.setState(prevState => ({
+        ...prevState,
+      }));
+      return false;
+    }
+    this.checkLikeAction(action);
+    const setState = this.setState.bind(this);
+    if (action === 'dislike') {
+      activateDislikeAction(setState, this.state, data);
+    }
+    if (action === 'like') {
+      activateLikeAction(setState, this.state, data);
+    }
+  }
+
+  generateNameByLikeAction = () => {
+    const { likeAction } = this.state;
+    if (!likeAction) return 'likes';
+    if (likeAction === 'like') {
+      return 'boldLikes';
+    }
+    return 'likes';
+  }
+
+  generateNameByDisLikeAction = () => {
+    const { likeAction } = this.state;
+    if (!likeAction) return 'dislikes';
+    if (likeAction === 'dislike') {
+      return 'boldDislikes';
+    }
+    return 'dislikes';
+  }
+
   render = () => {
     const {
       ui: { loading },
@@ -197,10 +299,9 @@ export class ReadArticle extends Component {
         image,
         articleBody,
         Tags,
-        likesCount,
-        dislikesCount,
         comment,
         slug,
+        id,
       },
     } = this.props;
 
@@ -209,7 +310,9 @@ export class ReadArticle extends Component {
         <p onClick={() => this.handleTagClick(tag.name)}>{tag.name}</p>
       </li>
     )) : null;
-    const { usernameFromToken, isFollowing } = this.state;
+    const {
+      usernameFromToken, isFollowing, lc, dlc,
+    } = this.state;
     const profile = {
       username: author && author.username,
     };
@@ -255,13 +358,13 @@ export class ReadArticle extends Component {
                     </div>
                     <div>
                       {usernameFromToken && (
-                      <RenderButton
-                        handleUnFollowUser={this.handleUnFollowUser}
-                        handleFollowUser={this.handleFollowUser}
-                        usernameFromToken={usernameFromToken}
-                        isFollowing={isFollowing}
-                        profile={profile}
-                      />
+                        <RenderButton
+                          handleUnFollowUser={this.handleUnFollowUser}
+                          handleFollowUser={this.handleFollowUser}
+                          usernameFromToken={usernameFromToken}
+                          isFollowing={isFollowing}
+                          profile={profile}
+                        />
                       )}
                     </div>
                     <div className="vertical-center read-time">
@@ -297,11 +400,13 @@ export class ReadArticle extends Component {
               </ul>
             </div>
             <div className="article-stats-div">
-              <div className="center like-count">
-                <Icon name="likes" />
-                <p className="icon-label">{likesCount}</p>
-                <Icon name="dislikes" />
-                <p className="icon-label">{dislikesCount}</p>
+              <div className="center like-count like" onClick={(e) => this.likeOrDislike(e, id)} name="like">
+                <Icon name={this.generateNameByLikeAction()} style={{ color: 'black' }} />
+                <p className="icon-label">{thousandths(lc)}</p>
+              </div>
+              <div className="center like-count dislike" onClick={(e) => this.likeOrDislike(e, id)} name="dislike">
+                <Icon name={this.generateNameByDisLikeAction()} style={{ color: 'black' }} />
+                <p className="icon-label">{thousandths(dlc)}</p>
               </div>
               <div className="comment-delete">
                 <Icon name="comments" />
@@ -373,6 +478,8 @@ ReadArticle.propTypes = {
   unfollow: PropTypes.func.isRequired,
   follow: PropTypes.func.isRequired,
   fetchProfile: PropTypes.func.isRequired,
+  likeDislikeAResource: PropTypes.func.isRequired,
+  getLikedAResource: PropTypes.func.isRequired,
 };
 
 export default connectComponent(
@@ -383,5 +490,7 @@ export default connectComponent(
     follow: (username) => followUser(username),
     unfollow: (username) => unFollowUser(username),
     fetchProfile: getProfile,
+    likeDislikeAResource,
+    getLikedAResource,
   },
 );

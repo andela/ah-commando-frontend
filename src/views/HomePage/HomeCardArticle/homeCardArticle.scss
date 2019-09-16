@@ -99,6 +99,7 @@ $desktop: 375px;
         display: flex;
         justify-content: space-between;
         align-items: center;
+        cursor: pointer;
 
         .icon-holder {
           width: 50px;
@@ -114,6 +115,10 @@ $desktop: 375px;
             .icon-container {
               padding: 0px;
               margin-right: 7px;
+            }
+            .icon-label {
+              position: relative;
+              right: 14px;
             }
           }
         }
