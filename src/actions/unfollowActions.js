@@ -15,7 +15,6 @@ export const unfollowUserFailure = (error) => ({
   error,
 });
 
-
 export const unFollowUser = (username) => async (dispatch) => {
   dispatch(unfollowUserStart());
   try {

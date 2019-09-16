@@ -1,31 +1,49 @@
-import * as actions from '../imageAction';
-import { POST_IMAGE_FAILURE, POST_IMAGE_START } from '../types';
+import thunk from 'redux-thunk';
+import nock from 'nock';
+import configureMockStore from 'redux-mock-store';
+import { postImage } from '@Actions/imageAction';
 
-jest.mock('../imageFunc');
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+const url = 'https://a-haven-staging.herokuapp.com/api/v1';
 
 describe('Async action creators', () => {
-  it('should dispatch post image action', async () => {
-    const image = {
-      image: 'image.png',
-    };
-    const dispatch = jest.fn();
-    await actions.postImage(image)(dispatch);
-    expect(dispatch).toHaveBeenCalledTimes(2);
+  let store;
+  const response = {
+    data: { image: 'image.png' },
+  };
+  const error = {
+    response: {
+      data: {},
+    },
+  };
+  beforeEach(() => {
+    store = mockStore({});
   });
 
-  it('should dispatch start action on image post', async () => {
-    const image = null;
-    const dispatch = jest.fn();
-    await actions.postImage(image)(dispatch);
-    expect(dispatch).toHaveBeenNthCalledWith(1, {
-      type: POST_IMAGE_START,
-    });
-    expect(dispatch).toHaveBeenNthCalledWith(2, {
-      type: POST_IMAGE_FAILURE,
-      error: {
-        error: 'Authorization error',
-        status: 401,
-      },
-    });
+  afterEach(() => {
+    nock.cleanAll();
+  });
+
+  it('Should successfully upload an image', async () => {
+    nock(url)
+      .post('/image')
+      .reply(200, response);
+
+    return store.dispatch(postImage({ image: response.data.image }))
+      .then(() => {
+        expect(store.getActions()).toMatchSnapshot();
+      });
+  });
+
+  it('Should error as expected', async () => {
+    nock(url)
+      .post('/image')
+      .reply(400, error);
+
+    return store.dispatch(postImage())
+      .then(() => {
+        expect(store.getActions()).toMatchSnapshot();
+      });
   });
 });

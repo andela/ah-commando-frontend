@@ -1,44 +1,56 @@
-import moxios from 'moxios';
-import { makeMockStore } from '@Utils/index';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import nock from 'nock';
 import {
   followUser,
-  followUserSuccess,
-  followUserFailure,
-  followUserStart,
-} from '../followActions';
+} from '@Actions/followActions';
 
-const store = makeMockStore({});
-
+const middlewares = [thunk];
+const mockStore = configureMockStore(middlewares);
+const url = 'https://a-haven-staging.herokuapp.com/api/v1';
 
 describe('testing redux actions', () => {
+  let store;
+  const response = {
+    data: {
+      profile: {},
+    },
+  };
+
+  const error = {
+    response: {
+      data: {},
+    },
+  };
   beforeEach(() => {
-    moxios.install();
+    store = mockStore({});
   });
+
   afterEach(() => {
-    moxios.uninstall();
-  });
-  it('should dispatch start action', async () => {
-    const res = await store.dispatch(followUserStart());
-    expect(res.type).toEqual('FOLLOW_USER_START');
+    nock.cleanAll();
   });
 
-  it('should dispatch success action', async () => {
-    const res = await store.dispatch(followUserSuccess());
-    expect(res.type).toEqual('FOLLOW_USER_SUCCESS');
+  it('Should follow a user successfully', async () => {
+    const username = 'martins';
+    nock(url)
+      .post(`/profiles/${username}/follow`)
+      .reply(200, response);
+
+    return store.dispatch(followUser(username))
+      .then(() => {
+        expect(store.getActions()).toMatchSnapshot();
+      });
   });
 
-  it('should dispatch failure action', async () => {
-    const res = await store.dispatch(followUserFailure());
-    expect(res.type).toEqual('FOLLOW_USER_FAILURE');
-  });
+  it('Should error as expected', async () => {
+    const username = 'martins';
+    nock(url)
+      .post(`/profiles/${username}/follow`)
+      .reply(400, error);
 
-  it('should dispatch failure action', async () => {
-    const res = await store.dispatch(followUser());
-    expect(res.type).toEqual('FOLLOW_USER_FAILURE');
-  });
-  it('should dispatch success action', async () => {
-    const res = await store.getActions();
-    expect(res[1].type).toEqual('FOLLOW_USER_SUCCESS');
-    expect(res[1].payload).toEqual(undefined);
+    return store.dispatch(followUser(username))
+      .then(() => {
+        expect(store.getActions()).toMatchSnapshot();
+      });
   });
 });

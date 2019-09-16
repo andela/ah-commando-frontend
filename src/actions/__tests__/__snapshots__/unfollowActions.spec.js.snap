@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing redux actions Should error as expected 1`] = `
+Array [
+  Object {
+    "type": "UNFOLLOW_USER_START",
+  },
+  Object {
+    "error": Object {
+      "response": Object {
+        "data": Object {},
+      },
+    },
+    "type": "UNFOLLOW_USER_FAILURE",
+  },
+]
+`;
+
+exports[`testing redux actions Should follow a user successfully 1`] = `
+Array [
+  Object {
+    "type": "UNFOLLOW_USER_START",
+  },
+  Object {
+    "payload": undefined,
+    "type": "UNFOLLOW_USER_SUCCESS",
+  },
+]
+`;

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
@@ -302,7 +303,10 @@ export class ReadArticle extends Component {
         comment,
         slug,
         id,
+        id: articleId,
       },
+      history,
+      auth: { isAuthenticated },
     } = this.props;
 
     const tags = Tags ? Tags.map((tag, i) => (
@@ -310,12 +314,19 @@ export class ReadArticle extends Component {
         <p onClick={() => this.handleTagClick(tag.name)}>{tag.name}</p>
       </li>
     )) : null;
+
     const {
       usernameFromToken, isFollowing, lc, dlc,
     } = this.state;
+
     const profile = {
       username: author && author.username,
     };
+
+    const articleComments = () => {
+      history.push(`/articles/comments/${articleId}`);
+    };
+
     const body = this.parseArticleBody(articleBody);
 
     const loader = (
@@ -409,7 +420,14 @@ export class ReadArticle extends Component {
                 <p className="icon-label">{thousandths(dlc)}</p>
               </div>
               <div className="comment-delete">
-                <Icon name="comments" />
+                <button
+                  className="comment-icon"
+                  type="button"
+                  onClick={articleComments}
+                  disabled={!isAuthenticated}
+                >
+                  <Icon name="comments" />
+                </button>
                 <p className="icon-label">{comment ? comment.length : 0}</p>
                 {this.isMyArticle() && (
                   <button

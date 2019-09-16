@@ -16,6 +16,7 @@ import ReadArticle from '@Views/Articles/ReadArticle';
 import EditArticle from '@Views/Articles/EditArticle';
 import Profile from '@Views/ProfilePage';
 import NotFound from '@Views/404';
+import Comments from '@Views/CommentPage';
 import ArticleTags from './ArticlesTag/ArticlesTag';
 import './app.scss';
 
@@ -37,6 +38,7 @@ const App = () => (
         <Route exact path="/articles/:slug/edit" component={EditArticle} />
         <Route exact path="/articles" component={CategoryPage} />
         <Route exact path="/tags" component={ArticleTags} />
+        <Route exact path="/articles/comments/:articleId" component={Comments} />
         <Redirect from="/logout" to="/" />
         <Route component={NotFound} />
       </Switch>

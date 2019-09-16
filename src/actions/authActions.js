@@ -1,5 +1,4 @@
 import jwtDecode from 'jwt-decode';
-import { toast } from 'react-toastify';
 import swal from '@sweetalert/with-react';
 import {
   SET_CURRENT_USER,
@@ -24,8 +23,12 @@ export const logIn = (userData, history) => async (dispatch) => {
       setToken(user.token);
       dispatch(setCurrentUser(jwtDecode(user.token)));
       history.push('/');
-      toast.dismiss();
-      toast.success('Login Successful');
+      swal({
+        text: 'Login Successful',
+        icon: 'success',
+        buttons: false,
+        timer: 3000,
+      });
     }
     dispatch({
       type: NOT_LOADING,
@@ -35,8 +38,12 @@ export const logIn = (userData, history) => async (dispatch) => {
     });
   } catch (err) {
     const { error } = err.response.data;
-    toast.dismiss();
-    toast.error(error, { autoClose: 10000 });
+    swal({
+      text: error,
+      icon: 'error',
+      buttons: false,
+      timer: 5000,
+    });
     return dispatch({
       type: NOT_LOADING,
     });
