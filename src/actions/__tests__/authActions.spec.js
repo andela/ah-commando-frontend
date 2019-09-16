@@ -4,7 +4,7 @@ import nock from 'nock';
 import {
   createUser,
   logIn, requestPasswordLink, setNewPassword,
-  loginViaSocial,
+  loginViaSocial, logout,
 } from '@Actions/authActions';
 
 const middlewares = [thunk];
@@ -268,6 +268,27 @@ describe('Auth action tests', () => {
           const dispatch = jest.fn();
           dispatch({ type: '' });
           expect(dispatch).toHaveBeenCalled();
+          expect(store.getActions()).toMatchSnapshot();
+        });
+    });
+  });
+
+  describe('user should be able to logout', () => {
+    let store;
+    beforeEach(() => {
+      store = mockStore({ });
+    });
+
+    afterEach(() => {
+      nock.cleanAll();
+    });
+
+    it('adds new articles to the store', () => {
+      nock(url)
+        .post('/users/logout')
+        .reply(204, {});
+      return store.dispatch(logout())
+        .then(() => {
           expect(store.getActions()).toMatchSnapshot();
         });
     });

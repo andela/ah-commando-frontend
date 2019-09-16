@@ -340,7 +340,7 @@ export class Profile extends Component {
               <li><Link to="/">Stats</Link></li>
               <li><Link to="/">Notification</Link></li>
               <li><Link to="/">Help</Link></li>
-              <li onClick={() => { this.handleSignout(); }}><Link to="/signout">Log Out</Link></li>
+              <li onClick={() => { this.handleSignout(); }}><Link to="/logout">Log Out</Link></li>
             </ul>
           </div>
           <div className="main">

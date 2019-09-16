@@ -104,7 +104,7 @@ export class DropDown extends Component {
             </label>
           </div>
           <div onClick={() => { this.handleSignout(); }}>
-            <Link to="/" className="dropLinks">Logout</Link>
+            <Link data-test="drop-down" to="/logout" className="dropLinks">Logout</Link>
           </div>
         </ul>
       </div>

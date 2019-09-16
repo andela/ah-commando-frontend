@@ -37,7 +37,7 @@ const App = () => (
         <Route exact path="/articles/:slug/edit" component={EditArticle} />
         <Route exact path="/articles" component={CategoryPage} />
         <Route exact path="/tags" component={ArticleTags} />
-        <Redirect from="/signout" to="/" />
+        <Redirect from="/logout" to="/" />
         <Route component={NotFound} />
       </Switch>
     </div>
