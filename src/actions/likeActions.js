@@ -1,7 +1,7 @@
+/* istanbul ignore file */
 import swal from '@sweetalert/with-react';
 import jwtDecode from 'jwt-decode';
 import { axiosInstance } from '@Utils/';
-
 
 export const likeDislikeAResource = (action, id, type) => async dispatch => {
   const token = localStorage.getItem('haven');

@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
@@ -300,9 +301,9 @@ export class ReadArticle extends Component {
         articleBody,
         Tags,
         comment,
-        id: articleId,
         slug,
         id,
+        id: articleId,
       },
       history,
       auth: { isAuthenticated },
@@ -314,10 +315,10 @@ export class ReadArticle extends Component {
       </li>
     )) : null;
 
-    const { usernameFromToken, isFollowing } = this.state;
     const {
       usernameFromToken, isFollowing, lc, dlc,
     } = this.state;
+
     const profile = {
       username: author && author.username,
     };
