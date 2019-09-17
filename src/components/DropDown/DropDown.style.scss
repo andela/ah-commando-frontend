@@ -7,48 +7,58 @@ $height: $width/2;
 
 .dropdownSection{
   position: absolute;
-  z-index: 200;
   display: flex;
   align-items: flex-end;
-  top: 40px;
+  top: 50px;
   transform: scaleY(0);
   transform-origin: 0;
   transition: all .5s ease;
+  background: white;
+  border-radius: 5px;
+  z-index: 200;
+  padding: 20px 5px 20px;
+  box-shadow: 2px 0px 5px 1px rgba(0,0,0,0.2);
 
   .dropDown{
     position: relative;
-    border-radius: 5px;
-    background: transparent;
+    background: white;
     display: flex;
-    height: 500px;
+    height: 450px;
 
-    .backDrop, .watermark{
+    .highlightIcon {
+      height: 55px;
       position: absolute;
-      top: 0;
-      left: 0;
-      z-index: -1;
-      width: 335px;
-      height: inherit;
+      background: transparent;
+      right: -5px;
+      box-shadow: 2px 0px 5px 1px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+
+    .highlightCover {
+      height: 24px;
+      position: absolute;
+      background: white;
+      right: -5px;
+      z-index: 3;
     }
 
     .dropDowncontainer{
-      padding: 65px 5px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       overflow: hidden;
-      max-height: 500px;
-      width: 335px;
 
       .header{
-        width: 300px;
-        margin-bottom: 10px;
+        width: 270px;
+        padding-bottom: 5px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #FFC700;
 
         h2, h3{
           display: inline;
           text-align: left;
           font-size: 16px;
-          color: #FFC700;
+          color: rgba(0,0,0,0.8);
           border: none;
           background: transparent;
         }
@@ -64,7 +74,7 @@ $height: $width/2;
 
           p{
             font-size: 14px;
-            color: #FFC700;
+            color:rgba(0,0,0,0.8);;
           }
         }
         clear: both;
@@ -72,9 +82,11 @@ $height: $width/2;
 
       .dropDowncontent {
         overflow: scroll;
+        min-height: 350px;
+        border-bottom: 1px solid #FFC700;
 
         .noNotifications {
-          width: 300px;
+          width: 270px;
           margin-right: 3px;
           font-size: 12px;
           padding: 7px 5px;
@@ -92,14 +104,13 @@ $height: $width/2;
 
           p {
             font-size: 14px;
-            color: #FFC700;
+            color: rgba(0,0,0,0.8);;
           }
         }
 
         .notify {
-          width: 300px;
+          width: 270px;
           margin-right: 3px;
-          background: rgba(196, 196, 196, 0.2);
           font-size: 12px;
           padding: 7px 5px;
           margin-bottom: 10px;
@@ -108,30 +119,33 @@ $height: $width/2;
           text-align: left;
           border: 0;
 
-          h3 {
-            margin-bottom: 10px;
-            font-weight: 400;
+          &:hover {
+            background: rgba(196, 196, 196, 0.2);
           }
 
           .content {
             display: flex;
             justify-content: space-between;
 
-            .description{
-              width: 75%;
-              display: -webkit-box;
-              -webkit-line-clamp: 2;
-              -webkit-box-orient: vertical;
-              overflow-y: hidden;
-              text-overflow: ellipsis;
-              font-weight: 200;
+            .description-container {
+              display: flex;
+              align-items: flex-end;
+
+              .noticationDescription{
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow-y: hidden;
+                text-overflow: ellipsis;
+                font-weight: 200;
+              }
             }
 
             .date {
               display: flex;
               flex-direction: column;
               align-items: flex-end;
-              color: #FFC700;
+              color: rgba(0,0,0,0.8);;
             }
           }
         }
