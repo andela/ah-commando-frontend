@@ -38,6 +38,17 @@ export class Header extends Component {
     this.state.currentLocation = this.props.history.location;
     this.pusher = new Pusher('5348b046f75caaacd965', { cluster: 'eu' });
     this.channel = this.pusher.subscribe('push-notifications');
+
+    const { auth: { isAuthenticated, user: { username } } } = this.props;
+    if (isAuthenticated) {
+      this.props.getNotifications();
+      this.props.getProfile();
+      this.channel.bind(`notify-${username}`, (data) => {
+        this.props.getNotifications();
+        Notification.requestPermission();
+        new Notification(data.message);
+      });
+    }
   }
 
   componentDidUpdate(prevProps) {
