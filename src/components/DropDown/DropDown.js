@@ -10,7 +10,6 @@ import {
 } from '@Actions/notifications';
 import { logout } from '@Actions/authActions';
 import { getProfile } from '@Actions/profileAction';
-import back from '../../../public/Rectangle.png';
 import checkMark from '../../../public/check-mark.png';
 import { formatDate } from '@Utils/';
 
@@ -58,11 +57,12 @@ export class DropDown extends Component {
           onClick={() => this.handleClick(notification.id,
             notification.resourceType, notification.resourceId)}
         >
-          <h3>{`New ${notification.resourceType}`}</h3>
           <div className="content">
-            <p className="description">
-              {notification.message}
-            </p>
+            <div className="description-container">
+              <p className="noticationDescription">
+                {notification.message}
+              </p>
+            </div>
             <div className="date">
               <p>{`${date.day} ${date.month}`}</p>
               <p>{`${date.hours}:${date.minutes < 10 ? `0${date.minutes}` : date.minutes} ${(date.hours) < 12 ? 'AM' : 'PM'}`}</p>
@@ -134,7 +134,7 @@ export class DropDown extends Component {
       case 'article':
         return history.push(`/articles/${resourceId}`);
       case 'follow':
-        return history.push(`/me/${resourceId}`);
+        return history.push(`/profiles/${resourceId}`);
       default:
         return history.push(`/profiles/${resourceId}`);
     }
@@ -150,18 +150,44 @@ export class DropDown extends Component {
       type, notifications: { notifications }, show, profile: { user },
     } = this.props;
 
-    const height = type !== 'notification' ? '400px' : '500px';
-    const width = type !== 'notification' ? '270px' : '335px';
+    const height = type !== 'notification' ? '325px' : '400px';
+    const width = type !== 'notification' ? '270px' : '300px';
+
+    let highlightStyles;
+    if (type === 'notification') {
+      highlightStyles = {
+        icon: {
+          width: '70px',
+          top: '-19%',
+        },
+        cover: {
+          width: '70px',
+          top: '-7%',
+        },
+      };
+    } else {
+      highlightStyles = {
+        icon: {
+          width: '80px',
+          top: '-23%',
+        },
+        cover: {
+          width: '80px',
+          top: '-9%',
+        },
+      };
+    }
 
     return (
       <section
         style={show ? (type === 'notification'
-          ? { right: '72%', transform: 'scaleY(1)' } : { right: '9%', transform: 'scaleY(1)' }) : { display: 'none' }}
+          ? { right: '77%', transform: 'scaleY(1)' } : { right: '9%', transform: 'scaleY(1)' }) : { display: 'none' }}
         className="dropdownSection"
         data-test="dropDownComponent"
       >
         <section className="dropDown" style={{ height }}>
-          <img className="backDrop" style={{ width }} src={back} alt="" />
+          <div className="highlightIcon" style={highlightStyles.icon}>{' '}</div>
+          <div className="highlightCover" style={highlightStyles.cover}>{' '}</div>
           <div className="dropDowncontainer" style={{ width }}>
             {type === 'notification' ? (
               <header className="header">
