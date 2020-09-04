@@ -128,7 +128,7 @@
     "moxios": "^0.4.0",
     "nightwatch": "^1.2.1",
     "nock": "^11.3.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.1",
     "nyc": "^14.1.1",
     "redux-api-middleware": "^3.0.1",
     "redux-mock-store": "^1.5.3",
